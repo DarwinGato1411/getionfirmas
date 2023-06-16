@@ -1,0 +1,19 @@
+<?link rel="stylesheet" type="text/css" href="../resources/css/boostrap/bootstrap.css"?>  
+<?link rel="stylesheet" type="text/css" href="../resources/css/style.css"?>
+<zk  >
+ 
+    <div class="btn-group-vertical"    style="text-align:lefth;"
+         viewModel="@id('vm')"     apply="com.ec.controlador.MenuOpciones" >
+        <menubar id="menubar" orient="vertical"  autodrop="false" >
+          
+              <menuitem label="Candidato" id="btnCandidato"/>
+              <menuitem label="Vacantes"  id="btnVacantes"/> 
+              <menuitem label="Postulaciones"  id="btnPostula"/> 
+            
+          
+        </menubar>
+       
+    </div>  
+     
+                       
+</zk>

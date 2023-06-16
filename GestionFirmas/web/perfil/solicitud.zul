@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?link rel="stylesheet" type="text/css" href="/css/boostrap/bootstrap.css"?>  
+<?link rel="stylesheet" type="text/css" href="../css/style.css"?>
+<?link rel="stylesheet" type="text/css" href="/css/modales.css"?>
+<?init class="com.ec.seguridad.Autentificador"?>
+<?init class="org.zkoss.zk.ui.util.Composition" arg0="/plantilla/plantilla.zul"?>
+<?link rel="icon" type="image/x-icon" href="/iconos/deckxel.ico"?>
+
+
+
+<zk   with="90%" >
+    <div self="@define(content)" apply="org.zkoss.bind.BindComposer" 
+         viewModel="@id('vm') @init('com.ec.controlador.SolicitudController')" >
+                  
+        <div  class="contenedorPacientes">
+            <div class="paciente" >
+                <div class="">                                    
+                    <button    
+                        iconSclass="z-icon-plus"
+                        onClick="@command('nuevaSolicitud')"  
+                        class="fa fa-plus"
+                        tooltiptext="Buscar">
+                        Ingresar Solicitud
+                    </button>
+                </div>    
+                <listbox class="tabla table-responsive table table-striped table-bordered second" 
+                         model="@load(vm.listaDatos)" 
+                         nonselectableTags="*"  mold="paging" pageSize="15"  >
+                               
+                    <custom-attributes org.zkoss.zul.listbox.rod="true"/>                       
+                    <listhead  class="tblCabecera " > 
+                        <listheader label="" >
+                            <textbox value="@bind(vm.buscar)" 
+                                     class="form-control form-control-sm"
+                                     tooltiptext="Buscar por Nombre o Cédula "                         
+                                     placeholder="....."
+                                     onOK="@command('buscarLike')"
+                                     onChange="self.setValue(self.getValue().toUpperCase());" />
+                        </listheader>                                                                         
+                        <listheader label="Nombre" class="btnPc" />                                                                         
+                        <listheader label="Correo" class="btnPc" />                                                                         
+                        <listheader label="Telefono" class="btnPc"/>                                                                         
+                        <listheader label="" class="btnPc"  />                                                                         
+                    </listhead>  
+                    <template name="model" >                                                            
+                        <listitem class="tblCuerpo" >
+                              
+                            <listcell zclass = "mycss-listcell" style="width:100%;" class="btnPc">
+                                <textbox readonly="true"  style="font-size:12px ;background:#EBF5FB"
+                                         class="form-control form-control-sm" 
+                                         value="@bind(each.solRuc)" />
+                            </listcell>
+                            <listcell  zclass = "mycss-listcell" style="width:100%;" class="btnPc">
+                                <textbox readonly="true"  style="font-size:12px ;background:#EBF5FB"
+                                         class="form-control form-control-sm" 
+                                         value="@bind(each.solNombre)" />
+                            </listcell>
+                            <listcell zclass = "mycss-listcell" style="width:100%;" class="btnPc">
+                                <textbox readonly="true"  style="font-size:12px ;background:#EBF5FB"
+                                         class="form-control form-control-sm" 
+                                         value="@bind(each.solMail)" />
+                            </listcell>
+                            <listcell zclass = "mycss-listcell" style="width:100%;" class="btnPc">
+                                <textbox readonly="true"  style="font-size:12px ;background:#EBF5FB"
+                                         class="form-control form-control-sm" 
+                                         value="@bind(each.solCelular)" />
+                            </listcell>
+
+                            <listcell zclass = "mycss-listcell"  class="btnCell"   style="font-size:12px;background:#F8F9F9">   
+                                <textbox readonly="true"  style="font-size:12px ;background:#EBF5FB"
+                                         class="form-control form-control-sm" 
+                                         value="@bind(each.solRuc)" />
+                                <textbox readonly="true"  style="font-size:12px ;background:#EBF5FB"
+                                         class="form-control form-control-sm" 
+                                         value="@bind(each.solNombre)" />
+                                <button    class="btn-success-zk"
+                                           iconSclass="z-icon-eye"
+                                           onClick="@command('registrarVisita',valor=each)" 
+                                           tooltiptext="">
+                                    
+                                </button>                                                  
+                                <button class="btn btn-primary"
+                                        iconSclass="z-icon-pencil"
+                                        onClick="@command('modificarSolicitud',valor=each)" 
+                                        tooltiptext="">
+                                    
+                                </button>      
+                                <button 
+                                    class="btn-danger-zk"
+                                    iconSclass="z-icon-trash-o"
+                                    onClick="@command('eliminarPaciente',valor=each)" 
+                                    tooltiptext="">
+                                    
+                                </button>                                 
+                                                  
+                            </listcell>
+
+                            <listcell zclass = "mycss-listcell"  class="btnPc" style="font-size:12px;background:#F8F9F9">   
+
+                                <button  class="btn-success-zk"
+                                         label="Historial"       
+                                         onClick="@command('registrarVisita',valor=each)" 
+                                         tooltiptext="">
+                                         
+                                </button>                                                  
+                                <button 
+                                    label="Ver"
+                                    iconSclass="z-icon-eye"
+                                    onClick="@command('modificarSolicitud',valor=each)" 
+                                    tooltiptext="">
+                                    
+                                </button>                                      
+                                <button 
+                                    label=""
+                                    class="btn-danger-zk"
+                                    iconSclass="z-icon-trash-o"
+                                    onClick="@command('eliminarPaciente',valor=each)" 
+                                    tooltiptext="">
+                                    
+                                </button>                                      
+                                                  
+                            </listcell>
+                                      
+                               
+                                
+                                
+                        </listitem>
+                    </template>
+                </listbox>
+            </div>
+                        
+                        
+        </div>
+    </div>
+
+
+</zk>

@@ -1,0 +1,35 @@
+<zk>  
+    <?link rel="stylesheet" type="text/css" href="../resources/css/style.css"?>
+     
+      
+        
+    <style>
+        
+        .bannerbutton > i {
+        font-size: 20px;    
+        color: white
+        }
+    </style> 
+   
+    <div class="fondoBanner"  id="loginWin"  width="100%"
+         apply="com.ec.controlador.MenuPublic" >
+        <div class="row" >
+   <div class="" align="start">
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6  " align="start">
+                     <label value="Informacion " style="  color:white;font-size:20px" />
+                </div>
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6  " align="end">
+                   <a sclass="logout labelLogout" id="login" >  
+                    <label  value="Ingresar " 
+                            sclass="labelLogout"/> 
+                    <image src="/iconos/permission.png"  />  
+                       
+                </a>    
+                </div>
+               
+        
+            </div>
+        </div>
+        
+    </div>
+</zk>
