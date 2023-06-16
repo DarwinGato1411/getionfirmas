@@ -16,7 +16,6 @@ import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.util.Clients;
-import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
 /**
@@ -32,11 +31,13 @@ public class NuevoUsuario {
     private String accion = "create";
     private String usuNivel = "1";
 
+
     @AfterCompose
     public void afterCompose(@ExecutionArgParam("valor") Usuario valor, @ContextParam(ContextType.VIEW) Component view) {
         Selectors.wireComponents(view, this, false);
         if (valor != null) {
             this.entidad = valor;
+            usuNivel = this.entidad.getUsuNivel().toString();
             accion = "update";
 
         } else {
@@ -49,6 +50,8 @@ public class NuevoUsuario {
 
     @Command
     public void guardar() {
+        
+        /*validar que no exista dos usuarios iguales*/
         if (entidad.getUsuRuc() != null
                     && entidad.getUsuLogin() != null
                     && entidad.getUsuPassword() != null) {

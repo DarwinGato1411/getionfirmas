@@ -3,14 +3,14 @@
 <?link rel="stylesheet" type="text/css" href="../css/style.css"?>
 <?link rel="stylesheet" type="text/css" href="/css/modales.css"?>
 <?init class="com.ec.seguridad.Autentificador"?>
-<?init class="org.zkoss.zk.ui.util.Composition" arg0="/plantilla/plantilla.zul"?>
+<?init class="org.zkoss.zk.ui.util.Composition" arg0="/plantillarevisa/plantilla.zul"?>
 <?link rel="icon" type="image/x-icon" href="/iconos/deckxel.ico"?>
 
 
 
 <zk   with="90%" >
     <div self="@define(content)" apply="org.zkoss.bind.BindComposer" 
-         viewModel="@id('vm') @init('com.ec.controlador.SolicitudController')" >
+         viewModel="@id('vm') @init('com.ec.controlador.SolicitudRevisadorController')" >
                   
         <div  class="contenedorPacientes">
             <div class="paciente" >
@@ -40,8 +40,8 @@
                         <listheader label="Nombre" class="btnPc" />                                                                         
                         <listheader label="Correo" class="btnPc" />                                                                         
                         <listheader label="Telefono" class="btnPc"/>                                                                         
-                        <listheader label="E-S"  tooltiptext="Estado de la solicitud "  class="btnPc"/>                                                                         
-                        <listheader label="E-F"  tooltiptext="Estado de la firma "  class="btnPc"/>                                                                         
+<!--                        <listheader label="E-S"  tooltiptext="Estado de la solicitud "  class="btnPc"/>                                                                         
+                        <listheader label="E-F"  tooltiptext="Estado de la firma "  class="btnPc"/>                                                                         -->
                         <listheader label="" class="btnPc"  />                                                                         
                     </listhead>  
                     <template name="model" >                                                            
@@ -62,7 +62,12 @@
                                          class="form-control form-control-sm" 
                                          value="@bind(each.solMail)" />
                             </listcell>
-                            <listcell zclass = "mycss-listcell" style="width:100%;" class="btnPc">
+                             <listcell zclass = "mycss-listcell" style="width:100%;" class="btnPc">
+                                <textbox readonly="true"  style="font-size:12px ;background:#EBF5FB"
+                                         class="form-control form-control-sm" 
+                                         value="@bind(each.solCelular)" />
+                            </listcell>
+<!--                            <listcell zclass = "mycss-listcell" style="width:100%;" class="btnPc">
                                 <textbox readonly="true"  style="font-size:12px ;background:#EBF5FB"
                                          class="form-control form-control-sm" 
                                          value="@bind(each.idEstadoProceso.estDescripcion)" />
@@ -71,12 +76,8 @@
                                 <textbox readonly="true"  style="font-size:12px ;background:#EBF5FB"
                                          class="form-control form-control-sm" 
                                          value="@bind(each.idEstadoFirma.estDescripcion)" />
-                            </listcell>
-                            <listcell zclass = "mycss-listcell" style="width:100%;" class="btnPc">
-                                <textbox readonly="true"  style="font-size:12px ;background:#EBF5FB"
-                                         class="form-control form-control-sm" 
-                                         value="@bind(each.solCelular)" />
-                            </listcell>
+                            </listcell>-->
+                           
 
                             <listcell zclass = "mycss-listcell"  class="btnCell"   style="font-size:12px;background:#F8F9F9">   
                                 <textbox readonly="true"  style="font-size:12px ;background:#EBF5FB"

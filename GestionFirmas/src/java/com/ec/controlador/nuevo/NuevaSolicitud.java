@@ -13,6 +13,7 @@ import com.ec.entidad.Usuario;
 import com.ec.seguridad.EnumSesion;
 import com.ec.seguridad.UserCredential;
 import com.ec.servicio.ServicioCuidad;
+import com.ec.servicio.ServicioEstadoProceso;
 import com.ec.servicio.ServicioNacionalidad;
 import com.ec.servicio.ServicioParametrizar;
 import com.ec.servicio.ServicioProvincia;
@@ -77,6 +78,8 @@ public class NuevaSolicitud {
     private Provincia provinciaSelected = null;
     ServicioCuidad servicioCiudad = new ServicioCuidad();
     private List<Ciudad> listaCiudades = new ArrayList<Ciudad>();
+
+    ServicioEstadoProceso servicioEstadoProceso = new ServicioEstadoProceso();
 
     @AfterCompose
     public void afterCompose(@ExecutionArgParam("valor") Solicitud valor, @ContextParam(ContextType.VIEW) Component view) throws IOException {
@@ -169,10 +172,15 @@ public class NuevaSolicitud {
                     && entidad.getSolCelular() != null) {
 //            entidad.setUsuNivel(Integer.valueOf(usuNivel));
             if (accion.equals("create")) {
+                entidad.setIdEstadoProceso(servicioEstadoProceso.findBySigla("ING"));
                 entidad.setIdUsuario(usuario);
                 servicio.crear(entidad);
                 wSolicitud.detach();
             } else {
+                if (entidad.getIdEstadoProceso() == null) {
+                    entidad.setIdEstadoProceso(servicioEstadoProceso.findBySigla("ING"));
+                }
+
                 servicio.modificar(entidad);
                 wSolicitud.detach();
             }

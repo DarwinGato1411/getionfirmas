@@ -40,6 +40,8 @@
                         <listheader label="Nombre" class="btnPc" />                                                                         
                         <listheader label="Correo" class="btnPc" />                                                                         
                         <listheader label="Telefono" class="btnPc"/>                                                                         
+                        <listheader label="E-S"  tooltiptext="Estado de la solicitud "  class="btnPc"/>                                                                         
+                        <listheader label="E-F"  tooltiptext="Estado de la firma "  class="btnPc"/>                                                                         
                         <listheader label="" class="btnPc"  />                                                                         
                     </listhead>  
                     <template name="model" >                                                            
@@ -59,6 +61,16 @@
                                 <textbox readonly="true"  style="font-size:12px ;background:#EBF5FB"
                                          class="form-control form-control-sm" 
                                          value="@bind(each.solMail)" />
+                            </listcell>
+                            <listcell zclass = "mycss-listcell" style="width:100%;" class="btnPc">
+                                <textbox readonly="true"  style="font-size:12px ;background:#EBF5FB"
+                                         class="form-control form-control-sm" 
+                                         value="@bind(each.idEstadoProceso.estDescripcion)" />
+                            </listcell>
+                            <listcell zclass = "mycss-listcell" style="width:100%;" class="btnPc">
+                                <textbox readonly="true"  style="font-size:12px ;background:#EBF5FB"
+                                         class="form-control form-control-sm" 
+                                         value="@bind(each.idEstadoFirma.estDescripcion)" />
                             </listcell>
                             <listcell zclass = "mycss-listcell" style="width:100%;" class="btnPc">
                                 <textbox readonly="true"  style="font-size:12px ;background:#EBF5FB"

@@ -16,7 +16,7 @@
            
             <div class="infoEmpresa">
                 <div  class="contenedorInfoInputs">
-                    <div  class="inputGroupFoto">
+                    <div  class="inputGroupFoto" >
                         <div class="inputGroupImg" >
                             <image   content="@bind(vm.fotoGeneral)" width="200px" />
                             <button 
@@ -27,7 +27,7 @@
                                 Subir fotografía
                             </button>                               
                         </div>
-                        <div class="inputGroupImg" >
+<!--                        <div class="inputGroupImg" >
                             <image   content="@bind(vm.fotoLogo)" width="200px" />
                             <button 
                                 class="btnSubirImg"
@@ -36,7 +36,7 @@
                                 tooltiptext="Buscar">
                                 Subir Logotipo
                             </button>                               
-                        </div>
+                        </div>-->
                     </div>
                 </div>
                 <div  class="contenedorInfoInputs">

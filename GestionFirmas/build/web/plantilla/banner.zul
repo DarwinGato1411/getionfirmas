@@ -27,6 +27,10 @@
                            if="${not sessionScope.userCredential.anonymous}"/>
                     <label value="${sessionScope.usuario.nombreUsuario}" 
                            if="${not sessionScope.userCredential.anonymous}" />
+                    <label value="Perfil: " 
+                           if="${not sessionScope.userCredential.anonymous}"/>
+                    <label value="${sessionScope.usuario.perfil}" 
+                           if="${not sessionScope.userCredential.anonymous}" />
                              
              
                 </div>           

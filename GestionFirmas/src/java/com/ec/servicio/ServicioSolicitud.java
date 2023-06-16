@@ -106,7 +106,7 @@ public class ServicioSolicitud {
         List<Solicitud> listaSolicituds = new ArrayList<Solicitud>();
         try {
 
-            String SQL = "SELECT u FROM Solicitud u WHERE u.solNombre like :solNombre ";
+            String SQL = "SELECT u FROM Solicitud u WHERE (u.solNombre like :solNombre OR u.solRuc LIKE :solRuc OR u.solApellido1 like :solApellido1) ";
             String WHERE = " AND u.idUsuario=:idUsuario";
             String ORDERBY = " ORDER BY u.solNombre ASC";
             System.out.println("Entra a consultar solicituds");
@@ -121,6 +121,8 @@ public class ServicioSolicitud {
             }
             Query query = em.createQuery(SQL);
             query.setParameter("solNombre", "%" + nombre + "%");
+            query.setParameter("solRuc", "%" + nombre + "%");
+            query.setParameter("solApellido1", "%" + nombre + "%");
 
             if (usuario.getUsuNivel() == 1) {
                 query.setParameter("idUsuario", usuario);

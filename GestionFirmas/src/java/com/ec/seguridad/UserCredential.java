@@ -30,6 +30,8 @@ public class UserCredential implements Serializable {
     private Boolean puedeEditar = Boolean.FALSE;
     Set<String> roles = new HashSet<String>();
     /*foto usuario*/
+    
+     String perfil;
 
     private String filePath;
     byte[] buffer = new byte[1024 * 1024];
@@ -50,6 +52,15 @@ public class UserCredential implements Serializable {
         this.nivelUsuario = nivelUsuario;
         this.nombreUsuario = nombreUsuario;
         this.fotoGeneral = fotoGeneral;
+    }
+    public UserCredential(Usuario usuario, String account, String name, Integer nivelUsuario, String nombreUsuario, AImage fotoGeneral,String perfil) {
+        this.usuarioSistema = usuario;
+        this.name = name;
+        this.account = account;
+        this.nivelUsuario = nivelUsuario;
+        this.nombreUsuario = nombreUsuario;
+        this.fotoGeneral = fotoGeneral;
+        this.perfil=perfil;
     }
 
     public UserCredential() {
@@ -171,4 +182,14 @@ public class UserCredential implements Serializable {
         byte[] bytes = bos.toByteArray();
         return bytes;
     }
+
+    public String getPerfil() {
+        return perfil;
+    }
+
+    public void setPerfil(String perfil) {
+        this.perfil = perfil;
+    }
+    
+    
 }

@@ -68,7 +68,7 @@ public class AutentificadorLogeo implements AutentificadorService, Serializable 
         }
 
         Session sess = Sessions.getCurrent();
-        UserCredential cre = new UserCredential(dato, dato.getUsuLogin(), dato.getUsuPassword(), dato.getUsuNivel(), dato.getUsuNombre(), fotoGeneral);
+        UserCredential cre = new UserCredential(dato, dato.getUsuLogin(), dato.getUsuPassword(), dato.getUsuNivel(), dato.getUsuNombre(), fotoGeneral,dato.getTipoUsuarioText());
         // System.out.println("VALOR DE LA CREDENCIAL ASIGNADA A LA SESSION"+EnumSesion.userCredential.getNombre());
 
         sess.setAttribute(EnumSesion.userCredential.getNombre(), cre);

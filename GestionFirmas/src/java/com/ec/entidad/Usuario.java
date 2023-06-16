@@ -20,6 +20,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 /**
  *
@@ -92,6 +93,9 @@ public class Usuario implements Serializable {
     private String usuCiudad;
     @OneToMany(mappedBy = "idUsuario")
     private Collection<Solicitud> solicitudCollection;
+
+    @Transient
+    private String tipoUsuarioText;
 
     public Usuario() {
     }
@@ -276,5 +280,18 @@ public class Usuario implements Serializable {
     public String toString() {
         return "com.ec.entidad.Usuario[ idUsuario=" + idUsuario + " ]";
     }
-    
+
+    public String getTipoUsuarioText() {
+        if (usuNivel==1) {
+            tipoUsuarioText = "DISTRIBUIDOR";
+        } else if (usuNivel==2) {
+            tipoUsuarioText = "ADMINISTRADOR";
+        } else if (usuNivel==3) {
+            tipoUsuarioText = "REVISADOR";
+        } else {
+            tipoUsuarioText = "SIN PERFIL";
+        }
+        return tipoUsuarioText;
+    }
+
 }

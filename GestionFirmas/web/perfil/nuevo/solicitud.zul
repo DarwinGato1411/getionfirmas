@@ -21,7 +21,8 @@
                         <div class="wrapper_input_mod">
                             <span>Tipo documento</span>
                             <combobox  readonly="true"     
-                             width="100%"                                
+                             width="100%"
+                                                             
                                        selectedItem="@bind(vm.entidad.solTipoDocumento)">
                                 <comboitem value="CEDULA" label="CEDULA" />
                                 <comboitem value="PASAPORTE" label="PASAPORTE" />

@@ -48,12 +48,14 @@ public class LoginController extends SelectorComposer<Component> {
         if (servicioAuth.login(account.getValue(), password.getValue())) {
             Session sess = Sessions.getCurrent();
             UserCredential cre = (UserCredential) sess.getAttribute(EnumSesion.userCredential.getNombre());
-            System.out.println("tipo acceso" + " " + cre.getNivelUsuario().intValue() + " " + GrupoUsuarioEnum.PROVEEDOR.getCodigo());
+            System.out.println("tipo acceso" + " " + cre.getNivelUsuario().intValue() + " " + GrupoUsuarioEnum.DISTRIBUIDOR.getCodigo());
 
-            if (cre.getNivelUsuario().intValue() == GrupoUsuarioEnum.PROVEEDOR.getCodigo()) {
+            if (cre.getNivelUsuario().intValue() == GrupoUsuarioEnum.DISTRIBUIDOR.getCodigo()) {
                 Executions.sendRedirect("/perfil/solicitud.zul");
 
-            } else if (cre.getNivelUsuario().intValue() == GrupoUsuarioEnum.ADMINISTRADOR.getCodigo()) {
+            } else if (cre.getNivelUsuario().intValue() == GrupoUsuarioEnum.REVISADOR.getCodigo()) {
+                Executions.sendRedirect("/revisador/solicitud.zul");
+            }  else if (cre.getNivelUsuario().intValue() == GrupoUsuarioEnum.ADMINISTRADOR.getCodigo()) {
                 Executions.sendRedirect("/administrador/usuario.zul");
             } else {
                 Clients.showNotification("El usuario no tiene permisos para ingrear a la plataforma.",
@@ -75,7 +77,7 @@ public class LoginController extends SelectorComposer<Component> {
         if (servicioAuth.login(account1.getValue(), password1.getValue())) {
             Session sess = Sessions.getCurrent();
             UserCredential cre = (UserCredential) sess.getAttribute(EnumSesion.userCredential.getNombre());
-            System.out.println("ascacsa" + " " + cre.getNivelUsuario().intValue() + " " + GrupoUsuarioEnum.PROVEEDOR.getCodigo());
+            System.out.println("ascacsa" + " " + cre.getNivelUsuario().intValue() + " " + GrupoUsuarioEnum.DISTRIBUIDOR.getCodigo());
 
             Executions.sendRedirect("/medico/historial.zul");
 //            if (cre.getNivelUsuario().intValue() == GrupoUsuarioEnum.CANDIDATO.getCodigo()) {
