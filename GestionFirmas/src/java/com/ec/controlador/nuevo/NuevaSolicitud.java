@@ -37,6 +37,7 @@ import org.zkoss.bind.annotation.ExecutionArgParam;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.image.AImage;
 import org.zkoss.io.Files;
+import org.zkoss.util.media.AMedia;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Session;
 import org.zkoss.zk.ui.Sessions;
@@ -73,6 +74,7 @@ public class NuevaSolicitud {
     private AImage fotoGeneral = null;
     private AImage fotoReverso = null;
     private AImage fotoSelfi = null;
+    private AMedia pdfRuc = null;
 
     ServicioNacionalidad servicioNacionalidad = new ServicioNacionalidad();
     private List<Nacionalidad> listaNacionalidad = new ArrayList<>();
@@ -93,7 +95,7 @@ public class NuevaSolicitud {
     private Div contenedorMR;
 
     @AfterCompose
-    public void afterCompose(@ExecutionArgParam("valor") Solicitud valor, @ContextParam(ContextType.VIEW) Component view) throws IOException {
+    public void afterCompose(@ExecutionArgParam("valor") Solicitud valor, @ContextParam(ContextType.VIEW) Component view) {
         Selectors.wireComponents(view, this, false);
 
         cargarDatos();
@@ -118,32 +120,46 @@ public class NuevaSolicitud {
 
         }
 
-        if (entidad.getSolPathCedulaAnverso() != null) {
-            try {
-                System.out.println("FOTOGRAFIA ANVERSO" + entidad.getSolPathCedulaAnverso());
-                fotoGeneral = new AImage("fotografia", Imagen_A_Bytes(entidad.getSolPathCedulaAnverso()));
-//                Imagen_A_Bytes(empresa.getIdUsuario().getUsuFoto());
-            } catch (FileNotFoundException e) {
-                System.out.println("error imagen " + e.getMessage());
+        try {
+            if (entidad.getSolPathRuc() != null) {
+                try {
+                    System.out.println("PDF RUC" + entidad.getSolPathSelfi());
+                    pdfRuc = new AMedia("report", "pdf", "application/pdf", Imagen_A_Bytes(entidad.getSolPathRuc()));
+
+                } catch (FileNotFoundException e) {
+                    System.out.println("error imagen " + e.getMessage());
+                }
             }
-        }
-        if (entidad.getSolPathCedulaReverso() != null) {
-            try {
-                System.out.println("FOTOGRAFIA getSolPathCedulaReverso" + entidad.getSolPathCedulaReverso());
-                fotoReverso = new AImage("fotografia", Imagen_A_Bytes(entidad.getSolPathCedulaReverso()));
+
+            if (entidad.getSolPathCedulaAnverso() != null) {
+                try {
+                    System.out.println("FOTOGRAFIA ANVERSO" + entidad.getSolPathCedulaAnverso());
+                    fotoGeneral = new AImage("fotografia", Imagen_A_Bytes(entidad.getSolPathCedulaAnverso()));
 //                Imagen_A_Bytes(empresa.getIdUsuario().getUsuFoto());
-            } catch (FileNotFoundException e) {
-                System.out.println("error imagen " + e.getMessage());
+                } catch (FileNotFoundException e) {
+                    System.out.println("error imagen " + e.getMessage());
+                }
             }
-        }
-        if (entidad.getSolPathSelfi() != null) {
-            try {
-                System.out.println("FOTOGRAFIA getSolPathSelfi" + entidad.getSolPathSelfi());
-                fotoSelfi = new AImage("fotografia", Imagen_A_Bytes(entidad.getSolPathSelfi()));
+            if (entidad.getSolPathCedulaReverso() != null) {
+                try {
+                    System.out.println("FOTOGRAFIA getSolPathCedulaReverso" + entidad.getSolPathCedulaReverso());
+                    fotoReverso = new AImage("fotografia", Imagen_A_Bytes(entidad.getSolPathCedulaReverso()));
 //                Imagen_A_Bytes(empresa.getIdUsuario().getUsuFoto());
-            } catch (FileNotFoundException e) {
-                System.out.println("error imagen " + e.getMessage());
+                } catch (FileNotFoundException e) {
+                    System.out.println("error imagen " + e.getMessage());
+                }
             }
+            if (entidad.getSolPathSelfi() != null) {
+                try {
+                    System.out.println("FOTOGRAFIA getSolPathSelfi" + entidad.getSolPathSelfi());
+                    fotoSelfi = new AImage("fotografia", Imagen_A_Bytes(entidad.getSolPathSelfi()));
+//                Imagen_A_Bytes(empresa.getIdUsuario().getUsuFoto());
+                } catch (FileNotFoundException e) {
+                    System.out.println("error imagen " + e.getMessage());
+                }
+            }
+
+        } catch (IOException e) {
         }
 
     }
@@ -236,8 +252,8 @@ public class NuevaSolicitud {
         if (media instanceof org.zkoss.image.Image) {
             String nombre = media.getName();
 
-            if (media.getByteData().length > 10 * 1024 * 1024) {
-                Messagebox.show("El arhivo seleccionado sobrepasa el tamaño de 10Mb.\n Por favor seleccione un archivo más pequeño.", "Atención", Messagebox.OK, Messagebox.ERROR);
+            if (media.getByteData().length > 5 * 1024 * 1024) {
+                Messagebox.show("El arhivo seleccionado sobrepasa el tamaño de 5Mb.\n Por favor seleccione un archivo más pequeño.", "Atención", Messagebox.OK, Messagebox.ERROR);
 
                 return;
             }
@@ -254,6 +270,9 @@ public class NuevaSolicitud {
             System.out.println("PATH SUBIR " + filePath + File.separator + media.getName());
             fotoGeneral = new AImage("fotografia", Imagen_A_Bytes(filePath + File.separator + media.getName()));
 
+        } else {
+            Clients.showNotification("El archivo seleccionado no es un imagen",
+                        Clients.NOTIFICATION_TYPE_ERROR, null, "middle_center", 2000, true);
         }
     }
 
@@ -432,6 +451,50 @@ public class NuevaSolicitud {
 
     public void setTipoSolicitud(String tipoSolicitud) {
         this.tipoSolicitud = tipoSolicitud;
+    /**
+     * SUBIR PDF
+     */
+    @Command
+    @NotifyChange({"pdfRuc", "entidad"})
+    public void subirPDFRuc() throws InterruptedException, IOException {
+
+        org.zkoss.util.media.Media media = Fileupload.get();
+        if (media instanceof org.zkoss.util.media.AMedia) {
+            String nombre = media.getName();
+
+            if (!nombre.contains(".pdf")) {
+                Clients.showNotification("Debe cargar un archivo PDF",
+                            Clients.NOTIFICATION_TYPE_ERROR, null, "middle_center", 2000, true);
+
+                return;
+            }
+            if (media.getByteData().length > 10 * 1024 * 1024) {
+                Messagebox.show("El arhivo seleccionado sobrepasa el tamaño de 10Mb.\n Por favor seleccione un archivo más pequeño.", "Atención", Messagebox.OK, Messagebox.ERROR);
+
+                return;
+            }
+            filePath = parametrizar.getParBase() + File.separator + parametrizar.getParImagenes() + File.separator + "FOTO";
+
+            File baseDir = new File(filePath);
+            if (!baseDir.exists()) {
+                baseDir.mkdirs();
+            }
+            Files.copy(new File(filePath + File.separator + media.getName()),
+                        media.getStreamData());
+
+            entidad.setSolPathRuc(filePath + File.separator + media.getName());
+            System.out.println("PATH SUBIR " + filePath + File.separator + media.getName());
+            pdfRuc = new AMedia("report", "pdf", "application/pdf", Imagen_A_Bytes(filePath + File.separator + media.getName()));
+
+        }
+    }
+
+    public AMedia getPdfRuc() {
+        return pdfRuc;
+    }
+
+    public void setPdfRuc(AMedia pdfRuc) {
+        this.pdfRuc = pdfRuc;
     }
 
 }

@@ -9,6 +9,7 @@ import com.ec.entidad.Solicitud;
 import com.ec.entidad.Usuario;
 import com.ec.seguridad.EnumSesion;
 import com.ec.seguridad.UserCredential;
+import com.ec.servicio.ServicioEstadoProceso;
 import com.ec.servicio.ServicioSolicitud;
 
 import com.ec.servicio.ServicioUsuario;
@@ -50,6 +51,8 @@ public class SolicitudController {
     private String filePath;
     byte[] buffer = new byte[1024 * 1024];
     private AImage fotoGeneral = null;
+
+    ServicioEstadoProceso servicioEstadoProceso = new ServicioEstadoProceso();
 
     @AfterCompose
     public void afterCompose(@ContextParam(ContextType.VIEW) Component view) throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException, JRException, IOException {
@@ -142,6 +145,20 @@ public class SolicitudController {
 
     public void setBuscar(String buscar) {
         this.buscar = buscar;
+    }
+
+    @Command
+     @NotifyChange({"listaDatos", "buscar"})
+    public void cancelarSolicitud(@BindingParam("valor") Solicitud valor) {
+
+        if (Messagebox.show("Desea cambiar e", "Question", Messagebox.OK | Messagebox.CANCEL, Messagebox.QUESTION) == Messagebox.OK) {
+            EstadoProceso estado = servicioEstadoProceso.findBySigla("CAN");
+            valor.setIdEstadoProceso(estado);
+            servicioSolicitud.modificar(valor);
+        } else {
+            Clients.showNotification("Solicitud cancelada",
+                        Clients.NOTIFICATION_TYPE_INFO, null, "middle_center", 1000, true);
+        }
     }
 
 }
