@@ -37,11 +37,13 @@ public class TipoFirma implements Serializable {
     private Integer idTipoFirma;
     @Column(name = "tip_descripcion")
     private String tipDescripcion;
-  
+
     @Column(name = "tip_estado")
     private String tipEstado;
     @OneToMany(mappedBy = "idTipoFirma")
     private Collection<Solicitud> solicitudCollection;
+    @OneToMany(mappedBy = "idTipoFirma")
+    private Collection<DetalleTipoFirma> detalleTipoFirmaCollection;
 
     public TipoFirma() {
     }
@@ -66,8 +68,6 @@ public class TipoFirma implements Serializable {
         this.tipDescripcion = tipDescripcion;
     }
 
- 
-
     public String getTipEstado() {
         return tipEstado;
     }
@@ -83,6 +83,14 @@ public class TipoFirma implements Serializable {
 
     public void setSolicitudCollection(Collection<Solicitud> solicitudCollection) {
         this.solicitudCollection = solicitudCollection;
+    }
+
+    public Collection<DetalleTipoFirma> getDetalleTipoFirmaCollection() {
+        return detalleTipoFirmaCollection;
+    }
+
+    public void setDetalleTipoFirmaCollection(Collection<DetalleTipoFirma> detalleTipoFirmaCollection) {
+        this.detalleTipoFirmaCollection = detalleTipoFirmaCollection;
     }
 
     @Override
@@ -109,5 +117,5 @@ public class TipoFirma implements Serializable {
     public String toString() {
         return "com.ec.entidad.TipoFirma[ idTipoFirma=" + idTipoFirma + " ]";
     }
-    
+
 }
