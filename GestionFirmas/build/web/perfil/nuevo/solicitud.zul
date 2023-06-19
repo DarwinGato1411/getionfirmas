@@ -311,12 +311,12 @@
                                 </a>
                             </div>
                         </div>
-                    <div class="wrapper_input_mod">
+                    <div class="wrapper_input_mod" >
                              <div  align="center" class="panelImagen">
-                                 <iframe width="200px" height="200px" content="@bind(vm.pdfRuc)"/>
+                                 <iframe width="200px" height="200px" content="@bind(vm.pdfRuc)"/>x 
                             </div>
                             <div style="display:flex;justify-content:flex-end;">
-                                <a class="btn_modal"  onClick="@command('subirPDFRuc')"  >
+                                <a  class="btn_modal"  onClick="@command('subirPDFRuc')"  >
                                     PDF RUC
                                 </a>
                             </div>
