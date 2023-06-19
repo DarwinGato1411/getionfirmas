@@ -1,0 +1,22 @@
+
+
+<zk  >
+    <borderlayout >
+<!--        <north   border="none" >
+            <include src="/plantillapublic/banner.zul"/>
+        </north>-->
+<!--        <west  border="none" class="banner" autoscroll="true"  
+                       collapsible="true" splittable="true"  >
+            <include src="/plantilla/menuOpciones.zul"/>
+        </west>-->
+        <center  id="mainContentAsesor"  style="overflow-y: scroll;" self="@{insert(content)}">
+            
+        </center>
+        <south>
+           <!-- <div style="background:white; color:black; font-weight: bold" height="20px" align="center">
+                <image src="/imagenes/logosinfondo.png" height="28px" />   
+                <label>DECKXEL Desarrollo de software sobre medida </label>       
+            </div>-->
+        </south>
+    </borderlayout>
+</zk>

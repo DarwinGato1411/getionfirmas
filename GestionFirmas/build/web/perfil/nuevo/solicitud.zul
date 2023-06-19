@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window  id="wSolicitud"  position="center" closable="true"  
+         apply="org.zkoss.bind.BindComposer" 
+         viewModel="@id('vm') @init('com.ec.controlador.nuevo.NuevaSolicitud')"
+         class="modalAll modalPaciente">
+    
+    <caption label="Solicitud de firma electrónica"  class="titulo"/> 
+    
+
+    <div class="container_modal">
+
+        <div class="bodyModal">
+            
+            <div class="container_row_input">  
+                <div class="DP">
+                    <div class="leyenda">
+                        <label class="leyenda" value="Datos Personales"></label> 
+                    </div>  
+                    
+                    <div class="wrapper_input_mod_group">
+                        <div class="wrapper_input_mod">
+                            <span>Tipo documento</span>
+                            <combobox  readonly="true"     
+                             width="100%"
+                                                             
+                                       selectedItem="@bind(vm.entidad.solTipoDocumento)">
+                                <comboitem value="CEDULA" label="CEDULA" />
+                                <comboitem value="PASAPORTE" label="PASAPORTE" />
+                            </combobox>
+                    
+                    
+                   
+                    
+                    
+                        </div>
+                   <div class="wrapper_input_mod_group">
+                        <div class="wrapper_input_mod">
+                            <span>Cédula</span>
+                            <div class="wrapper_input_text">
+                        
+                                <textbox  
+                                    maxlength="20"     
+                                    value="@bind(vm.entidad.solRuc)" 
+                                    class="input_text" />
+                            </div>
+                        </div>
+                        <div class="wrapper_input_mod">
+                            <span>Código dactilar</span>
+                            <div class="wrapper_input_text">
+                        
+                                <textbox  
+                                    maxlength="10"     
+                                    value="@bind(vm.entidad.solCodigoDactilar)" 
+                                    class="input_text" />
+                            </div>
+                        </div>
+
+                   </div>
+                        <div class="wrapper_input_mod_group">
+                            <div class="wrapper_input_mod">
+                                <span>Fecha de nacimiento</span>
+                   
+                                <div class="wrapper_input_text">
+                                    <datebox compact="true" 
+                                             value="@bind(vm.entidad.solFechaNacimiento)" 
+                                             onChange="@command('obtenerEdad')" 
+                                             readonly="false"   
+                                             buttonVisible="true" 
+                                             lenient="true" 
+                                             format="dd/MM/yyyy"
+                                             class="input_date"
+                                    />
+                            
+                                </div>
+                            </div>
+                            <div class="wrapper_input_mod">
+                                <span>Edad</span>
+                   
+                                <div class="wrapper_input_text">
+                           
+                                    <intbox constraint="no negative,no zero"  
+                                            value="@bind(vm.entidad.solEdad)" 
+                                            format="##" class="input_text"   
+                                            tabindex="1" />
+                           
+                                </div>
+                            </div>
+                        </div>
+                       
+
+                    </div>
+                    <div class="wrapper_input_mod_group">
+                        <div class="wrapper_input_mod">
+                            <span>Nombres</span>
+                            <div class="wrapper_input_text">
+                        
+                                <textbox  
+                                    maxlength="100"    
+                                    onChange="self.setValue(self.getValue().toUpperCase());"  
+                                    value="@bind(vm.entidad.solNombre)" 
+                                    class="input_text" />
+                            </div>
+                        </div>
+                        <div class="wrapper_input_mod">
+                            <span>1er Apellido</span>
+                            <div class="wrapper_input_text">
+                        
+                                <textbox  
+                                    maxlength="100"    
+                                    onChange="self.setValue(self.getValue().toUpperCase());"  
+                                    value="@bind(vm.entidad.solApellido1)" 
+                                    class="input_text" />
+                            </div>
+                        </div>
+                        <div class="wrapper_input_mod">
+                            <span>2do Apellido</span>
+                            <div class="wrapper_input_text">
+                        
+                                <textbox  
+                                    maxlength="100"    
+                                    onChange="self.setValue(self.getValue().toUpperCase());"  
+                                    value="@bind(vm.entidad.solApellido2)" 
+                                    class="input_text" />
+                            </div>
+                        </div>
+                        
+                
+                        
+                    </div>
+                     <div class="wrapper_input_mod_group">
+                        <div class="wrapper_input_mod">
+                            <span>Email</span>
+                            <div class="wrapper_input_text">
+                        
+                                <textbox  
+                                    maxlength="100"    
+                                    value="@bind(vm.entidad.solMail)" 
+                                    class="input_text" />
+                            </div>
+                        </div>
+                        
+                        <div class="wrapper_input_mod">
+                            <span>Celular</span>
+                   
+                            <div class="wrapper_input_text">
+                        
+                                <textbox  
+                                    maxlength="100"    
+                                    onChange="self.setValue(self.getValue().toUpperCase());"  
+                                    value="@bind(vm.entidad.solCelular)" 
+                                    class="input_text" />
+                            </div>
+                        </div>
+                    <div class="wrapper_input_mod">
+                            <span>Email 2</span>
+                   
+                            <div class="wrapper_input_text">
+                        
+                                <textbox  
+                                    maxlength="100"    
+                                    onChange="self.setValue(self.getValue().toUpperCase());"  
+                                    value="@bind(vm.entidad.solMailOp)" 
+                                    class="input_text" />
+                            </div>
+                        </div>
+                    
+                    
+                    
+                    </div>
+                    <div class="wrapper_input_mod_group">
+                        <div class="wrapper_input_mod">
+                            <span>Celular 2</span>
+                   
+                            <div class="wrapper_input_text">
+                        
+                                <textbox  
+                                    maxlength="100"    
+                                    onChange="self.setValue(self.getValue().toUpperCase());"  
+                                    value="@bind(vm.entidad.solCelularOp)" 
+                                    class="input_text" />
+                            </div>
+                        </div>
+                        <div class="wrapper_input_mod">
+                            <span>Sexo</span>
+                            <combobox  readonly="true"  
+                             width="100%"                                   
+                                       selectedItem="@bind(vm.entidad.solSexo)">
+                                <comboitem value="Masculino" label="Masculino" />
+                                <comboitem value="Femenino" label="Femenino" />
+                                <comboitem value="Otro" label="Otros"/>
+                            </combobox>
+                    
+                        </div>
+                        
+                        <div class="wrapper_input_mod">
+                            <span>Nacionalidad</span>
+                            <combobox  
+                                model="@load(vm.listaNacionalidad)"  
+                                selectedItem="@bind(vm.entidad.solNacionalidad)" 
+                                value="@bind(vm.entidad.solNacionalidad)" 
+                                readonly="true" 
+                                width="100%"
+                                class="textoFechaDateBox">
+                                <template class="asdasds" width="100%"  name="model">
+                                    <comboitem width="100%" 
+                                               label="@bind(each.nacNombre)"
+                                               value="@bind(each.nacNombre)"  />
+                                </template>                                      
+                            </combobox>
+                    
+                        </div>
+                        <div class="wrapper_input_mod">
+                            <span>Con RUC</span>
+                            <radiogroup orient="horizontal"
+                                class="radio_group" 
+                                selectedItem="@bind(vm.entidad.solConRuc)"  >                   
+                                <radio label="SI" value="${true}"/>                            
+                                <radio label="NO" value="${false}"/>                          
+                            </radiogroup>
+                    
+                        </div>
+                    </div>
+                        
+                         <div class="leyenda">
+                        <label class="leyenda" value="Dirección Domicilio"></label> 
+                    </div> 
+                        <div class="wrapper_input_mod_group">
+                        
+                        <div class="wrapper_input_mod">
+                            <span>Provincia</span>
+                            <combobox  
+                                model="@load(vm.listaProvincias)"  
+                                selectedItem="@bind(vm.provinciaSelected)" 
+                                onSelect="@command('consultarCiudad')" 
+                                readonly="true" 
+                                width="100%"
+                                class="textoFechaDateBox">
+                                <template class="asdasds" width="100%"  name="model">
+                                    <comboitem width="100%" 
+                                               label="@bind(each.provNombre)"  />
+                                </template>                                      
+                            </combobox>
+                    
+                        </div>
+                        <div class="wrapper_input_mod">
+                            <span>Ciudad</span>
+                            <combobox  
+                                model="@load(vm.listaCiudades)"  
+                                selectedItem="@bind(vm.entidad.idCiudad)"  
+                                readonly="true" 
+                                width="100%"
+                                class="textoFechaDateBox">
+                                <template class="asdasds" width="100%"  name="model">
+                                    <comboitem width="100%" 
+                                               label="@bind(each.ciuNombre)"  />
+                                </template>                                      
+                            </combobox>
+                    
+                        </div>
+                        </div>
+                    <div class="wrapper_input_mod">
+                        <span>Direccion</span>
+                        <div class="wrapper_input_text">
+                        
+                            <textbox  
+                                maxlength="100"    
+                                onChange="self.setValue(self.getValue().toUpperCase());"  
+                                value="@bind(vm.entidad.solDireccionCompleta)" 
+                                class="input_text" />
+                        </div>
+                    </div>
+                  
+                    
+                
+                </div>
+                
+                <div class="AP">
+                    <div class="leyenda">
+                        <label class="leyenda" value=" Documentos"></label> 
+                    </div>  
+                    <div class="wrapper_input_mod_group">
+                        <div class="wrapper_input_mod">
+                            
+                            <div  align="center">
+                                <image   content="@bind(vm.fotoGeneral)" class="panelImagen" width="300px" height="200px"/>
+                            </div>
+                            <div style="display:flex;justify-content:flex-end;">
+                                <a class="btn_modal"  onClick="@command('subirFotografiaCedula')"  >
+                                    Cedula anverso 
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="wrapper_input_mod">
+                             <div  align="center">
+                                <image   content="@bind(vm.fotoReverso)" class="panelImagen" width="300px" height="200px" />
+                            </div>
+                            <div style="display:flex;justify-content:flex-end;">
+                                <a class="btn_modal"  onClick="@command('subirFotografiaCedulaReverso')"  >
+                                    Cedula reverso fotografía
+                                </a>
+                            </div>
+                        </div>
+                    <div class="wrapper_input_mod">
+                             <div  align="center" class="panelImagen">
+                                <image   content="@bind(vm.fotoSelfi)"  width="200px" height="200px"/>
+                            </div>
+                            <div style="display:flex;justify-content:flex-end;">
+                                <a class="btn_modal"  onClick="@command('subirSelfi')"  >
+                                    Selfi
+                                </a>
+                            </div>
+                        </div>
+                    <div class="wrapper_input_mod" >
+                             <div  align="center" class="panelImagen">
+                                 <iframe width="200px" height="200px" content="@bind(vm.pdfRuc)"/>x 
+                            </div>
+                            <div style="display:flex;justify-content:flex-end;">
+                                <a  class="btn_modal"  onClick="@command('subirPDFRuc')"  >
+                                    PDF RUC
+                                </a>
+                            </div>
+                        </div>
+                    
+                    
+                    </div>
+                    
+                </div>
+                
+            </div>
+            <div style="display:flex;justify-content:flex-end;">
+                <a class="btn_modal"  onClick="@command('guardar')">
+                    Guardar
+                </a>
+            </div>
+        </div>
+<!--        <div class="fotoPerfil">
+            <div class="perfil">
+                
+            </div>
+        </div>-->
+    </div>     
+                  
+
+</window>

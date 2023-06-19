@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?link rel="stylesheet" type="text/css" href="../resources/css/boostrap/bootstrap.css"?>  
+<?link rel="stylesheet" type="text/css" href="../resources/css/style.css"?>
+<?init class="com.ec.seguridad.Autentificador"?>
+<?init class="org.zkoss.zk.ui.util.Composition" arg0="/plantilla/plantilla.zul"?>
+<?link rel="stylesheet" type="text/css" href="/css/style.css"?>
+
+<zk class="border border-primary">
+
+    <div  self="@define(content)" class="contenedorEmpresa"  apply="org.zkoss.bind.BindComposer" 
+          viewModel="@id('vm') @init('com.ec.controlador.PerfilController')" > 
+        <div  class="contenedorInfo" >
+            <div class="titulo">
+                Perfil Empresa
+            </div>
+           
+            <div class="infoEmpresa">
+                <div  class="contenedorInfoInputs">
+                    <div  class="inputGroupFoto" >
+                        <div class="inputGroupImg" >
+                            <image   content="@bind(vm.fotoGeneral)" width="200px" />
+                            <button 
+                                class="btnSubirImg"
+                                onClick="@command('subirFotografia')" 
+                                iconSclass="z-icon-plus"
+                                tooltiptext="Buscar">
+                                Subir fotografía
+                            </button>                               
+                        </div>
+<!--                        <div class="inputGroupImg" >
+                            <image   content="@bind(vm.fotoLogo)" width="200px" />
+                            <button 
+                                class="btnSubirImg"
+                                onClick="@command('subirLogotipo')" 
+                                iconSclass="z-icon-plus"
+                                tooltiptext="Buscar">
+                                Subir Logotipo
+                            </button>                               
+                        </div>-->
+                    </div>
+                </div>
+                <div  class="contenedorInfoInputs">
+                     
+                    <div class="inputGroup"  >
+                        <label value="RUC:"/>
+                        <textbox value="@bind(vm.usuario.usuRuc)" 
+                                 placeholder="RUC"
+                                 class="form-control form-control-sm"
+                                 tooltiptext="Ruc (1718264839001)"
+                                 width="90%"                    />
+                    </div>                     
+                    <div class="inputGroup"  >
+                        <label value="Nombre:"/>
+                        <textbox value="@bind(vm.usuario.usuNombre)" 
+                                 placeholder="Nombre"
+                                 class="form-control form-control-sm"
+                                 tooltiptext="Nombre"
+                                 width="90%"                    />
+                    </div>
+                    <div class="inputGroup"  >
+                        <label value="Ciudad:"/>
+                        <textbox value="@bind(vm.usuario.usuCiudad)" 
+                                 placeholder="Ciudad"
+                                 onChange="self.setValue(self.getValue().toUpperCase().trim());"
+                                 class="form-control form-control-sm"
+                                 tooltiptext="Ciudad"
+                                 width="90%"                    />
+                    </div>
+                    <div class="inputGroup"  > 
+                        <label value="Correo:"/>
+                        <textbox value="@bind(vm.usuario.usuCorreo)" 
+                                 placeholder="Telefono"
+                                 class="form-control form-control-sm"
+                                 tooltiptext="Telefono"
+                                 width="90%"                    />
+                    </div>                         
+                  
+                    <div class="inputGroup"  > 
+                        <label value="Login:"/>        
+                        <textbox value="@bind(vm.usuario.usuLogin)" 
+                                 placeholder="Login"
+                                 class="form-control form-control-sm"
+                                 tooltiptext="Nombre Comercial"
+                                 width="90%" />
+                    </div>     
+                    <div class="inputGroup">
+                        <label value="Password:"/>
+                        <textbox value="@bind(vm.usuario.usuPassword)" 
+                                 placeholder="Password"
+                                 class="form-control form-control-sm"
+                                 tooltiptext="Nombre Comercial" 
+                                 width="90%"/>
+                    </div>  
+                             
+                  
+                    
+                    <button 
+                        class="inputGroupBtn"
+                        onClick="@command('guardar')"
+                        iconSclass="z-icon-save"
+                        tooltiptext="Buscar">
+                        Guardar Perfil
+                    </button>      
+                </div>
+            </div>
+            
+            
+        </div>
+        
+    </div>
+</zk>
+
+
+
+
