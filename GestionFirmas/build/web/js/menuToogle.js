@@ -19,7 +19,7 @@ const screen = () => {
     const cerrarMenu = document.querySelector('.panelCerrarMenu');
     window.addEventListener('resize', function () {
         let ancho = window.innerWidth;
-        console.log(ancho);
+        
         if (ancho >= 1024) {
             cerrarMenu.style.display = 'none';
             menu.classList.remove('desplegar');

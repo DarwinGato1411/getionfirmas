@@ -17,13 +17,27 @@
         menu.classList.remove('desplegar');
         });
         };
+        
+        const perfilHover=()=>{
+        const elemento = document.querySelector('.avatar');
+        const infoPerfil = document.querySelector('.tituloUserheader');
+        infoPerfil.style.display = 'none';
+        
+        elemento.addEventListener('mouseover', function() {  
+        infoPerfil.style.display = 'block';   
+        });
+
+        elemento.addEventListener('mouseout', function() {
+        infoPerfil.style.display = 'none';
+        
+        });
+        }
 
         const screen = () => {
         const menu = document.querySelector('.nav');
         const cerrarMenu = document.querySelector('.panelCerrarMenu');
         window.addEventListener('resize', function () {
         let ancho = window.innerWidth;
-        console.log(ancho);
         if (ancho >= 1024) {
         cerrarMenu.style.display = 'none';
         menu.classList.remove('desplegar');
@@ -36,19 +50,37 @@
         zk.afterMount(function () {
         menuToogle();
         screen();
+        perfilHover();
         });
         })();
 
     </script>
     
     <div class="nav ul" viewModel="@id('vm')" apply="com.ec.controlador.MenuOpciones" >
+        
+        <div class="tituloMenu">
+            
+            <div>
+                <label value="Usuario: " 
+                               if="${not sessionScope.userCredential.anonymous}"/>
+                <label value="${sessionScope.usuario.nombreUsuario}" 
+                               if="${not sessionScope.userCredential.anonymous}" />
+            </div>
+            <div>
+                <label value="Perfil: " 
+                               if="${not sessionScope.userCredential.anonymous}"/>
+                <label value="${sessionScope.usuario.perfil}" 
+                               if="${not sessionScope.userCredential.anonymous}" />
+            </div>      
+             
+        </div> 
         <div class="li">
             <label class="m1" value="Ingreso de solicitud" id="btnSolicitud"/>
         </div>
-<!--        <div class="li">
+        <!--        <div class="li">
             <label class="m1" value="Gestion de solicitud" id="btnAgendamiento"/>
         </div>-->
-         <div class="li">
+        <div class="li">
             <label class="m1" value="Perfil" id="btnPerfil"/>
         </div>
      

@@ -41,8 +41,10 @@ import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Session;
 import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.select.Selectors;
+import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.util.Clients;
+import org.zkoss.zul.Div;
 import org.zkoss.zul.Fileupload;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
@@ -55,10 +57,12 @@ public class NuevaSolicitud {
 
     @Wire
     Window wSolicitud;
+
     private Solicitud entidad = new Solicitud();
     ServicioSolicitud servicio = new ServicioSolicitud();
     private String accion = "create";
     private String usuNivel = "1";
+    private String tipoSolicitud = "PN";
 
     ServicioParametrizar servicioParametrizar = new ServicioParametrizar();
     private Parametrizar parametrizar = new Parametrizar();
@@ -81,6 +85,13 @@ public class NuevaSolicitud {
 
     ServicioEstadoProceso servicioEstadoProceso = new ServicioEstadoProceso();
 
+    @Wire
+    private Div rle;
+    @Wire
+    private Div me;
+    @Wire
+    private Div contenedorMR;
+
     @AfterCompose
     public void afterCompose(@ExecutionArgParam("valor") Solicitud valor, @ContextParam(ContextType.VIEW) Component view) throws IOException {
         Selectors.wireComponents(view, this, false);
@@ -94,6 +105,7 @@ public class NuevaSolicitud {
                 listaCiudades = servicioCiudad.findByProvincia(provinciaSelected);
             }
 
+            cargarVistaTiposSol(valor.getSolTipo());
         } else {
 
             //muestra 7 dias atras
@@ -168,8 +180,8 @@ public class NuevaSolicitud {
     @Command
     public void guardar() {
         if (entidad.getSolNombre() != null
-                    && entidad.getSolRuc() != null
-                    && entidad.getSolCelular() != null) {
+                && entidad.getSolRuc() != null
+                && entidad.getSolCelular() != null) {
 //            entidad.setUsuNivel(Integer.valueOf(usuNivel));
             if (accion.equals("create")) {
                 entidad.setIdEstadoProceso(servicioEstadoProceso.findBySigla("ING"));
@@ -185,10 +197,10 @@ public class NuevaSolicitud {
                 wSolicitud.detach();
             }
             Clients.showNotification("Registro correcto",
-                        Clients.NOTIFICATION_TYPE_INFO, null, "middle_center", 2000, true);
+                    Clients.NOTIFICATION_TYPE_INFO, null, "middle_center", 2000, true);
         } else {
             Clients.showNotification("Verifique la información ingresada",
-                        Clients.NOTIFICATION_TYPE_ERROR, null, "middle_center", 2000, true);
+                    Clients.NOTIFICATION_TYPE_ERROR, null, "middle_center", 2000, true);
         }
     }
 
@@ -236,7 +248,7 @@ public class NuevaSolicitud {
                 baseDir.mkdirs();
             }
             Files.copy(new File(filePath + File.separator + media.getName()),
-                        media.getStreamData());
+                    media.getStreamData());
 
             entidad.setSolPathCedulaAnverso(filePath + File.separator + media.getName());
             System.out.println("PATH SUBIR " + filePath + File.separator + media.getName());
@@ -297,7 +309,7 @@ public class NuevaSolicitud {
                 baseDir.mkdirs();
             }
             Files.copy(new File(filePath + File.separator + media.getName()),
-                        media.getStreamData());
+                    media.getStreamData());
 
             entidad.setSolPathCedulaReverso(filePath + File.separator + media.getName());
             System.out.println("PATH SUBIR " + filePath + File.separator + media.getName());
@@ -326,12 +338,43 @@ public class NuevaSolicitud {
                 baseDir.mkdirs();
             }
             Files.copy(new File(filePath + File.separator + media.getName()),
-                        media.getStreamData());
+                    media.getStreamData());
 
             entidad.setSolPathSelfi(filePath + File.separator + media.getName());
             System.out.println("PATH SUBIR " + filePath + File.separator + media.getName());
             fotoSelfi = new AImage("fotografia", Imagen_A_Bytes(filePath + File.separator + media.getName()));
 
+        }
+    }
+
+    @Command
+    public void personaNatural() {
+        cargarVistaTiposSol("PN");
+    }
+
+    @Command
+    public void repreLegalEmpresa() {
+        cargarVistaTiposSol("RLE");
+    }
+
+    @Command
+    public void miembEmpresa() {
+        cargarVistaTiposSol("ME");
+    }
+
+    public void cargarVistaTiposSol(String tipoSol) {
+        if (tipoSol.equals("PN")) {
+            contenedorMR.setVisible(false);
+        } else if (tipoSol.equals("RLE") || tipoSol.equals("ME")) {
+            contenedorMR.setVisible(true);
+            if (tipoSol.equals("RLE")) {
+                rle.setVisible(true);
+                me.setVisible(false);
+
+            } else {
+                rle.setVisible(false);
+                me.setVisible(true);
+            }
         }
     }
 
@@ -381,6 +424,14 @@ public class NuevaSolicitud {
 
     public void setListaCiudades(List<Ciudad> listaCiudades) {
         this.listaCiudades = listaCiudades;
+    }
+
+    public String getTipoSolicitud() {
+        return tipoSolicitud;
+    }
+
+    public void setTipoSolicitud(String tipoSolicitud) {
+        this.tipoSolicitud = tipoSolicitud;
     }
 
 }

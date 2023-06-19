@@ -14,17 +14,17 @@
     <div class="fondoBanner"  id="loginWin"  width="100%"
          apply="com.ec.controlador.MenuPublic" >
         <div class="row" >
-   <div class="" align="start">
+            <div class="" align="start">
                 <div class="col-12 col-sm-12 col-md-6 col-lg-6  " align="start">
-                     <label value="Informacion " style="  color:white;font-size:20px" />
+                    <label value="Informacion " style="  color:white;font-size:20px" />
                 </div>
                 <div class="col-12 col-sm-12 col-md-6 col-lg-6  " align="end">
-                   <a sclass="logout labelLogout" id="login" >  
-                    <label  value="Ingresar " 
-                            sclass="labelLogout"/> 
-                    <image src="/iconos/permission.png"  />  
+                    <a sclass="logout labelLogout" id="login" >  
+                        <label  value="Ingresar " 
+                               sclass="labelLogout"/> 
+                        <image src="/iconos/permission.png"  />  
                        
-                </a>    
+                    </a>    
                 </div>
                
         

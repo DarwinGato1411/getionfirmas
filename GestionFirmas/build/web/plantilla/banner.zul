@@ -14,24 +14,27 @@
                     tooltiptext="Buscar">
                 </button> 
                 <!--<image  src="/imagenes/hospital.png" style="width:50px;" />-->
-                 <label value="GESTIÓN DE FIRMAS" class="textoHeaderleft"></label> 
+                 
             </div>
             <div class="logo" style="margin:auto;">
-               
+                <label value="GESTIÓN DE FIRMAS" class="textoHeaderleft"></label> 
             </div>
-            <div  style="margin:auto;display: flex;justify-content: center;position: relative;" >
+            <div class="perfilUser"  style="display: flex;justify-content: center;position: relative;" >
                 <!--<image content="${sessionScope.usuario.fotoGeneral}"  class="avatar"></image>-->
-                <image src="/imagenes/doctor.png" tooltiptext="${sessionScope.usuario.nombreUsuario}" class="avatar"></image>
-                <div class="tituloUserheader" style="margin:auto;" >
-                    <label value="Usuario: " 
-                           if="${not sessionScope.userCredential.anonymous}"/>
-                    <label value="${sessionScope.usuario.nombreUsuario}" 
-                           if="${not sessionScope.userCredential.anonymous}" />
-                    <label value="Perfil: " 
-                           if="${not sessionScope.userCredential.anonymous}"/>
-                    <label value="${sessionScope.usuario.perfil}" 
-                           if="${not sessionScope.userCredential.anonymous}" />
-                             
+                <image src="/imagenes/doctor.png" style="margin: 0 0 0 auto;" tooltiptext="${sessionScope.usuario.nombreUsuario}"  class="avatar"></image>
+                <div class="tituloUserheader">
+                    <div>
+                        <label value="Usuario: " 
+                               if="${not sessionScope.userCredential.anonymous}"/>
+                        <label value="${sessionScope.usuario.nombreUsuario}" 
+                               if="${not sessionScope.userCredential.anonymous}" />
+                    </div>
+                    <div>
+                        <label value="Perfil: " 
+                               if="${not sessionScope.userCredential.anonymous}"/>
+                        <label value="${sessionScope.usuario.perfil}" 
+                               if="${not sessionScope.userCredential.anonymous}" />
+                    </div>      
              
                 </div>           
             </div>           

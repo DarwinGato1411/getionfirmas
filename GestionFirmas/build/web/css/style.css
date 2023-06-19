@@ -3068,10 +3068,7 @@ input, button, select, textarea {
 
 }
 .contenedorEmpresa .contenedorInfo .contenedorInfoInputs .inputGroupFoto{
-
-    display: grid;
-    grid-template-columns:50% 50%;
-    gap:5px;
+    margin: auto;
 
 }
 
@@ -3289,10 +3286,25 @@ input, button, select, textarea {
 }
 
 /*.containerRespuestas */
-.contenedorPacientes .paciente{
+
+.contenedorPacientes .botonera{
+    display: flex;
+    gap:10px;
+    margin-bottom: 10px;
+}
+
+.contenedorPacientes .botonera .busquedaCedula{
+    display: flex;
+}
+.contenedorGris{
     background: #eee;
     border-radius: 10px;
     padding: 10px;
+    margin-top: 10px;
+}
+
+.contenedorPacientes .paciente{
+    
 }
 
 
@@ -3339,23 +3351,34 @@ input, button, select, textarea {
 
 .contenedorPacientes  .z-listbox .tblCabecera{
     display: grid;
-    grid-template-columns:15% 25% 30% 10% 25%;
+    grid-template-columns:10% 15% 20% 10% 15% 15% 15%;
 }
+
 .contenedorPacientes  .z-listbox .tblCuerpo{
-
     display: grid;
-    grid-template-columns:15% 25% 30% 10% 25%;
+    grid-template-columns:10% 15% 20% 10% 15% 15% 15%;
+}
+
+.contenedorPacientes  .z-listbox .tblCabecera{
+    display: grid;
+    grid-template-columns:10% 15% 20% 10% 15% 15% 15%;
+}
+
+.contenedorPacientes  .z-listbox .tblCuerpo{
+    display: grid;
+    grid-template-columns:10% 15% 20% 10% 15% 15% 15%;
 }
 
 
-.contenedorPacientes  .z-listbox .tblCabeceraHistorico{
 
+.revisador  .z-listbox .tblCabecera{
     display: grid;
-    grid-template-columns:10% 80% 10%;
+    grid-template-columns:10% 25% 25% 20% 20% ;
 }
-.contenedorPacientes  .z-listbox .tblCuerpoHistorico{
+
+.revisador  .z-listbox .tblCuerpo{
     display: grid;
-    grid-template-columns:10% 80% 10%;
+    grid-template-columns:10% 25% 25% 20% 20% ;
 }
 
 
@@ -3428,42 +3451,6 @@ input, button, select, textarea {
 @media only screen and (max-width: 1300px){
 
 
-    .contenedorPacientes  .paciente .table .tblCabecera{
-        display: grid;
-        grid-template-columns: none;
-    }
-    .textoHeaderleft{ 
-        display: none !important;
-        border: solid 1px black;
-
-    }
-    .tituloUserheader{ 
-        display: none !important;
-        border: solid 1px black;
-
-    }
-
-
-    .contenedorPacientes  .z-listbox .tblCuerpo{
-
-        display: grid;
-        grid-template-columns: none;
-    }
-    .contenedorEmpresa .contenedorInfo .contenedorInfoInputs .inputGroupFoto{
-
-        display: grid;
-        grid-template-columns:100%;
-        gap:5px;
-
-    }
-    .contenedorEmpresa .contenedorInfoCalendar .infoEmpresa .contenedorInfoInputs .inputCalendar{
-
-        display: grid;
-        grid-template-columns:100%;
-        gap:5px;
-
-    }
-
 }
 
 
@@ -3531,29 +3518,12 @@ div.z-listbox-header th.z-listheader, div.z-listbox-header th.z-auxheader {
 
 .avatar {
     vertical-align: middle;
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
 }
 
-.tituloUserheader{
-    display: flex;
-    justify-content: center;
-    position: relative;
-    background: #22c7b8;
-    color: #fff;
-    justify-content: center;
-    min-width: 160px;
-    padding-left: 30px;
-    padding-right: 30px;
-    border-radius: 50px;
-    cursor: pointer;
-    font-size: 16px;
-    line-height: 18px;
-    margin-left: 10px !important;
-    padding: 11px 20px;
-    white-space: nowrap;
-}
+
 .textoHeader{
     font-family: Arial,Sans-serif !important;
     font-size: 16px;
@@ -3562,11 +3532,35 @@ div.z-listbox-header th.z-listheader, div.z-listbox-header th.z-auxheader {
 }
 .textoHeaderleft{
     font-family: Arial,Sans-serif !important;
-    font-size: 28px;
+    font-size: 18px;
     text-decoration: none;
     font-weight: bold !important;
     /*color: #337ab7;*/
 
+}
+
+.perfilUser{
+    
+}
+
+.perfilUser .tituloUserheader{
+    border: solid 1px black;
+    position: fixed;
+    right: 0;
+    margin-top: 45px;
+}
+
+.tituloUserheader{
+    
+    color: black;
+    background: #eee;
+    border-radius: 20px;
+    padding: 10px;
+    
+}
+
+.perfilUser .tituloUserheader span{
+   
 }
 
 .btn-primary-zk {
@@ -3595,6 +3589,12 @@ div.z-listbox-header th.z-listheader, div.z-listbox-header th.z-auxheader {
     border-color: #ffc107 !important;
 }
 
+.btn-nothing-zk {
+    color: #fff !important;
+    background-color: #ccc !important;
+    border-color: #ccc !important;
+}
+
 .panelImagen {
     border: 1px;
     width: 200px;
@@ -3606,4 +3606,12 @@ div.z-listbox-header th.z-listheader, div.z-listbox-header th.z-auxheader {
     border-style: solid;
     width:200px;
     height: 200px;
+}
+
+.tituloMenu{
+    background: #2d7fd2;
+    color: white;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 20px;
 }

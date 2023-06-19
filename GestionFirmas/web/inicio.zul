@@ -113,9 +113,7 @@ div.z-listbox-header th.z-listheader, div.z-listbox-header th.z-auxheader {
     </div>
 
     <div class="wrapper_loading loading_inicio">
-        <div class="lds-heart">
-            <div></div>
-        </div>
+        <div class="lds-dual-ring"></div>
     </div>
 
 </zk>

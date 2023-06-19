@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window  id="windowEstFact"  position="center" closable="true"  
+         apply="org.zkoss.bind.BindComposer" 
+         viewModel="@id('vm') @init('com.ec.controlador.CambioEstadoSol')">
+    
+    <caption label="Estado de la solicitud" style="font-weight:bold"/> 
+    
+    
+   
+
+    <div class="container_modal">
+
+        <div class="body">
+            <div class="container_row_input">
+                <div class="wrapper_input_mod" style="flex:auto">
+                    <span>Estado: </span>
+                    <combobox 
+                        readonly="true"                                        
+                        selectedItem="@bind(vm.solicitud.idEstadoProceso.estSigla)" 
+                      
+                        style="width: 100%;"
+                    >
+                        <comboitem label="INGRESADO" value="ING" />                    
+                        <comboitem label="APROBADO" value="APR" />
+                        <comboitem label="RECHAZADO" value="REC" />
+                       
+                    </combobox>
+                </div>
+                
+            </div>
+
+            
+            <div style="display:flex;justify-content:flex-end;">
+                <button class="btn_modal" style="width:300px" 
+                        onClick="@command('guardar')">
+                    Guardar
+                </button>
+            </div>
+        </div>
+
+    </div>
+                  
+
+                    
+                  
+</window>

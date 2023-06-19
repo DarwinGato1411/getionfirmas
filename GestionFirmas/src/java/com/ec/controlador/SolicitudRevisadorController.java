@@ -5,13 +5,11 @@
  */
 package com.ec.controlador;
 
-
 import com.ec.entidad.Solicitud;
 import com.ec.entidad.Usuario;
 import com.ec.seguridad.EnumSesion;
 import com.ec.seguridad.UserCredential;
 import com.ec.servicio.ServicioSolicitud;
-
 
 import com.ec.servicio.ServicioUsuario;
 import java.io.IOException;
@@ -19,6 +17,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import javax.naming.NamingException;
 import net.sf.jasperreports.engine.JRException;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
@@ -73,36 +72,36 @@ public class SolicitudRevisadorController {
         buscarSolicitudes();
     }
 
-  
-
     @Command
     @NotifyChange({"listaDatos", "buscar"})
     public void eliminarPaciente(@BindingParam("valor") Solicitud valor) {
         try {
             if (Messagebox.show("¿Esta seguro de eliminar el paciente?", "Atención", Messagebox.YES | Messagebox.NO, Messagebox.INFORMATION) == Messagebox.YES) {
-               
+
                 servicioSolicitud.modificar(valor);
                 buscarLike();
             }
         } catch (Exception e) {
             Clients.showNotification("Ocurrio un error " + e.getMessage(),
-                        Clients.NOTIFICATION_TYPE_ERROR, null, "middle_center", 2000, true);
+                    Clients.NOTIFICATION_TYPE_ERROR, null, "middle_center", 2000, true);
         }
     }
-  @Command
+
+    @Command
     @NotifyChange({"listaDatos", "buscar"})
     public void nuevaSolicitud() {
         try {
 
             org.zkoss.zul.Window window = (org.zkoss.zul.Window) Executions.createComponents(
-                        "/perfil/nuevo/solicitud.zul", null, null);
+                    "/perfil/nuevo/solicitud.zul", null, null);
             window.doModal();
             buscarLike();
         } catch (Exception e) {
             Clients.showNotification("Ocurrio un error " + e.getMessage(),
-                        Clients.NOTIFICATION_TYPE_ERROR, null, "middle_center", 2000, true);
+                    Clients.NOTIFICATION_TYPE_ERROR, null, "middle_center", 2000, true);
         }
     }
+
     @Command
     @NotifyChange({"listaDatos", "buscar"})
     public void modificarSolicitud(@BindingParam("valor") Solicitud valor) {
@@ -112,15 +111,27 @@ public class SolicitudRevisadorController {
 
             map.put("valor", valor);
             org.zkoss.zul.Window window = (org.zkoss.zul.Window) Executions.createComponents(
-                        "/perfil/nuevo/solicitud.zul", null, map);
+                    "/perfil/nuevo/solicitud.zul", null, map);
             window.doModal();
         } catch (Exception e) {
             Clients.showNotification("Ocurrio un error " + e.getMessage(),
-                        Clients.NOTIFICATION_TYPE_ERROR, null, "middle_center", 2000, true);
+                    Clients.NOTIFICATION_TYPE_ERROR, null, "middle_center", 2000, true);
         }
     }
 
-   
+    @Command
+    public void cambiarEstadoSol(@BindingParam("valor") Solicitud valor) throws JRException, IOException, NamingException, SQLException {
+        try {
+            final HashMap<String, Solicitud> map = new HashMap<String, Solicitud>();
+
+            map.put("valor", valor);
+            org.zkoss.zul.Window window = (org.zkoss.zul.Window) Executions.createComponents(
+                    "/revisador/estadoSolicitud.zul", null, map);
+            window.doModal();
+        } catch (Exception e) {
+            Messagebox.show("Error " + e.toString(), "Atención", Messagebox.OK, Messagebox.INFORMATION);
+        }
+    }
 
     private void buscarSolicitudes() {
         listaDatos = servicioSolicitud.findLikeSolicitud(buscar, credential.getUsuarioSistema());
@@ -141,7 +152,5 @@ public class SolicitudRevisadorController {
     public void setBuscar(String buscar) {
         this.buscar = buscar;
     }
-
-   
 
 }

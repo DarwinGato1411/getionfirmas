@@ -52,7 +52,6 @@ public class LoginController extends SelectorComposer<Component> {
 
             if (cre.getNivelUsuario().intValue() == GrupoUsuarioEnum.DISTRIBUIDOR.getCodigo()) {
                 Executions.sendRedirect("/perfil/solicitud.zul");
-
             } else if (cre.getNivelUsuario().intValue() == GrupoUsuarioEnum.REVISADOR.getCodigo()) {
                 Executions.sendRedirect("/revisador/solicitud.zul");
             }  else if (cre.getNivelUsuario().intValue() == GrupoUsuarioEnum.ADMINISTRADOR.getCodigo()) {

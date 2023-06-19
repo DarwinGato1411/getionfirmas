@@ -12,6 +12,76 @@
         <div class="bodyModal">
             
             <div class="container_row_input">  
+                
+  <radiogroup selectedItem="@bind(vm.entidad.solTipo)">
+    <radio label="Persona Natural" value="PN" onClick="@command('personaNatural')"  />
+    <radio label="Representante legal empresa" value="RLE" onClick="@command('repreLegalEmpresa')" />
+    <radio label="Miembro empresa" value="ME"  onClick="@command('miembEmpresa')"/>
+  </radiogroup>
+                <div id="contenedorMR" class="DP">
+                    <div class="leyenda">
+                        <label class="leyenda" value="Datos de la Empresa"></label> 
+                    </div>  
+                    <div id="RLE" class="wrapper_input_mod_group">
+                        <div class="wrapper_input_mod">
+                            <span>RUC</span>
+                            <div class="wrapper_input_text">
+                        
+                                <textbox  
+                                    maxlength="100"    
+                                    onChange="self.setValue(self.getValue().toUpperCase());"  
+                                    value="@bind(vm.entidad.solRucEmpresa)" 
+                                    class="input_text" />
+                            </div>
+                        </div>
+                        <div class="wrapper_input_mod">
+                            <span>Razón Social</span>
+                            <div class="wrapper_input_text">
+                        
+                                <textbox  
+                                    maxlength="100"    
+                                    onChange="self.setValue(self.getValue().toUpperCase());"  
+                                    value="@bind(vm.entidad.solRazonSocial)" 
+                                    class="input_text" />
+                            </div>
+                        </div>
+                        <div id="rle" class="wrapper_input_mod">
+                            <span>Cargo Representante</span>
+                            <div class="wrapper_input_text">
+                        
+                                <textbox  
+                                    maxlength="100"    
+                                    onChange="self.setValue(self.getValue().toUpperCase());"  
+                                    value="@bind(vm.entidad.solCargoRepresentante)" 
+                                    class="input_text" />
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div id="me" class="wrapper_input_mod_group">
+                        <div class="wrapper_input_mod">
+                            <span>Area</span>
+                            <div class="wrapper_input_text">  
+                                <textbox  
+                                    maxlength="100"    
+                                    onChange="self.setValue(self.getValue().toUpperCase());"  
+                                    value="@bind(vm.entidad.solArea)" 
+                                    class="input_text" />
+                            </div>
+                        </div>
+                        <div class="wrapper_input_mod">
+                            <span>Cargo del solicitante</span>
+                            <div class="wrapper_input_text">
+                        
+                                <textbox  
+                                    maxlength="100"    
+                                    onChange="self.setValue(self.getValue().toUpperCase());"  
+                                    value="@bind(vm.entidad.solCargoSolicitante)" 
+                                    class="input_text" />
+                            </div>
+                        </div>
+                    </div>
+                </div>          
                 <div class="DP">
                     <div class="leyenda">
                         <label class="leyenda" value="Datos Personales"></label> 
@@ -27,11 +97,6 @@
                                 <comboitem value="CEDULA" label="CEDULA" />
                                 <comboitem value="PASAPORTE" label="PASAPORTE" />
                             </combobox>
-                    
-                    
-                   
-                    
-                    
                         </div>
                    <div class="wrapper_input_mod_group">
                         <div class="wrapper_input_mod">
@@ -220,8 +285,10 @@
                     
                         </div>
                     </div>
-                        
-                         <div class="leyenda">
+                    
+                   </div>  
+                   <div class="DP">  
+                    <div class="leyenda">
                         <label class="leyenda" value="Dirección Domicilio"></label> 
                     </div> 
                         <div class="wrapper_input_mod_group">
@@ -271,12 +338,14 @@
                     </div>
                   
                     
+                </div> 
                 
+                <div class="DP">
+                    
                 </div>
-                
                 <div class="AP">
                     <div class="leyenda">
-                        <label class="leyenda" value=" Documentos"></label> 
+                        <label class="leyenda" value=" Documentos Personales"></label> 
                     </div>  
                     <div class="wrapper_input_mod_group">
                         <div class="wrapper_input_mod">
@@ -301,9 +370,9 @@
                                 </a>
                             </div>
                         </div>
-                    <div class="wrapper_input_mod">
-                             <div  align="center" class="panelImagen">
-                                <image   content="@bind(vm.fotoSelfi)"  width="200px" height="200px"/>
+                        <div class="wrapper_input_mod">
+                             <div  align="center" >
+                                <image   content="@bind(vm.fotoSelfi)" class="panelImagen"  width="300px" height="200px"/>
                             </div>
                             <div style="display:flex;justify-content:flex-end;">
                                 <a class="btn_modal"  onClick="@command('subirSelfi')"  >

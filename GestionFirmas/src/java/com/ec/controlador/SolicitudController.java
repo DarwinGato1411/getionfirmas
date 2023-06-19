@@ -5,13 +5,11 @@
  */
 package com.ec.controlador;
 
-
 import com.ec.entidad.Solicitud;
 import com.ec.entidad.Usuario;
 import com.ec.seguridad.EnumSesion;
 import com.ec.seguridad.UserCredential;
 import com.ec.servicio.ServicioSolicitud;
-
 
 import com.ec.servicio.ServicioUsuario;
 import java.io.IOException;
@@ -73,36 +71,41 @@ public class SolicitudController {
         buscarSolicitudes();
     }
 
-  
-
     @Command
     @NotifyChange({"listaDatos", "buscar"})
     public void eliminarPaciente(@BindingParam("valor") Solicitud valor) {
         try {
-            if (Messagebox.show("¿Esta seguro de eliminar el paciente?", "Atención", Messagebox.YES | Messagebox.NO, Messagebox.INFORMATION) == Messagebox.YES) {
-               
-                servicioSolicitud.modificar(valor);
-                buscarLike();
+            if (Messagebox.show("¿Esta seguro de eliminar la solicitud?", "Atención", Messagebox.YES | Messagebox.NO, Messagebox.INFORMATION) == Messagebox.YES) {
+
+                if (valor.getIdEstadoProceso().getEstSigla().equals("APR")) {
+                    Messagebox.show("No se puede eliminar la solicitud por que ya se encuentra aprobada", "Atención", Messagebox.YES, Messagebox.INFORMATION);
+                } else {
+                    servicioSolicitud.eliminar(valor);
+                    buscarLike();
+                }
+
             }
         } catch (Exception e) {
             Clients.showNotification("Ocurrio un error " + e.getMessage(),
-                        Clients.NOTIFICATION_TYPE_ERROR, null, "middle_center", 2000, true);
+                    Clients.NOTIFICATION_TYPE_ERROR, null, "middle_center", 2000, true);
         }
     }
-  @Command
+
+    @Command
     @NotifyChange({"listaDatos", "buscar"})
     public void nuevaSolicitud() {
         try {
 
             org.zkoss.zul.Window window = (org.zkoss.zul.Window) Executions.createComponents(
-                        "/perfil/nuevo/solicitud.zul", null, null);
+                    "/perfil/nuevo/solicitud.zul", null, null);
             window.doModal();
             buscarLike();
         } catch (Exception e) {
             Clients.showNotification("Ocurrio un error " + e.getMessage(),
-                        Clients.NOTIFICATION_TYPE_ERROR, null, "middle_center", 2000, true);
+                    Clients.NOTIFICATION_TYPE_ERROR, null, "middle_center", 2000, true);
         }
     }
+
     @Command
     @NotifyChange({"listaDatos", "buscar"})
     public void modificarSolicitud(@BindingParam("valor") Solicitud valor) {
@@ -112,18 +115,17 @@ public class SolicitudController {
 
             map.put("valor", valor);
             org.zkoss.zul.Window window = (org.zkoss.zul.Window) Executions.createComponents(
-                        "/perfil/nuevo/solicitud.zul", null, map);
+                    "/perfil/nuevo/solicitud.zul", null, map);
             window.doModal();
         } catch (Exception e) {
             Clients.showNotification("Ocurrio un error " + e.getMessage(),
-                        Clients.NOTIFICATION_TYPE_ERROR, null, "middle_center", 2000, true);
+                    Clients.NOTIFICATION_TYPE_ERROR, null, "middle_center", 2000, true);
         }
     }
 
-   
-
     private void buscarSolicitudes() {
         listaDatos = servicioSolicitud.findLikeSolicitud(buscar, credential.getUsuarioSistema());
+
     }
 
     public List<Solicitud> getListaDatos() {
@@ -141,7 +143,5 @@ public class SolicitudController {
     public void setBuscar(String buscar) {
         this.buscar = buscar;
     }
-
-   
 
 }

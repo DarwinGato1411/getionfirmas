@@ -125,6 +125,25 @@ public class Solicitud implements Serializable {
     private String solJson;
     @Column(name = "sol_id_request")
     private String solIdRequest;
+
+    @Column(name = "sol_tipo")
+    private String solTipo;
+
+    @Column(name = "sol_ruc_empresa")
+    private String solRucEmpresa;
+    
+    @Column(name = "sol_razon_social")
+    private String solRazonSocial;
+           
+    @Column(name = "sol_area")
+    private String solArea;
+    
+    @Column(name = "sol_cargo_representante")
+    private String solCargoRepresentante;
+    
+    @Column(name = "sol_cargo_solicitante")
+    private String solCargoSolicitante;
+
     @JoinColumn(name = "id_ciudad", referencedColumnName = "id_ciudad")
     @ManyToOne
     private Ciudad idCiudad;
@@ -424,8 +443,6 @@ public class Solicitud implements Serializable {
     public void setSolConRuc(Boolean solConRuc) {
         this.solConRuc = solConRuc;
     }
-    
-    
 
     @Override
     public int hashCode() {
@@ -451,5 +468,55 @@ public class Solicitud implements Serializable {
     public String toString() {
         return "com.ec.entidad.Solicitud[ idSolicitud=" + idSolicitud + " ]";
     }
+
+    public String getSolTipo() {
+        return solTipo;
+    }
+
+    public void setSolTipo(String solTipo) {
+        this.solTipo = solTipo;
+    }
+
+    public String getSolRucEmpresa() {
+        return solRucEmpresa;
+    }
+
+    public void setSolRucEmpresa(String solRucEmpresa) {
+        this.solRucEmpresa = solRucEmpresa;
+    }
+
+    public String getSolRazonSocial() {
+        return solRazonSocial;
+    }
+
+    public void setSolRazonSocial(String solRazonSocial) {
+        this.solRazonSocial = solRazonSocial;
+    }
+
+    public String getSolArea() {
+        return solArea;
+    }
+
+    public void setSolArea(String solArea) {
+        this.solArea = solArea;
+    }
+
+    public String getSolCargoRepresentante() {
+        return solCargoRepresentante;
+    }
+
+    public void setSolCargoRepresentante(String solCargoRepresentante) {
+        this.solCargoRepresentante = solCargoRepresentante;
+    }
+
+    public String getSolCargoSolicitante() {
+        return solCargoSolicitante;
+    }
+
+    public void setSolCargoSolicitante(String solCargoSolicitante) {
+        this.solCargoSolicitante = solCargoSolicitante;
+    }
+
+    
 
 }
