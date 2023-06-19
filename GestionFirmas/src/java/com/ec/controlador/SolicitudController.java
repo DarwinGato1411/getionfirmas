@@ -5,6 +5,7 @@
  */
 package com.ec.controlador;
 
+import com.ec.entidad.EstadoProceso;
 import com.ec.entidad.Solicitud;
 import com.ec.entidad.Usuario;
 import com.ec.seguridad.EnumSesion;

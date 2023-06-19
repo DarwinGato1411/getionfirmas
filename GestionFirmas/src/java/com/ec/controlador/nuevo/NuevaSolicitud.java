@@ -451,6 +451,7 @@ public class NuevaSolicitud {
 
     public void setTipoSolicitud(String tipoSolicitud) {
         this.tipoSolicitud = tipoSolicitud;
+    }
     /**
      * SUBIR PDF
      */

@@ -1,0 +1,9 @@
+<?init class="com.ec.seguridad.Autentificador"?>
+
+<zk  >
+    <include src="/plantillaadm/banner.zul"/>
+    <div class="contenedorMC">
+        <include src="/plantillaadm/menuOpciones.zul"/>
+        <div  id="mainContentAsesor" class="mainContainer"  self="@{insert(content)}"> </div>
+    </div>
+</zk>
