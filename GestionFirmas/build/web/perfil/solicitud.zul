@@ -85,12 +85,12 @@
                                 <textbox readonly="true"  style="font-size:12px ;background:#EBF5FB"
                                          class="form-control form-control-sm" 
                                          value="@bind(each.solNombre)" />
-                                <button    class="btn-success-zk"
+<!--                                <button    class="btn-success-zk"
                                            iconSclass="z-icon-eye"
                                            onClick="@command('registrarVisita',valor=each)" 
                                            tooltiptext="">
                                     
-                                </button>                                                  
+                                </button>                                                  -->
                                 <button class="btn btn-primary"
                                         iconSclass="z-icon-pencil"
                                         onClick="@command('modificarSolicitud',valor=each)" 
@@ -100,8 +100,8 @@
                                 <button 
                                     class="btn-danger-zk"
                                     iconSclass="z-icon-trash-o"
-                                    onClick="@command('eliminarPaciente',valor=each)" 
-                                    tooltiptext="">
+                                    onClick="@command('cancelarSolicitud',valor=each)" 
+                                    tooltiptext="Cancelar Solicitud">
                                     
                                 </button>                                 
                                                   
@@ -109,15 +109,15 @@
 
                             <listcell zclass = "mycss-listcell"  class="btnPc" style="font-size:12px;background:#F8F9F9">   
 
-                                <button  class="btn-success-zk"
+<!--                                <button  class="btn-success-zk"
                                          label="Historial"       
                                          onClick="@command('registrarVisita',valor=each)" 
                                          tooltiptext="">
                                          
-                                </button>                                                  
+                                </button>                                                  -->
                                 <button 
                                     label="Ver"
-                                    iconSclass="z-icon-eye"
+                                    iconSclass="z-icon-pencil"
                                     onClick="@command('modificarSolicitud',valor=each)" 
                                     tooltiptext="">
                                     
@@ -126,8 +126,8 @@
                                     label=""
                                     class="btn-danger-zk"
                                     iconSclass="z-icon-trash-o"
-                                    onClick="@command('eliminarPaciente',valor=each)" 
-                                    tooltiptext="">
+                                    onClick="@command('cancelarSolicitud',valor=each)" 
+                                    tooltiptext="Cancelar solicitud">
                                     
                                 </button>                                      
                                                   

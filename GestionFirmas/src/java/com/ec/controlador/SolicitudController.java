@@ -5,13 +5,13 @@
  */
 package com.ec.controlador;
 
-
+import com.ec.entidad.EstadoProceso;
 import com.ec.entidad.Solicitud;
 import com.ec.entidad.Usuario;
 import com.ec.seguridad.EnumSesion;
 import com.ec.seguridad.UserCredential;
+import com.ec.servicio.ServicioEstadoProceso;
 import com.ec.servicio.ServicioSolicitud;
-
 
 import com.ec.servicio.ServicioUsuario;
 import java.io.IOException;
@@ -53,6 +53,8 @@ public class SolicitudController {
     byte[] buffer = new byte[1024 * 1024];
     private AImage fotoGeneral = null;
 
+    ServicioEstadoProceso servicioEstadoProceso = new ServicioEstadoProceso();
+
     @AfterCompose
     public void afterCompose(@ContextParam(ContextType.VIEW) Component view) throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException, JRException, IOException {
         Selectors.wireComponents(view, this, false);
@@ -73,14 +75,12 @@ public class SolicitudController {
         buscarSolicitudes();
     }
 
-  
-
     @Command
     @NotifyChange({"listaDatos", "buscar"})
     public void eliminarPaciente(@BindingParam("valor") Solicitud valor) {
         try {
             if (Messagebox.show("¿Esta seguro de eliminar el paciente?", "Atención", Messagebox.YES | Messagebox.NO, Messagebox.INFORMATION) == Messagebox.YES) {
-               
+
                 servicioSolicitud.modificar(valor);
                 buscarLike();
             }
@@ -89,7 +89,8 @@ public class SolicitudController {
                         Clients.NOTIFICATION_TYPE_ERROR, null, "middle_center", 2000, true);
         }
     }
-  @Command
+
+    @Command
     @NotifyChange({"listaDatos", "buscar"})
     public void nuevaSolicitud() {
         try {
@@ -103,6 +104,7 @@ public class SolicitudController {
                         Clients.NOTIFICATION_TYPE_ERROR, null, "middle_center", 2000, true);
         }
     }
+
     @Command
     @NotifyChange({"listaDatos", "buscar"})
     public void modificarSolicitud(@BindingParam("valor") Solicitud valor) {
@@ -119,8 +121,6 @@ public class SolicitudController {
                         Clients.NOTIFICATION_TYPE_ERROR, null, "middle_center", 2000, true);
         }
     }
-
-   
 
     private void buscarSolicitudes() {
         listaDatos = servicioSolicitud.findLikeSolicitud(buscar, credential.getUsuarioSistema());
@@ -142,6 +142,18 @@ public class SolicitudController {
         this.buscar = buscar;
     }
 
-   
+    @Command
+     @NotifyChange({"listaDatos", "buscar"})
+    public void cancelarSolicitud(@BindingParam("valor") Solicitud valor) {
+
+        if (Messagebox.show("Desea cambiar e", "Question", Messagebox.OK | Messagebox.CANCEL, Messagebox.QUESTION) == Messagebox.OK) {
+            EstadoProceso estado = servicioEstadoProceso.findBySigla("CAN");
+            valor.setIdEstadoProceso(estado);
+            servicioSolicitud.modificar(valor);
+        } else {
+            Clients.showNotification("Solicitud cancelada",
+                        Clients.NOTIFICATION_TYPE_INFO, null, "middle_center", 1000, true);
+        }
+    }
 
 }
