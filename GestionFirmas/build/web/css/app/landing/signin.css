@@ -155,7 +155,7 @@ body {
     width: 100%;
     padding: 10px 30px;
     border-radius: 20px;
-    background-color: : --secondary-color;
+    background-color: --secondary-color;
     border: solid rgb(var(--secondary-color)) 2px;
     color: rgb(var(--secondary-color));
 }
