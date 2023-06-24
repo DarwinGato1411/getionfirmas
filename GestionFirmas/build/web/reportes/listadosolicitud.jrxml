@@ -6,8 +6,14 @@
 	<parameter name="busqueda" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
+	<parameter name="inicio" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fin" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
 	<queryString>
-		<![CDATA[select * from solicitud where sol_nombre LIKE ('%'||$P{busqueda}||'%')]]>
+		<![CDATA[select * from solicitud where sol_nombre LIKE ('%'||$P{busqueda}||'%') and TO_CHAR(sol_fecha_creacion, 'YYYY-MM-DD')::date between $P{inicio} and $P{fin};]]>
 	</queryString>
 	<field name="id_solicitud" class="java.lang.Integer"/>
 	<field name="sol_ruc" class="java.lang.String"/>
@@ -45,6 +51,24 @@
 	<field name="sol_tipo_documento" class="java.lang.String"/>
 	<field name="sol_con_ruc" class="java.lang.Boolean"/>
 	<field name="id_tipo_firma" class="java.lang.Integer"/>
+	<field name="sol_tipo" class="java.lang.String"/>
+	<field name="sol_ruc_empresa" class="java.lang.String"/>
+	<field name="sol_razon_social" class="java.lang.String"/>
+	<field name="sol_area" class="java.lang.String"/>
+	<field name="sol_cargo_representante" class="java.lang.String"/>
+	<field name="sol_cargo_solicitante" class="java.lang.String"/>
+	<field name="sol_me_tipodocumento" class="java.lang.String"/>
+	<field name="sol_me_nombres" class="java.lang.String"/>
+	<field name="sol_me_apellido1" class="java.lang.String"/>
+	<field name="sol_me_apellido2" class="java.lang.String"/>
+	<field name="sol_me_ruc" class="java.lang.String"/>
+	<field name="sol_fecha_creacion" class="java.sql.Timestamp"/>
+	<field name="sol_path_constitucion_compania" class="java.lang.String"/>
+	<field name="sol_path_nombramiento_representante" class="java.lang.String"/>
+	<field name="sol_path_aceptacion_nombramiento" class="java.lang.String"/>
+	<field name="sol_path_ruc_empresa" class="java.lang.String"/>
+	<field name="sol_path_cedula_representante_empresa" class="java.lang.String"/>
+	<field name="sol_path_autorizacion_representante" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -80,11 +104,6 @@
 	</columnHeader>
 	<detail>
 		<band height="26" splitType="Stretch">
-			<staticText>
-				<reportElement x="34" y="134" width="100" height="20"/>
-				<textElement/>
-				<text><![CDATA[Nombre]]></text>
-			</staticText>
 			<textField>
 				<reportElement x="15" y="6" width="100" height="20"/>
 				<textElement/>

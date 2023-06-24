@@ -35,8 +35,7 @@ public class TipoFirma implements Serializable {
     private String tipDescripcion;
     @Column(name = "tip_estado")
     private String tipEstado;
-    @OneToMany(mappedBy = "idTipoFirma")
-    private Collection<Solicitud> solicitudCollection;
+    
     @OneToMany(mappedBy = "idTipoFirma")
     private Collection<DetalleTipoFirma> detalleTipoFirmaCollection;
 
@@ -71,14 +70,6 @@ public class TipoFirma implements Serializable {
         this.tipEstado = tipEstado;
     }
 
-    @XmlTransient
-    public Collection<Solicitud> getSolicitudCollection() {
-        return solicitudCollection;
-    }
-
-    public void setSolicitudCollection(Collection<Solicitud> solicitudCollection) {
-        this.solicitudCollection = solicitudCollection;
-    }
 
     public Collection<DetalleTipoFirma> getDetalleTipoFirmaCollection() {
         return detalleTipoFirmaCollection;

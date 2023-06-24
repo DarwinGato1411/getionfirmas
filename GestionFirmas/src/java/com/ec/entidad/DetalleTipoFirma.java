@@ -7,6 +7,7 @@ package com.ec.entidad;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,6 +16,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -38,9 +40,14 @@ public class DetalleTipoFirma implements Serializable {
     private BigDecimal detPrecioVenta;
     @Column(name = "det_estado")
     private Boolean detEstado;
+    @Column(name = "det_descripcion")
+    private String detDescripcion;
     @JoinColumn(name = "id_tipo_firma", referencedColumnName = "id_tipo_firma")
     @ManyToOne
     private TipoFirma idTipoFirma;
+    
+    @OneToMany(mappedBy = "idDetalleTipoFirma")
+    private Collection<Solicitud> solicitudCollection;
 
     public DetalleTipoFirma() {
     }
@@ -87,6 +94,22 @@ public class DetalleTipoFirma implements Serializable {
 
     public void setIdTipoFirma(TipoFirma idTipoFirma) {
         this.idTipoFirma = idTipoFirma;
+    }
+
+    public String getDetDescripcion() {
+        return detDescripcion;
+    }
+
+    public void setDetDescripcion(String detDescripcion) {
+        this.detDescripcion = detDescripcion;
+    }
+
+    public Collection<Solicitud> getSolicitudCollection() {
+        return solicitudCollection;
+    }
+
+    public void setSolicitudCollection(Collection<Solicitud> solicitudCollection) {
+        this.solicitudCollection = solicitudCollection;
     }
 
     @Override

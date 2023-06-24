@@ -635,10 +635,17 @@
                                 <span>Firma</span>
                             </div>
                             <div class="opciones">
-                            <combobox  readonly="true"     
-                             width="100%">
-                                <comboitem value="P12" label="p12" />
-                                <comboitem value="TOKEN" label="tokn" />
+                            <combobox  
+                                model="@load(vm.listaTipoFirmas)"  
+                                selectedItem="@bind(vm.tipoFirmaSelected)" 
+                                onSelect="@command('consultaDetalleTipoFirma')" 
+                                readonly="true" 
+                                width="100%"
+                                class="textoFechaDateBox">
+                                <template class="asdasds" width="100%"  name="model">
+                                    <comboitem width="100%" 
+                                               label="@bind(each.tipDescripcion)"  />
+                                </template>                                      
                             </combobox>
                             
                             </div>
@@ -649,16 +656,23 @@
                                 <span>Tiempo contrato</span>
                             </div>
                             <div class="opciones">
-                            <combobox  readonly="true"     
-                             width="100%">
-                                <comboitem value="1" label="1 año" />
-                                <comboitem value="2" label="2 años" />
-                                <comboitem value="3" label="3 años" />
+                           <combobox  
+                                model="@load(vm.listaDetalleTipoFirmas)"  
+                                selectedItem="@bind(vm.entidad.idDetalleTipoFirma)"  
+                                readonly="true" 
+                                width="100%"
+                                class="textoFechaDateBox">
+                                <template class="asdasds" width="100%"  name="model">
+                                    <comboitem width="100%" 
+                                               label="@bind(each.detDescripcion)"  />
+                                </template>                                      
                             </combobox>
                             
                             </div>
                             </div>
                         </div>
+                        
+                       
                  </div>
                   <div class="DP"> 
                       <div class="leyenda">
@@ -684,6 +698,7 @@
                         </div>
                     </div>
                     </div>
+                    
                  </div>
             </div>
             <div style="display:flex;justify-content:flex-end;">

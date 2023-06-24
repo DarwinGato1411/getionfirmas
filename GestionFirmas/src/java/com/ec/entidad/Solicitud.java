@@ -194,9 +194,9 @@ public class Solicitud implements Serializable {
     @ManyToOne
     private Usuario idUsuario;
 
-    @JoinColumn(name = "id_tipo_firma", referencedColumnName = "id_tipo_firma")
+    @JoinColumn(name = "id_detalle_tipo_firma", referencedColumnName = "id_detalle_tipo_firma")
     @ManyToOne
-    private TipoFirma idTipoFirma;
+    private DetalleTipoFirma idDetalleTipoFirma;
 
     public Solicitud() {
     }
@@ -485,13 +485,14 @@ public class Solicitud implements Serializable {
         this.solConRuc = solConRuc;
     }
 
-    public TipoFirma getIdTipoFirma() {
-        return idTipoFirma;
+    public DetalleTipoFirma getIdDetalleTipoFirma() {
+        return idDetalleTipoFirma;
     }
 
-    public void setIdTipoFirma(TipoFirma idTipoFirma) {
-        this.idTipoFirma = idTipoFirma;
+    public void setIdDetalleTipoFirma(DetalleTipoFirma idDetalleTipoFirma) {
+        this.idDetalleTipoFirma = idDetalleTipoFirma;
     }
+
 
     @Override
     public int hashCode() {
