@@ -76,6 +76,13 @@
                         tooltiptext="Buscar">
                         Ingresar Solicitud
                     </button>
+                    <button 
+                        label="PDF"
+                                    
+                        onClick="@command('pdfSolicitud')" 
+                        tooltiptext="">
+                                    
+                    </button> 
                 </div>  
             </div>
             <div class="paciente revisador" >
@@ -133,7 +140,7 @@
                             <listcell zclass = "mycss-listcell" style="width:100%;" >
                                
                                 
-                                    <textbox readonly="true"  style="font-size:12px ;background:#EBF5FB"
+                                <textbox readonly="true"  style="font-size:12px ;background:#EBF5FB"
                                              class="form-control form-control-sm" 
                                              value="@bind(each.idUsuario.usuNombre)" />
                                
@@ -178,6 +185,13 @@
                                     tooltiptext="">
                                     
                                 </button>                                      
+                                <button 
+                                    label="PDF Solicitud"
+                                    onClick="@command('pdfSolicitudIndividual',valor=each)" 
+                                    tooltiptext="">
+                                    
+                                </button>                                      
+                                                                     
                                                   
                             </listcell>
                                       
