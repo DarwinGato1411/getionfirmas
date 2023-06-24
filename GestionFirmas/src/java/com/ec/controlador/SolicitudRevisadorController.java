@@ -15,6 +15,7 @@ import com.ec.servicio.ServicioUsuario;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import javax.naming.NamingException;
@@ -46,7 +47,8 @@ public class SolicitudRevisadorController {
     ServicioSolicitud servicioSolicitud = new ServicioSolicitud();
     private List<Solicitud> listaDatos = new ArrayList<Solicitud>();
     private String buscar = "";
-
+    private Date fechainicio = new Date();
+    private Date fechafin = new Date();
     //subir pdf
     private String filePath;
     byte[] buffer = new byte[1024 * 1024];
@@ -151,6 +153,22 @@ public class SolicitudRevisadorController {
 
     public void setBuscar(String buscar) {
         this.buscar = buscar;
+    }
+
+    public Date getFechainicio() {
+        return fechainicio;
+    }
+
+    public void setFechainicio(Date fechainicio) {
+        this.fechainicio = fechainicio;
+    }
+
+    public Date getFechafin() {
+        return fechafin;
+    }
+
+    public void setFechafin(Date fechafin) {
+        this.fechafin = fechafin;
     }
 
 }

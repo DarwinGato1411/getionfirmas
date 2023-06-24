@@ -13,8 +13,62 @@
          viewModel="@id('vm') @init('com.ec.controlador.SolicitudRevisadorController')" >
                   
         <div  class="contenedorPacientes">
-            <div class="paciente revisador" >
-                <div class="">                                    
+            <div  class="botonera">
+                  
+                <div class="contenedorGris busquedaCedula"> 
+                    <label value="Busqueda por Ruc: "/>  
+                    <textbox value="@bind(vm.buscar)" 
+                             class="form-control form-control-sm"
+                             tooltiptext="Buscar por Nombre o Cédula "                         
+                             placeholder="Ejm:1001234567"
+                             onOK="@command('buscarLike')" 
+                             onChange="self.setValue(self.getValue().toUpperCase());" />
+                    <button    
+                        iconSclass="z-icon-book"
+                        onClick="@command('buscarLike')"  
+                        tooltiptext="Buscar por cédula/ruc">
+                        Buscar
+                    </button>
+                </div>
+                <div class="contenedorGris busquedaCedula"> 
+                    <label value="Busqueda por fecha: "/>  
+                    <div class="wrapper_input">
+                        <span>Inicio:</span>
+                        <datebox 
+                            value="@bind(vm.fechainicio)" 
+                            compact="true" 
+                            readonly="true" 
+                            buttonVisible="true" 
+                            class="input_date"
+                            lenient="true" 
+                            format="dd/MM/yyyy " 
+                            constraint="no empty: Ingrese la fecha"
+                        /> 
+                        <div class="fa-solid fa-calendar icon" />                                 
+                    </div>
+                    <div class="wrapper_input">
+                        <span>Fin:</span>
+                        <datebox 
+                            value="@bind(vm.fechafin)" 
+                            compact="true" 
+                            readonly="true" 
+                            buttonVisible="true" 
+                            class="input_date"
+                            lenient="true" 
+                            format="dd/MM/yyyy" 
+                            constraint="no empty: Ingrese la fecha"
+                        />
+                        <div class="fa-solid fa-calendar icon" />
+                    </div>
+                    <button    
+                        iconSclass="z-icon-book"
+                        onClick="@command('buscarFechas')"  
+                        tooltiptext="Buscar por cédula/ruc">
+                        Buscar
+                    </button>
+                </div>
+                <div class="contenedorGris ">
+                                             
                     <button    
                         iconSclass="z-icon-plus"
                         onClick="@command('nuevaSolicitud')"  
@@ -22,24 +76,22 @@
                         tooltiptext="Buscar">
                         Ingresar Solicitud
                     </button>
-                </div>    
+                </div>  
+            </div>
+            <div class="paciente revisador" >
+                   
                 <listbox class="tabla table-responsive table table-striped table-bordered second" 
                          model="@load(vm.listaDatos)" 
                          nonselectableTags="*"  mold="paging" pageSize="15"  >
                                
                     <custom-attributes org.zkoss.zul.listbox.rod="true"/>                       
                     <listhead  class="tblCabecera " > 
-                        <listheader label="" >
-                            <textbox value="@bind(vm.buscar)" 
-                                     class="form-control form-control-sm"
-                                     tooltiptext="Buscar por Nombre o Cédula "                         
-                                     placeholder="....."
-                                     onOK="@command('buscarLike')"
-                                     onChange="self.setValue(self.getValue().toUpperCase());" />
-                        </listheader>                                                                         
-                        <listheader label="Nombre" class="btnPc" />                                                                         
-                        <listheader label="Correo" class="btnPc" />                                                                         
-                        <listheader label="Telefono" class="btnPc"/>                                                                         
+                        <listheader label="Cédula/RUC" > </listheader>                                                                         
+                        <listheader label="Nombre"  />                                                                         
+                        <listheader label="Correo"  />                                                                         
+                        <listheader label="Telefono" />
+                        <listheader label="Creado por:" />  
+                        <listheader label="Rol:" />                                                                        
                         <!--                        <listheader label="E-S"  tooltiptext="Estado de la solicitud "  class="btnPc"/>                                                                         
                         <listheader label="E-F"  tooltiptext="Estado de la firma "  class="btnPc"/>                                                                         -->
                         <listheader label="" class="btnPc"  />                                                                         
@@ -78,33 +130,27 @@
                                          value="@bind(each.idEstadoFirma.estDescripcion)" />
                             </listcell>-->
                            
-
-                            <listcell zclass = "mycss-listcell"  class="btnCell" style="font-size:12px;background:#F8F9F9">   
-
-                                <button 
-                                    label=""
-                                    iconSclass="z-icon-eye"
-                                    onClick="@command('modificarSolicitud',valor=each)" 
-                                    tooltiptext="">
-                                    
-                                </button> 
-                                <button  class="btn-success-zk"
-                                         label="" 
-                                         iconSclass="z-icon-pencil"      
-                                         onClick="@command('registrarVisita',valor=each)" 
-                                         tooltiptext="">
-                                         
-                                </button>                                                  
-                                                                     
-                                <button 
-                                    label=""
-                                    class="btn-danger-zk"
-                                    iconSclass="z-icon-trash-o"
-                                    onClick="@command('eliminarPaciente',valor=each)" 
-                                    tooltiptext="">
-                                    
-                                </button>                                      
-                                                  
+                            <listcell zclass = "mycss-listcell" style="width:100%;" >
+                               
+                                
+                                    <textbox readonly="true"  style="font-size:12px ;background:#EBF5FB"
+                                             class="form-control form-control-sm" 
+                                             value="@bind(each.idUsuario.usuNombre)" />
+                               
+                               
+                            </listcell>
+                            <listcell zclass = "mycss-listcell" style="width:100%;" >
+                                <div if="${each.idUsuario.usuNivel==1}">
+                                    <textbox readonly="true"  style="font-size:12px ;background:#EBF5FB"
+                                             class="form-control form-control-sm" 
+                                             value="DISTRIBUIDOR" /> 
+                                </div>
+                                <div if="${each.idUsuario.usuNivel==3}">
+                                    <textbox readonly="true"  style="font-size:12px ;background:#EBF5FB"
+                                             class="form-control form-control-sm" 
+                                             value="REVISADOR" />
+                                </div>
+                               
                             </listcell>
 
                             <listcell zclass = "mycss-listcell"  class="btnPc" style="font-size:12px;background:#F8F9F9">   

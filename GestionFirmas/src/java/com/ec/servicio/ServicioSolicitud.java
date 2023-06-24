@@ -7,6 +7,7 @@ package com.ec.servicio;
 import com.ec.entidad.Solicitud;
 import com.ec.entidad.Usuario;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -131,6 +132,63 @@ public class ServicioSolicitud {
             em.getTransaction().commit();
         } catch (Exception e) {
             System.out.println("Error solicituds finAll " + e.getMessage());
+        } finally {
+            em.close();
+        }
+
+        return listaSolicituds;
+    }
+
+//    public List<Solicitud> findSolicitudFecha(Date fechaInicio, Date fechaFin, Usuario usuario) {
+//
+//        List<Solicitud> listaSolicituds = new ArrayList<Solicitud>();
+//        try {
+//            //Connection connection = em.unwrap(Connection.class);
+//
+//            em = HelperPersistencia.getEMF();
+//            em.getTransaction().begin();
+//            Query query = em.createQuery("SELECT u FROM Solicitud u WHERE u.solFechaCreacion>=:fechaInicio AND u.solFechaCreacion<=:fechaFin AND u.idUsuario=:idUsuario");
+//            query.setParameter("fechaInicio", fechaInicio);
+//            query.setParameter("fechaFin", fechaFin);
+//
+//            listaSolicituds = (List<Solicitud>) query.getResultList();
+//            em.getTransaction().commit();
+//        } catch (Exception e) {
+//            System.out.println("Error en lsa consulta solicitud  FindSolicitudPorNombre  " + e);
+//        } finally {
+//            em.close();
+//        }
+//
+//        return listaSolicituds;
+//    }
+    public List<Solicitud> findSolicitudFecha(Date fechaInicio, Date fechaFin, Usuario usuario) {
+
+        List<Solicitud> listaSolicituds = new ArrayList<Solicitud>();
+        try {
+            String SQL = "SELECT u FROM Solicitud u WHERE u.solFechaCreacion>=:fechaInicio AND u.solFechaCreacion<=:fechaFin";
+            String WHERE = " AND u.idUsuario=:idUsuario";
+            String ORDERBY = " ORDER BY u.solNombre ASC";
+//            System.out.println("Entra a consultar solicituds");
+//            //Connection connection = em.unwrap(Connection.class);
+            em = HelperPersistencia.getEMF();
+            em.getTransaction().begin();
+//
+            if (usuario.getUsuNivel() == 1) {
+                SQL = SQL + WHERE + ORDERBY;
+            } else {
+                SQL = SQL + ORDERBY;
+            }
+            Query query = em.createQuery(SQL);
+            query.setParameter("fechaInicio", fechaInicio);
+            query.setParameter("fechaFin", fechaFin);
+//
+            if (usuario.getUsuNivel() == 1) {
+                query.setParameter("idUsuario", usuario);
+            }
+            listaSolicituds = (List<Solicitud>) query.getResultList();
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            System.out.println("Error solicituds finAll " + e);
         } finally {
             em.close();
         }

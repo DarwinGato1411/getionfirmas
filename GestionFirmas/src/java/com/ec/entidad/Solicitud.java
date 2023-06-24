@@ -131,18 +131,55 @@ public class Solicitud implements Serializable {
 
     @Column(name = "sol_ruc_empresa")
     private String solRucEmpresa;
-    
+
     @Column(name = "sol_razon_social")
     private String solRazonSocial;
-           
+
     @Column(name = "sol_area")
     private String solArea;
-    
+
     @Column(name = "sol_cargo_representante")
     private String solCargoRepresentante;
-    
+
     @Column(name = "sol_cargo_solicitante")
     private String solCargoSolicitante;
+
+    @Column(name = "sol_me_tipodocumento")
+    private String solMeTipodocumento;
+
+    @Column(name = "sol_me_nombres")
+    private String solMeNombres;
+
+    @Column(name = "sol_me_apellido1")
+    private String solMeApellido1;
+
+    @Column(name = "sol_me_apellido2")
+    private String solMeApellido2;
+
+    @Column(name = "sol_me_ruc")
+    private String solMeRuc;
+
+    @Column(name = "sol_fecha_creacion")
+    private Date solFechaCreacion;
+    
+    @Column(name = "sol_path_constitucion_compania")
+    private String solPathConstitucionCompania;
+    
+    @Column(name = "sol_path_nombramiento_representante")
+    private String solPathNombramientoRepresentante;
+    
+    @Column(name = "sol_path_aceptacion_nombramiento")
+    private String solPathAceptacionNombramiento;
+    
+    @Column(name = "sol_path_ruc_empresa")
+    private String solPathRucEmpresa;
+    
+    @Column(name = "sol_path_cedula_representante_empresa")
+    private String solPathCedulaRepresentanteEmpresa;
+    
+    @Column(name = "sol_path_autorizacion_representante")
+    private String solPathAutorizacionRepresentante;
+    
 
     @JoinColumn(name = "id_ciudad", referencedColumnName = "id_ciudad")
     @ManyToOne
@@ -156,11 +193,10 @@ public class Solicitud implements Serializable {
     @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario")
     @ManyToOne
     private Usuario idUsuario;
-    
+
     @JoinColumn(name = "id_tipo_firma", referencedColumnName = "id_tipo_firma")
     @ManyToOne
     private TipoFirma idTipoFirma;
-    
 
     public Solicitud() {
     }
@@ -456,8 +492,6 @@ public class Solicitud implements Serializable {
     public void setIdTipoFirma(TipoFirma idTipoFirma) {
         this.idTipoFirma = idTipoFirma;
     }
-    
-    
 
     @Override
     public int hashCode() {
@@ -532,6 +566,101 @@ public class Solicitud implements Serializable {
         this.solCargoSolicitante = solCargoSolicitante;
     }
 
-    
+    public String getSolMeTipodocumento() {
+        return solMeTipodocumento;
+    }
 
+    public void setSolMeTipodocumento(String solMeTipodocumento) {
+        this.solMeTipodocumento = solMeTipodocumento;
+    }
+
+    public String getSolMeNombres() {
+        return solMeNombres;
+    }
+
+    public void setSolMeNombres(String solMeNombres) {
+        this.solMeNombres = solMeNombres;
+    }
+
+    public String getSolMeApellido1() {
+        return solMeApellido1;
+    }
+
+    public void setSolMeApellido1(String solMeApellido1) {
+        this.solMeApellido1 = solMeApellido1;
+    }
+
+    public String getSolMeApellido2() {
+        return solMeApellido2;
+    }
+
+    public void setSolMeApellido2(String solMeApellido2) {
+        this.solMeApellido2 = solMeApellido2;
+    }
+
+    public String getSolMeRuc() {
+        return solMeRuc;
+    }
+
+    public void setSolMeRuc(String solMeRuc) {
+        this.solMeRuc = solMeRuc;
+    }
+
+    public Date getSolFechaCreacion() {
+        return solFechaCreacion;
+    }
+
+    public void setSolFechaCreacion(Date solFechaCreacion) {
+        this.solFechaCreacion = solFechaCreacion;
+    }
+
+    public String getSolPathConstitucionCompania() {
+        return solPathConstitucionCompania;
+    }
+
+    public void setSolPathConstitucionCompania(String solPathConstitucionCompania) {
+        this.solPathConstitucionCompania = solPathConstitucionCompania;
+    }
+
+    public String getSolPathNombramientoRepresentante() {
+        return solPathNombramientoRepresentante;
+    }
+
+    public void setSolPathNombramientoRepresentante(String solPathNombramientoRepresentante) {
+        this.solPathNombramientoRepresentante = solPathNombramientoRepresentante;
+    }
+
+    public String getSolPathAceptacionNombramiento() {
+        return solPathAceptacionNombramiento;
+    }
+
+    public void setSolPathAceptacionNombramiento(String solPathAceptacionNombramiento) {
+        this.solPathAceptacionNombramiento = solPathAceptacionNombramiento;
+    }
+
+    public String getSolPathRucEmpresa() {
+        return solPathRucEmpresa;
+    }
+
+    public void setSolPathRucEmpresa(String solPathRucEmpresa) {
+        this.solPathRucEmpresa = solPathRucEmpresa;
+    }
+
+    public String getSolPathCedulaRepresentanteEmpresa() {
+        return solPathCedulaRepresentanteEmpresa;
+    }
+
+    public void setSolPathCedulaRepresentanteEmpresa(String solPathCedulaRepresentanteEmpresa) {
+        this.solPathCedulaRepresentanteEmpresa = solPathCedulaRepresentanteEmpresa;
+    }
+
+    public String getSolPathAutorizacionRepresentante() {
+        return solPathAutorizacionRepresentante;
+    }
+
+    public void setSolPathAutorizacionRepresentante(String solPathAutorizacionRepresentante) {
+        this.solPathAutorizacionRepresentante = solPathAutorizacionRepresentante;
+    }
+
+    
 }

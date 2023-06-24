@@ -84,6 +84,14 @@
     font-size: 14px ;
 }
 
+.wrapper_input_mod_firma{
+     display: flex;
+}
+
+.wrapper_input_mod_firma .opciones{
+    display: flex;
+}
+
 .modalAll .container_modal .container_row_input .wrapper_input_mod .input_text{
     width: 100%;
     padding: 5px;

@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <window  id="wSolicitud"  position="center" closable="true"  
          apply="org.zkoss.bind.BindComposer" 
          viewModel="@id('vm') @init('com.ec.controlador.nuevo.NuevaSolicitud')"
@@ -18,13 +19,18 @@
     <radio label="Representante legal empresa" value="RLE" onClick="@command('repreLegalEmpresa')" />
     <radio label="Miembro empresa" value="ME"  onClick="@command('miembEmpresa')"/>
   </radiogroup>
-                <div id="contenedorMR" class="DP">
+                <div class="DP" visible="@bind(vm.repremiembros)">                   
+                                
                     <div class="leyenda">
-                        <label class="leyenda" value="Datos de la Empresa"></label> 
+                        <label class="leyenda" value="Datos de la empresa"></label> 
                     </div>  
                     <div id="RLE" class="wrapper_input_mod_group">
                         <div class="wrapper_input_mod">
-                            <span>RUC</span>
+                            
+                            <div class="campoImportante">
+                                <span class="importante">*</span>
+                                <span>RUC</span>
+                            </div>
                             <div class="wrapper_input_text">
                         
                                 <textbox  
@@ -35,7 +41,11 @@
                             </div>
                         </div>
                         <div class="wrapper_input_mod">
-                            <span>Razón Social</span>
+                            <div class="campoImportante">
+                                <span class="importante">*</span>
+                                <span>Razón Social</span>
+                            </div>
+                            
                             <div class="wrapper_input_text">
                         
                                 <textbox  
@@ -45,8 +55,12 @@
                                     class="input_text" />
                             </div>
                         </div>
-                        <div id="rle" class="wrapper_input_mod">
-                            <span>Cargo Representante</span>
+                        <div class="wrapper_input_mod" visible="@bind(vm.cargoRepresentate)">
+                            <div class="campoImportante">
+                                <span class="importante">*</span>
+                                <span>Cargo Representante</span>
+                            </div>
+                            
                             <div class="wrapper_input_text">
                         
                                 <textbox  
@@ -57,11 +71,13 @@
                             </div>
                         </div>
                         
-                    </div>
-                    <div id="me" class="wrapper_input_mod_group">
-                        <div class="wrapper_input_mod">
-                            <span>Area</span>
-                            <div class="wrapper_input_text">  
+                        <div  class="wrapper_input_mod" visible="@bind(vm.mienbroEmpresa)">
+                            
+                            <div   class="campoImportante">
+                                <span class="importante">*</span>
+                                <span>Area</span>
+                            </div>
+                            <div  class="wrapper_input_text">  
                                 <textbox  
                                     maxlength="100"    
                                     onChange="self.setValue(self.getValue().toUpperCase());"  
@@ -69,8 +85,12 @@
                                     class="input_text" />
                             </div>
                         </div>
-                        <div class="wrapper_input_mod">
-                            <span>Cargo del solicitante</span>
+                        <div  visible="@bind(vm.mienbroEmpresa)" class="wrapper_input_mod">
+                            
+                            <div class="campoImportante">
+                                <span class="importante">*</span>
+                                <span>Cargo del solicitante</span>
+                            </div>
                             <div class="wrapper_input_text">
                         
                                 <textbox  
@@ -80,29 +100,117 @@
                                     class="input_text" />
                             </div>
                         </div>
+                        
                     </div>
-                </div>          
-                <div class="DP">
+                    
+                </div> 
+                <div  class="DP" visible="@bind(vm.mienbroEmpresa)">
+                    <div class="leyenda">
+                        <label class="leyenda" value="Representante legal"></label> 
+                    </div>  
+                    <div id="" class="wrapper_input_mod_group">
+                        
+                         <div class="wrapper_input_mod">
+                            <div class="campoImportante">
+                                <span class="importante">*</span>
+                                <span>Tipo documento</span>
+                            </div>
+                            
+                            <combobox  readonly="true"     
+                             width="100%"                             
+                                       selectedItem="@bind(vm.entidad.solMeTipodocumento)">
+                                <comboitem value="CEDULA" label="CEDULA" />
+                                <comboitem value="PASAPORTE" label="PASAPORTE" />
+                            </combobox>
+                        </div>
+                        <div class="wrapper_input_mod">
+                            
+                            
+                            <div class="campoImportante">
+                                <span class="importante">*</span>
+                                <span>Cédula/Ruc</span>
+                            </div>
+                            <div class="wrapper_input_text">
+                        
+                                <textbox  
+                                    maxlength="100"    
+                                    onChange="self.setValue(self.getValue().toUpperCase());"  
+                                    value="@bind(vm.entidad.solMeRuc)" 
+                                    class="input_text" />
+                            </div>
+                        </div>
+                        <div id="" class="wrapper_input_mod">
+                            
+                            <div class="campoImportante">
+                                <span class="importante">*</span>
+                                <span>Nombres</span>
+                            </div>
+                            <div class="wrapper_input_text">
+                        
+                                <textbox  
+                                    maxlength="100"    
+                                    onChange="self.setValue(self.getValue().toUpperCase());"  
+                                    value="@bind(vm.entidad.solMeNombres)" 
+                                    class="input_text" />
+                            </div>
+                        </div>
+                        <div id="" class="wrapper_input_mod">
+                            <div class="campoImportante">
+                                <span class="importante">*</span>
+                                <span>1er Apellido</span>
+                            </div>
+                            
+                            <div class="wrapper_input_text">
+                        
+                                <textbox  
+                                    maxlength="100"    
+                                    onChange="self.setValue(self.getValue().toUpperCase());"  
+                                    value="@bind(vm.entidad.solMeApellido1)" 
+                                    class="input_text" />
+                            </div>
+                        </div>
+                        <div id="" class="wrapper_input_mod">
+                            <span>2do Apellido</span>
+                            <div class="wrapper_input_text">
+                        
+                                <textbox  
+                                    maxlength="100"    
+                                    onChange="self.setValue(self.getValue().toUpperCase());"  
+                                    value="@bind(vm.entidad.solMeApellido2)" 
+                                    class="input_text" />
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>  
+                       
+                <div class="DP" >
                     <div class="leyenda">
                         <label class="leyenda" value="Datos Personales"></label> 
                     </div>  
                     
                     <div class="wrapper_input_mod_group">
                         <div class="wrapper_input_mod">
-                            <span>Tipo documento</span>
-                            <combobox  readonly="true"     
-                             width="100%"
-                                                             
-                                       selectedItem="@bind(vm.entidad.solTipoDocumento)">
+                            <div class="campoImportante">
+                                <span class="importante">*</span>
+                                 <span>Tipo documento</span>
+                            </div>
+                           
+                            <combobox  readonly="true" 
+                                width="100%" selectedItem="@bind(vm.entidad.solTipoDocumento)">
                                 <comboitem value="CEDULA" label="CEDULA" />
                                 <comboitem value="PASAPORTE" label="PASAPORTE" />
                             </combobox>
                         </div>
                    <div class="wrapper_input_mod_group">
                         <div class="wrapper_input_mod">
-                            <span>Cédula</span>
+                            <div class="campoImportante">
+                                <span class="importante">*</span>
+                                 <span>Cédula</span>
+                            </div>
+                           
                             <div class="wrapper_input_text">
-                        
                                 <textbox  
                                     maxlength="20"     
                                     value="@bind(vm.entidad.solRuc)" 
@@ -110,7 +218,11 @@
                             </div>
                         </div>
                         <div class="wrapper_input_mod">
-                            <span>Código dactilar</span>
+                            <div class="campoImportante">
+                                <span class="importante">*</span>
+                                <span>Código dactilar</span>
+                            </div>
+                           
                             <div class="wrapper_input_text">
                         
                                 <textbox  
@@ -123,7 +235,11 @@
                    </div>
                         <div class="wrapper_input_mod_group">
                             <div class="wrapper_input_mod">
-                                <span>Fecha de nacimiento</span>
+                                <div class="campoImportante">
+                                    <span class="importante">*</span>
+                                    <span>Fecha de nacimiento</span>
+                                </div>
+                                
                    
                                 <div class="wrapper_input_text">
                                     <datebox compact="true" 
@@ -145,7 +261,8 @@
                            
                                     <intbox constraint="no negative,no zero"  
                                             value="@bind(vm.entidad.solEdad)" 
-                                            format="##" class="input_text"   
+                                            format="##" class="input_text"
+                                            readonly="true"
                                             tabindex="1" />
                            
                                 </div>
@@ -156,7 +273,11 @@
                     </div>
                     <div class="wrapper_input_mod_group">
                         <div class="wrapper_input_mod">
-                            <span>Nombres</span>
+                            <div class="campoImportante">
+                                    <span class="importante">*</span>
+                                    <span>Nombres</span>
+                                </div>
+                            
                             <div class="wrapper_input_text">
                         
                                 <textbox  
@@ -167,7 +288,11 @@
                             </div>
                         </div>
                         <div class="wrapper_input_mod">
-                            <span>1er Apellido</span>
+                            <div class="campoImportante">
+                                    <span class="importante">*</span>
+                                    <span>1er Apellido</span>
+                                </div>
+                           
                             <div class="wrapper_input_text">
                         
                                 <textbox  
@@ -194,7 +319,11 @@
                     </div>
                      <div class="wrapper_input_mod_group">
                         <div class="wrapper_input_mod">
-                            <span>Email</span>
+                             <div class="campoImportante">
+                                    <span class="importante">*</span>
+                                     <span>Email</span>
+                                </div>
+                           
                             <div class="wrapper_input_text">
                         
                                 <textbox  
@@ -205,7 +334,12 @@
                         </div>
                         
                         <div class="wrapper_input_mod">
-                            <span>Celular</span>
+                            
+                            <div class="campoImportante">
+                                    <span class="importante">*</span>
+                                      <span>Celular</span>
+                                </div>
+                           
                    
                             <div class="wrapper_input_text">
                         
@@ -246,7 +380,11 @@
                             </div>
                         </div>
                         <div class="wrapper_input_mod">
-                            <span>Sexo</span>
+                             <div class="campoImportante">
+                                    <span class="importante">*</span>
+                                      <span>Sexo</span>
+                                </div>
+                            
                             <combobox  readonly="true"  
                              width="100%"                                   
                                        selectedItem="@bind(vm.entidad.solSexo)">
@@ -257,8 +395,12 @@
                     
                         </div>
                         
-                        <div class="wrapper_input_mod">
-                            <span>Nacionalidad</span>
+                        <!--<div class="wrapper_input_mod">
+                            <div class="campoImportante">
+                                <span class="importante">*</span>
+                                <span>Nacionalidad</span>
+                            </div>
+                           
                             <combobox  
                                 model="@load(vm.listaNacionalidad)"  
                                 selectedItem="@bind(vm.entidad.solNacionalidad)" 
@@ -273,9 +415,13 @@
                                 </template>                                      
                             </combobox>
                     
-                        </div>
+                        </div>-->
                         <div class="wrapper_input_mod">
-                            <span>Con RUC</span>
+                            <div class="campoImportante">
+                                <span class="importante">*</span>
+                               <span>Con RUC</span>
+                            </div>
+                            
                             <radiogroup orient="horizontal"
                                 class="radio_group" 
                                 selectedItem="@bind(vm.entidad.solConRuc)"  >                   
@@ -294,7 +440,11 @@
                         <div class="wrapper_input_mod_group">
                         
                         <div class="wrapper_input_mod">
-                            <span>Provincia</span>
+                             <div class="campoImportante">
+                                <span class="importante">*</span>
+                               <span>Provincia</span>
+                            </div>
+                            
                             <combobox  
                                 model="@load(vm.listaProvincias)"  
                                 selectedItem="@bind(vm.provinciaSelected)" 
@@ -310,7 +460,11 @@
                     
                         </div>
                         <div class="wrapper_input_mod">
-                            <span>Ciudad</span>
+                             <div class="campoImportante">
+                                <span class="importante">*</span>
+                                <span>Ciudad</span>
+                            </div>
+                           
                             <combobox  
                                 model="@load(vm.listaCiudades)"  
                                 selectedItem="@bind(vm.entidad.idCiudad)"  
@@ -324,9 +478,12 @@
                             </combobox>
                     
                         </div>
-                        </div>
-                    <div class="wrapper_input_mod">
-                        <span>Direccion</span>
+                        <div class="wrapper_input_mod">
+                         <div class="campoImportante">
+                                <span class="importante">*</span>
+                                <span>Direccion</span>
+                            </div>
+                        
                         <div class="wrapper_input_text">
                         
                             <textbox  
@@ -335,14 +492,14 @@
                                 value="@bind(vm.entidad.solDireccionCompleta)" 
                                 class="input_text" />
                         </div>
+                        </div>
+                    
                     </div>
                   
                     
                 </div> 
                 
-                <div class="DP">
-                    
-                </div>
+             
                 <div class="AP">
                     <div class="leyenda">
                         <label class="leyenda" value=" Documentos Personales"></label> 
@@ -381,8 +538,8 @@
                             </div>
                         </div>
                     <div class="wrapper_input_mod" >
-                             <div  align="center" class="panelImagen">
-                                 <iframe width="200px" height="200px" content="@bind(vm.pdfRuc)"/>x 
+                             <div  align="center">
+                                 <iframe width="200px" height="200px" content="@bind(vm.pdfRuc)"/> 
                             </div>
                             <div style="display:flex;justify-content:flex-end;">
                                 <a  class="btn_modal"  onClick="@command('subirPDFRuc')"  >
@@ -396,6 +553,138 @@
                     
                 </div>
                 
+                <div class="AP" visible="@bind(vm.repremiembros)">
+                    <div class="leyenda">
+                        <label class="leyenda" value=" Documentos"></label> 
+                    </div>  
+                    <div class="wrapper_input_mod_group">
+                        <div class="wrapper_input_mod">
+                            
+                            <div  align="center">
+                                <iframe width="200px" height="200px" content="@bind(vm.pdfConstCompa)"/> 
+                            </div>
+                            <div style="display:flex;justify-content:flex-end;">
+                                <a class="btn_modal"  onClick="@command('subirConstCompa')"  >
+                                    Constitución de compañia
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="wrapper_input_mod">
+                             <div  align="center">
+                                 <iframe width="200px" height="200px" content="@bind(vm.pdfNombraRepre)"/>
+                            </div>
+                            <div style="display:flex;justify-content:flex-end;">
+                                <a class="btn_modal"  onClick="@command('subirNombraRepre')"  >
+                                    Nombramiento de representante
+                                </a>
+                            </div>
+                        </div>
+                        <div class="wrapper_input_mod">
+                             <div  align="center" >
+                                 <iframe width="200px" height="200px" content="@bind(vm.pdfAcecptacionNomb)"/>
+                            </div>
+                            <div style="display:flex;justify-content:flex-end;">
+                                <a class="btn_modal"  onClick="@command('subirAceptacionNomb')"  >
+                                    Aceptación de nombramiento
+                                </a>
+                            </div>
+                        </div>
+                    <div class="wrapper_input_mod" visible="@bind(vm.mienbroEmpresa)">
+                             <div  align="center">
+                                  <iframe width="200px" height="200px" content="@bind(vm.pdfRucEmpresa)"/>
+                            </div>
+                            <div style="display:flex;justify-content:flex-end;">
+                                <a  class="btn_modal"  onClick="@command('subirRucEmpresa')"  >
+                                    Copia del ruc de la empresa
+                                </a>
+                            </div>
+                        </div>
+                        <div class="wrapper_input_mod" visible="@bind(vm.mienbroEmpresa)">
+                             <div  align="center">
+                                 <iframe width="200px" height="200px" content="@bind(vm.pdfCedRepreEmpresa)"/> 
+                            </div>
+                            <div style="display:flex;justify-content:flex-end;">
+                                <a  class="btn_modal"  onClick="@command('subirCedulaRepre')"  >
+                                    Cédula representante de la empresa
+                                </a>
+                            </div>
+                        </div>
+                        <div class="wrapper_input_mod" visible="@bind(vm.mienbroEmpresa)">
+                             <div  align="center">
+                                 <iframe width="200px" height="200px" content="@bind(vm.pdfAutoriRepre)"/> 
+                            </div>
+                            <div style="display:flex;justify-content:flex-end;">
+                                <a  class="btn_modal"  onClick="@command('subirAutoRepre')"  >
+                                    Autorización del representante
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="display:flex; gap:10px;" class="" >
+                 <div class="DP"> 
+                      <div class="leyenda">
+                        <label class="leyenda" value="Firma"></label> 
+                       
+                    </div>
+                     <div class="wrapper_input_mod_firma">
+                         <div class="wrapper_input_mod">
+                            <div class="campoImportante">
+                                <span class="importante">*</span>
+                                <span>Firma</span>
+                            </div>
+                            <div class="opciones">
+                            <combobox  readonly="true"     
+                             width="100%">
+                                <comboitem value="P12" label="p12" />
+                                <comboitem value="TOKEN" label="tokn" />
+                            </combobox>
+                            
+                            </div>
+                            </div>
+                            <div class="wrapper_input_mod">
+                            <div class="campoImportante">
+                                <span class="importante">*</span>
+                                <span>Tiempo contrato</span>
+                            </div>
+                            <div class="opciones">
+                            <combobox  readonly="true"     
+                             width="100%">
+                                <comboitem value="1" label="1 año" />
+                                <comboitem value="2" label="2 años" />
+                                <comboitem value="3" label="3 años" />
+                            </combobox>
+                            
+                            </div>
+                            </div>
+                        </div>
+                 </div>
+                  <div class="DP"> 
+                      <div class="leyenda">
+                        <label class="leyenda" value="Retención"/>
+                         <checkbox id="checkbox" label="Casilla de verificación" checked="${true}" />
+                        
+                    </div>
+                    <div class="wrapper_input_mod_group">
+                        <div class="wrapper_input_mod">
+                         <div class="campoImportante">
+                                <span class="importante">*</span>
+                                <span>Número retención</span>
+                            </div>
+                        
+                        <div class="wrapper_input_text">
+                        
+                            <textbox  
+                                maxlength="100"    
+                                onChange="self.setValue(self.getValue().toUpperCase());"  
+                                value="@bind(vm.entidad.solDireccionCompleta)" 
+                                class="input_text" />
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                 </div>
             </div>
             <div style="display:flex;justify-content:flex-end;">
                 <a class="btn_modal"  onClick="@command('guardar')">

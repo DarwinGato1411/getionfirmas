@@ -27,7 +27,7 @@
                                 Subir fotografía
                             </button>                               
                         </div>
-<!--                        <div class="inputGroupImg" >
+                        <!--                        <div class="inputGroupImg" >
                             <image   content="@bind(vm.fotoLogo)" width="200px" />
                             <button 
                                 class="btnSubirImg"
@@ -83,16 +83,31 @@
                                  tooltiptext="Nombre Comercial"
                                  width="90%" />
                     </div>     
-                    <div class="inputGroup">
+                    <div  class="inputGroup">
                         <label value="Password:"/>
-                        <textbox value="@bind(vm.usuario.usuPassword)" 
-                                 placeholder="Password"
-                                 class="form-control form-control-sm"
-                                 tooltiptext="Nombre Comercial" 
-                                 width="90%"/>
-                    </div>  
+                        <vlayout>
+                            <textbox  
+                                     
+                                     type="password"
+                                     placeholder="Password"
+                                     id="passwordField"
+                                    
+                                     class="form-control form-control-sm"
+                                     tooltiptext="Nombre Comercial" 
+                                     value="@bind(vm.usuario.usuPassword)"
+                                     width="90%"/>
+                        </vlayout>
+                        
+                    </div>
+    
                              
-                  
+                    <button 
+                        class="inputGroupBtn"
+                        onClick="@command('mostrarContrasenia')"
+                        iconSclass="z-icon-eye"
+                        tooltiptext="Buscar">
+                        Mostrar Contraseña
+                    </button>   
                     
                     <button 
                         class="inputGroupBtn"

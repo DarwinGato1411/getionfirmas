@@ -4,7 +4,7 @@
  */
 package com.ec.controlador;
 
-
+import com.ec.entidad.EstadoProceso;
 import com.ec.entidad.Solicitud;
 import com.ec.servicio.ServicioSolicitud;
 import org.zkoss.bind.annotation.AfterCompose;
@@ -28,28 +28,39 @@ public class CambioEstadoSol {
     Window windowEstFact;
     private Solicitud solicitud;
     private ServicioSolicitud servicioSolicitud = new ServicioSolicitud();
-    private String estadoSol;
-    private String descripcionAnula;
-  
+    private EstadoProceso estadoSol;
 
     @AfterCompose
     public void afterCompose(@ExecutionArgParam("valor") Solicitud valor, @ContextParam(ContextType.VIEW) Component view) {
         Selectors.wireComponents(view, this, false);
         this.solicitud = valor;
         System.out.println(valor);
-        estadoSol=valor.getIdEstadoProceso().getEstSigla();
+        estadoSol = valor.getIdEstadoProceso();
     }
 
     @Command
     public void guardar() {
-       
-//            facturar.setEstadosri(estado);
-//            facturar.setMensajesri(descripcionAnula);
-            servicioSolicitud.modificar(solicitud);
 
-            Clients.showNotification("Guardado correctamente",
-                    Clients.NOTIFICATION_TYPE_INFO, null, "end_center", 1000, true);
-            windowEstFact.detach();
+        if (solicitud.getIdEstadoProceso().equals("ING")) {
+            solicitud.getIdEstadoProceso().setIdEstadoProceso(1);
+        }
+
+        if (solicitud.getIdEstadoProceso().equals("APR")) {
+            solicitud.getIdEstadoProceso().setIdEstadoProceso(2);
+        }
+
+        if (solicitud.getIdEstadoProceso().equals("REC")) {
+            solicitud.getIdEstadoProceso().setIdEstadoProceso(3);
+        }
+
+        if (solicitud.getIdEstadoProceso().equals("CAN")) {
+            solicitud.getIdEstadoProceso().setIdEstadoProceso(4);
+        }
+        servicioSolicitud.modificar(solicitud);
+
+        Clients.showNotification("Guardado correctamente",
+                Clients.NOTIFICATION_TYPE_INFO, null, "end_center", 1000, true);
+        windowEstFact.detach();
 //        } else {
 //            Clients.showNotification("Verifique el estado de la factura",
 //                    Clients.NOTIFICATION_TYPE_ERROR, null, "end_center", 3000, true);
@@ -58,24 +69,15 @@ public class CambioEstadoSol {
 
     }
 
-    public String getEstadoSol() {
+    public EstadoProceso getEstadoSol() {
         return estadoSol;
     }
 
-    public void setEstadoSol(String estadoSol) {
+    public void setEstadoSol(EstadoProceso estadoSol) {
         this.estadoSol = estadoSol;
     }
 
-  
-   
-
-    public String getDescripcionAnula() {
-        return descripcionAnula;
-    }
-
-    public void setDescripcionAnula(String descripcionAnula) {
-        this.descripcionAnula = descripcionAnula;
-    }
+    
 
     public Solicitud getSolicitud() {
         return solicitud;

@@ -5,7 +5,6 @@
  */
 package com.ec.controlador;
 
-
 import com.ec.entidad.Parametrizar;
 import com.ec.entidad.Usuario;
 import com.ec.seguridad.EnumSesion;
@@ -31,9 +30,11 @@ import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Session;
 import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.select.Selectors;
+import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Fileupload;
 import org.zkoss.zul.Messagebox;
+import org.zkoss.zul.Textbox;
 
 /**
  *
@@ -54,10 +55,12 @@ public class PerfilController {
     ServicioParametrizar servicioParametrizar = new ServicioParametrizar();
     private Parametrizar parametrizar = new Parametrizar();
 
-    /*HORARIO*/
     
-//    private List<Horario> listaHorario = new ArrayList<>();
+    @Wire
+    private Textbox passwordField;
 
+    /*HORARIO*/
+//    private List<Horario> listaHorario = new ArrayList<>();
     public PerfilController() {
         Session sess = Sessions.getCurrent();
         credential = (UserCredential) sess.getAttribute(EnumSesion.userCredential.getNombre());
@@ -103,7 +106,7 @@ public class PerfilController {
                 baseDir.mkdirs();
             }
             Files.copy(new File(filePath + File.separator + media.getName()),
-                        media.getStreamData());
+                    media.getStreamData());
 
             usuario.setUsuFoto(filePath + File.separator + media.getName());
             System.out.println("PATH SUBIR " + filePath + File.separator + media.getName());
@@ -132,7 +135,7 @@ public class PerfilController {
                 baseDir.mkdirs();
             }
             Files.copy(new File(filePath + File.separator + media.getName()),
-                        media.getStreamData());
+                    media.getStreamData());
 
             usuario.setUsuLogo(filePath + File.separator + media.getName());
             System.out.println("PATH SUBIR " + filePath + File.separator + media.getName());
@@ -170,7 +173,18 @@ public class PerfilController {
 
         servicioUsuario.modificar(usuario);
         Clients.showNotification("Guardado correctamente... ",
-                    Clients.NOTIFICATION_TYPE_INFO, null, "end_center", 3000, true);
+                Clients.NOTIFICATION_TYPE_INFO, null, "end_center", 3000, true);
+    }
+
+    @Command
+    public void mostrarContrasenia() {
+        String currentType = passwordField.getType();
+
+        if (currentType.equals("text")) {
+            passwordField.setType("password");
+        } else if (currentType.equals("password")) {
+            passwordField.setType("text");
+        }
     }
 
     public Usuario getUsuario() {
@@ -197,5 +211,7 @@ public class PerfilController {
         this.fotoLogo = fotoLogo;
     }
 
+    
+    
 
 }

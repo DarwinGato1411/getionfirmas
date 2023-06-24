@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.zkoss.bind.annotation.AfterCompose;
@@ -58,12 +59,17 @@ public class NuevaSolicitud {
 
     @Wire
     Window wSolicitud;
+    
+    
 
     private Solicitud entidad = new Solicitud();
     ServicioSolicitud servicio = new ServicioSolicitud();
     private String accion = "create";
     private String usuNivel = "1";
     private String tipoSolicitud = "PN";
+    private boolean mienbroEmpresa = false;
+    private boolean repremiembros = false;
+    private boolean cargoRepresentate = false;
 
     ServicioParametrizar servicioParametrizar = new ServicioParametrizar();
     private Parametrizar parametrizar = new Parametrizar();
@@ -75,6 +81,12 @@ public class NuevaSolicitud {
     private AImage fotoReverso = null;
     private AImage fotoSelfi = null;
     private AMedia pdfRuc = null;
+    private AMedia pdfConstCompa = null;
+    private AMedia pdfNombraRepre = null;
+    private AMedia pdfAcecptacionNomb = null;
+    private AMedia pdfRucEmpresa = null;
+    private AMedia pdfCedRepreEmpresa = null;
+    private AMedia pdfAutoriRepre = null;
 
     ServicioNacionalidad servicioNacionalidad = new ServicioNacionalidad();
     private List<Nacionalidad> listaNacionalidad = new ArrayList<>();
@@ -86,13 +98,6 @@ public class NuevaSolicitud {
     private List<Ciudad> listaCiudades = new ArrayList<Ciudad>();
 
     ServicioEstadoProceso servicioEstadoProceso = new ServicioEstadoProceso();
-
-    @Wire
-    private Div rle;
-    @Wire
-    private Div me;
-    @Wire
-    private Div contenedorMR;
 
     @AfterCompose
     public void afterCompose(@ExecutionArgParam("valor") Solicitud valor, @ContextParam(ContextType.VIEW) Component view) {
@@ -158,6 +163,64 @@ public class NuevaSolicitud {
                     System.out.println("error imagen " + e.getMessage());
                 }
             }
+            if (entidad.getSolPathConstitucionCompania() != null) {
+                try {
+                    System.out.println("PDF constitucion compania" + entidad.getSolPathConstitucionCompania());
+                    pdfConstCompa = new AMedia("report", "pdf", "application/pdf", Imagen_A_Bytes(entidad.getSolPathConstitucionCompania()));
+
+                } catch (FileNotFoundException e) {
+                    System.out.println("error imagen " + e.getMessage());
+                }
+            }
+            if (entidad.getSolPathNombramientoRepresentante() != null) {
+                try {
+                    System.out.println("PDF constitucion compania" + entidad.getSolPathNombramientoRepresentante());
+                    pdfNombraRepre = new AMedia("report", "pdf", "application/pdf", Imagen_A_Bytes(entidad.getSolPathNombramientoRepresentante()));
+
+                } catch (FileNotFoundException e) {
+                    System.out.println("error imagen " + e.getMessage());
+                }
+            }
+
+            if (entidad.getSolPathAceptacionNombramiento() != null) {
+                try {
+                    System.out.println("PDF constitucion compania" + entidad.getSolPathAceptacionNombramiento());
+                    pdfAcecptacionNomb = new AMedia("report", "pdf", "application/pdf", Imagen_A_Bytes(entidad.getSolPathAceptacionNombramiento()));
+
+                } catch (FileNotFoundException e) {
+                    System.out.println("error imagen " + e.getMessage());
+                }
+            }
+
+            if (entidad.getSolPathRucEmpresa() != null) {
+                try {
+                    System.out.println("PDF constitucion compania" + entidad.getSolPathRucEmpresa());
+                    pdfRucEmpresa = new AMedia("report", "pdf", "application/pdf", Imagen_A_Bytes(entidad.getSolPathRucEmpresa()));
+
+                } catch (FileNotFoundException e) {
+                    System.out.println("error imagen " + e.getMessage());
+                }
+            }
+
+            if (entidad.getSolPathCedulaRepresentanteEmpresa() != null) {
+                try {
+                    System.out.println("PDF constitucion compania" + entidad.getSolPathCedulaRepresentanteEmpresa());
+                    pdfCedRepreEmpresa = new AMedia("report", "pdf", "application/pdf", Imagen_A_Bytes(entidad.getSolPathCedulaRepresentanteEmpresa()));
+
+                } catch (FileNotFoundException e) {
+                    System.out.println("error imagen " + e.getMessage());
+                }
+            }
+
+            if (entidad.getSolPathAutorizacionRepresentante() != null) {
+                try {
+                    System.out.println("PDF constitucion compania" + entidad.getSolPathAutorizacionRepresentante());
+                    pdfAutoriRepre = new AMedia("report", "pdf", "application/pdf", Imagen_A_Bytes(entidad.getSolPathAutorizacionRepresentante()));
+
+                } catch (FileNotFoundException e) {
+                    System.out.println("error imagen " + e.getMessage());
+                }
+            }
 
         } catch (IOException e) {
         }
@@ -202,6 +265,7 @@ public class NuevaSolicitud {
             if (accion.equals("create")) {
                 entidad.setIdEstadoProceso(servicioEstadoProceso.findBySigla("ING"));
                 entidad.setIdUsuario(usuario);
+                entidad.setSolFechaCreacion(new Date());
                 servicio.crear(entidad);
                 wSolicitud.detach();
             } else {
@@ -218,30 +282,6 @@ public class NuevaSolicitud {
             Clients.showNotification("Verifique la información ingresada",
                     Clients.NOTIFICATION_TYPE_ERROR, null, "middle_center", 2000, true);
         }
-    }
-
-    public Solicitud getEntidad() {
-        return entidad;
-    }
-
-    public void setEntidad(Solicitud entidad) {
-        this.entidad = entidad;
-    }
-
-    public String getAccion() {
-        return accion;
-    }
-
-    public void setAccion(String accion) {
-        this.accion = accion;
-    }
-
-    public String getUsuNivel() {
-        return usuNivel;
-    }
-
-    public void setUsuNivel(String usuNivel) {
-        this.usuNivel = usuNivel;
     }
 
     @Command
@@ -272,7 +312,7 @@ public class NuevaSolicitud {
 
         } else {
             Clients.showNotification("El archivo seleccionado no es un imagen",
-                        Clients.NOTIFICATION_TYPE_ERROR, null, "middle_center", 2000, true);
+                    Clients.NOTIFICATION_TYPE_ERROR, null, "middle_center", 2000, true);
         }
     }
 
@@ -367,34 +407,351 @@ public class NuevaSolicitud {
     }
 
     @Command
+    @NotifyChange({"mienbroEmpresa", "repremiembros", "cargoRepresentate"})
     public void personaNatural() {
         cargarVistaTiposSol("PN");
     }
 
     @Command
+    @NotifyChange({"mienbroEmpresa", "repremiembros", "cargoRepresentate"})
     public void repreLegalEmpresa() {
         cargarVistaTiposSol("RLE");
     }
 
     @Command
+    @NotifyChange({"mienbroEmpresa", "repremiembros", "cargoRepresentate"})
     public void miembEmpresa() {
         cargarVistaTiposSol("ME");
     }
 
     public void cargarVistaTiposSol(String tipoSol) {
         if (tipoSol.equals("PN")) {
-            contenedorMR.setVisible(false);
+            mienbroEmpresa = false;
+            repremiembros = false;
+            cargoRepresentate = true;
         } else if (tipoSol.equals("RLE") || tipoSol.equals("ME")) {
-            contenedorMR.setVisible(true);
             if (tipoSol.equals("RLE")) {
-                rle.setVisible(true);
-                me.setVisible(false);
-
-            } else {
-                rle.setVisible(false);
-                me.setVisible(true);
+                mienbroEmpresa = false;
+                repremiembros = true;
+                cargoRepresentate = true;
+            } else if (tipoSol.equals("ME")) {
+                repremiembros = true;
+                mienbroEmpresa = true;
+                cargoRepresentate = false;
             }
         }
+    }
+
+    /**
+     * SUBIR PDF
+     */
+    @Command
+    @NotifyChange({"pdfRuc", "entidad"})
+    public void subirPDFRuc() throws InterruptedException, IOException {
+
+        org.zkoss.util.media.Media media = Fileupload.get();
+        if (media instanceof org.zkoss.util.media.AMedia) {
+            String nombre = media.getName();
+
+            if (!nombre.contains(".pdf")) {
+                Clients.showNotification("Debe cargar un archivo PDF",
+                        Clients.NOTIFICATION_TYPE_ERROR, null, "middle_center", 2000, true);
+
+                return;
+            }
+            if (media.getByteData().length > 10 * 1024 * 1024) {
+                Messagebox.show("El arhivo seleccionado sobrepasa el tamaño de 10Mb.\n Por favor seleccione un archivo más pequeño.", "Atención", Messagebox.OK, Messagebox.ERROR);
+
+                return;
+            }
+            filePath = parametrizar.getParBase() + File.separator + parametrizar.getParImagenes() + File.separator + "FOTO";
+
+            File baseDir = new File(filePath);
+            if (!baseDir.exists()) {
+                baseDir.mkdirs();
+            }
+            Files.copy(new File(filePath + File.separator + media.getName()),
+                    media.getStreamData());
+
+            entidad.setSolPathRuc(filePath + File.separator + media.getName());
+            System.out.println("PATH SUBIR " + filePath + File.separator + media.getName());
+            pdfRuc = new AMedia("report", "pdf", "application/pdf", Imagen_A_Bytes(filePath + File.separator + media.getName()));
+
+        }
+    }
+
+    @Command
+    @NotifyChange({"pdfConstCompa", "entidad"})
+    public void subirConstCompa() throws InterruptedException, IOException {
+
+        org.zkoss.util.media.Media media = Fileupload.get();
+        if (media instanceof org.zkoss.util.media.AMedia) {
+            String nombre = media.getName();
+
+            if (!nombre.contains(".pdf")) {
+                Clients.showNotification("Debe cargar un archivo PDF",
+                        Clients.NOTIFICATION_TYPE_ERROR, null, "middle_center", 2000, true);
+
+                return;
+            }
+            if (media.getByteData().length > 10 * 1024 * 1024) {
+                Messagebox.show("El arhivo seleccionado sobrepasa el tamaño de 10Mb.\n Por favor seleccione un archivo más pequeño.", "Atención", Messagebox.OK, Messagebox.ERROR);
+
+                return;
+            }
+            filePath = parametrizar.getParBase() + File.separator + parametrizar.getParImagenes() + File.separator + "FOTO";
+
+            File baseDir = new File(filePath);
+            if (!baseDir.exists()) {
+                baseDir.mkdirs();
+            }
+            Files.copy(new File(filePath + File.separator + media.getName()),
+                    media.getStreamData());
+
+            entidad.setSolPathConstitucionCompania(filePath + File.separator + media.getName());
+            System.out.println("PATH SUBIR " + filePath + File.separator + media.getName());
+            pdfConstCompa = new AMedia("report", "pdf", "application/pdf", Imagen_A_Bytes(filePath + File.separator + media.getName()));
+
+        }
+    }
+
+    @Command
+    @NotifyChange({"pdfNombraRepre", "entidad"})
+    public void subirNombraRepre() throws InterruptedException, IOException {
+
+        org.zkoss.util.media.Media media = Fileupload.get();
+        if (media instanceof org.zkoss.util.media.AMedia) {
+            String nombre = media.getName();
+
+            if (!nombre.contains(".pdf")) {
+                Clients.showNotification("Debe cargar un archivo PDF",
+                        Clients.NOTIFICATION_TYPE_ERROR, null, "middle_center", 2000, true);
+
+                return;
+            }
+            if (media.getByteData().length > 10 * 1024 * 1024) {
+                Messagebox.show("El arhivo seleccionado sobrepasa el tamaño de 10Mb.\n Por favor seleccione un archivo más pequeño.", "Atención", Messagebox.OK, Messagebox.ERROR);
+
+                return;
+            }
+            filePath = parametrizar.getParBase() + File.separator + parametrizar.getParImagenes() + File.separator + "FOTO";
+
+            File baseDir = new File(filePath);
+            if (!baseDir.exists()) {
+                baseDir.mkdirs();
+            }
+            Files.copy(new File(filePath + File.separator + media.getName()),
+                    media.getStreamData());
+
+            entidad.setSolPathNombramientoRepresentante(filePath + File.separator + media.getName());
+            System.out.println("PATH SUBIR " + filePath + File.separator + media.getName());
+            pdfNombraRepre = new AMedia("report", "pdf", "application/pdf", Imagen_A_Bytes(filePath + File.separator + media.getName()));
+
+        }
+    }
+
+    @Command
+    @NotifyChange({"pdfAcecptacionNomb", "entidad"})
+    public void subirAceptacionNomb() throws InterruptedException, IOException {
+
+        org.zkoss.util.media.Media media = Fileupload.get();
+        if (media instanceof org.zkoss.util.media.AMedia) {
+            String nombre = media.getName();
+
+            if (!nombre.contains(".pdf")) {
+                Clients.showNotification("Debe cargar un archivo PDF",
+                        Clients.NOTIFICATION_TYPE_ERROR, null, "middle_center", 2000, true);
+
+                return;
+            }
+            if (media.getByteData().length > 10 * 1024 * 1024) {
+                Messagebox.show("El arhivo seleccionado sobrepasa el tamaño de 10Mb.\n Por favor seleccione un archivo más pequeño.", "Atención", Messagebox.OK, Messagebox.ERROR);
+
+                return;
+            }
+            filePath = parametrizar.getParBase() + File.separator + parametrizar.getParImagenes() + File.separator + "FOTO";
+
+            File baseDir = new File(filePath);
+            if (!baseDir.exists()) {
+                baseDir.mkdirs();
+            }
+            Files.copy(new File(filePath + File.separator + media.getName()),
+                    media.getStreamData());
+
+            entidad.setSolPathAceptacionNombramiento(filePath + File.separator + media.getName());
+            System.out.println("PATH SUBIR " + filePath + File.separator + media.getName());
+            pdfAcecptacionNomb = new AMedia("report", "pdf", "application/pdf", Imagen_A_Bytes(filePath + File.separator + media.getName()));
+
+        }
+    }
+
+    @Command
+    @NotifyChange({"pdfRucEmpresa", "entidad"})
+    public void subirRucEmpresa() throws InterruptedException, IOException {
+
+        org.zkoss.util.media.Media media = Fileupload.get();
+        if (media instanceof org.zkoss.util.media.AMedia) {
+            String nombre = media.getName();
+
+            if (!nombre.contains(".pdf")) {
+                Clients.showNotification("Debe cargar un archivo PDF",
+                        Clients.NOTIFICATION_TYPE_ERROR, null, "middle_center", 2000, true);
+
+                return;
+            }
+            if (media.getByteData().length > 10 * 1024 * 1024) {
+                Messagebox.show("El arhivo seleccionado sobrepasa el tamaño de 10Mb.\n Por favor seleccione un archivo más pequeño.", "Atención", Messagebox.OK, Messagebox.ERROR);
+
+                return;
+            }
+            filePath = parametrizar.getParBase() + File.separator + parametrizar.getParImagenes() + File.separator + "FOTO";
+
+            File baseDir = new File(filePath);
+            if (!baseDir.exists()) {
+                baseDir.mkdirs();
+            }
+            Files.copy(new File(filePath + File.separator + media.getName()),
+                    media.getStreamData());
+
+            entidad.setSolPathRucEmpresa(filePath + File.separator + media.getName());
+            System.out.println("PATH SUBIR " + filePath + File.separator + media.getName());
+            pdfRucEmpresa = new AMedia("report", "pdf", "application/pdf", Imagen_A_Bytes(filePath + File.separator + media.getName()));
+
+        }
+    }
+    
+    @Command
+    @NotifyChange({"pdfCedRepreEmpresa", "entidad"})
+    public void subirCedulaRepre() throws InterruptedException, IOException {
+
+        org.zkoss.util.media.Media media = Fileupload.get();
+        if (media instanceof org.zkoss.util.media.AMedia) {
+            String nombre = media.getName();
+
+            if (!nombre.contains(".pdf")) {
+                Clients.showNotification("Debe cargar un archivo PDF",
+                        Clients.NOTIFICATION_TYPE_ERROR, null, "middle_center", 2000, true);
+
+                return;
+            }
+            if (media.getByteData().length > 10 * 1024 * 1024) {
+                Messagebox.show("El arhivo seleccionado sobrepasa el tamaño de 10Mb.\n Por favor seleccione un archivo más pequeño.", "Atención", Messagebox.OK, Messagebox.ERROR);
+
+                return;
+            }
+            filePath = parametrizar.getParBase() + File.separator + parametrizar.getParImagenes() + File.separator + "FOTO";
+
+            File baseDir = new File(filePath);
+            if (!baseDir.exists()) {
+                baseDir.mkdirs();
+            }
+            Files.copy(new File(filePath + File.separator + media.getName()),
+                    media.getStreamData());
+
+            entidad.setSolPathCedulaRepresentanteEmpresa(filePath + File.separator + media.getName());
+            System.out.println("PATH SUBIR " + filePath + File.separator + media.getName());
+            pdfCedRepreEmpresa = new AMedia("report", "pdf", "application/pdf", Imagen_A_Bytes(filePath + File.separator + media.getName()));
+
+        }
+    }
+    
+     @Command
+    @NotifyChange({"pdfAutoriRepre", "entidad"})
+    public void subirAutoRepre() throws InterruptedException, IOException {
+
+        org.zkoss.util.media.Media media = Fileupload.get();
+        if (media instanceof org.zkoss.util.media.AMedia) {
+            String nombre = media.getName();
+
+            if (!nombre.contains(".pdf")) {
+                Clients.showNotification("Debe cargar un archivo PDF",
+                        Clients.NOTIFICATION_TYPE_ERROR, null, "middle_center", 2000, true);
+
+                return;
+            }
+            if (media.getByteData().length > 10 * 1024 * 1024) {
+                Messagebox.show("El arhivo seleccionado sobrepasa el tamaño de 10Mb.\n Por favor seleccione un archivo más pequeño.", "Atención", Messagebox.OK, Messagebox.ERROR);
+
+                return;
+            }
+            filePath = parametrizar.getParBase() + File.separator + parametrizar.getParImagenes() + File.separator + "FOTO";
+
+            File baseDir = new File(filePath);
+            if (!baseDir.exists()) {
+                baseDir.mkdirs();
+            }
+            Files.copy(new File(filePath + File.separator + media.getName()),
+                    media.getStreamData());
+
+            entidad.setSolPathAutorizacionRepresentante(filePath + File.separator + media.getName());
+            System.out.println("PATH SUBIR " + filePath + File.separator + media.getName());
+            pdfAutoriRepre = new AMedia("report", "pdf", "application/pdf", Imagen_A_Bytes(filePath + File.separator + media.getName()));
+
+        }
+    }
+
+    public Solicitud getEntidad() {
+        return entidad;
+    }
+
+    public void setEntidad(Solicitud entidad) {
+        this.entidad = entidad;
+    }
+
+    public String getAccion() {
+        return accion;
+    }
+
+    public void setAccion(String accion) {
+        this.accion = accion;
+    }
+
+    public String getUsuNivel() {
+        return usuNivel;
+    }
+
+    public void setUsuNivel(String usuNivel) {
+        this.usuNivel = usuNivel;
+    }
+
+    public AMedia getPdfRuc() {
+        return pdfRuc;
+    }
+
+    public void setPdfRuc(AMedia pdfRuc) {
+        this.pdfRuc = pdfRuc;
+    }
+
+    public boolean isRepremiembros() {
+        return repremiembros;
+    }
+
+    public void setRepremiembros(boolean repremiembros) {
+        this.repremiembros = repremiembros;
+    }
+
+    public boolean isCargoRepresentate() {
+        return cargoRepresentate;
+    }
+
+    public void setCargoRepresentate(boolean cargoRepresentate) {
+        this.cargoRepresentate = cargoRepresentate;
+    }
+
+    public AMedia getPdfConstCompa() {
+        return pdfConstCompa;
+    }
+
+    public void setPdfConstCompa(AMedia pdfConstCompa) {
+        this.pdfConstCompa = pdfConstCompa;
+    }
+
+    public AMedia getPdfNombraRepre() {
+        return pdfNombraRepre;
+    }
+
+    public void setPdfNombraRepre(AMedia pdfNombraRepre) {
+        this.pdfNombraRepre = pdfNombraRepre;
     }
 
     public AImage getFotoReverso() {
@@ -452,50 +809,45 @@ public class NuevaSolicitud {
     public void setTipoSolicitud(String tipoSolicitud) {
         this.tipoSolicitud = tipoSolicitud;
     }
-    /**
-     * SUBIR PDF
-     */
-    @Command
-    @NotifyChange({"pdfRuc", "entidad"})
-    public void subirPDFRuc() throws InterruptedException, IOException {
 
-        org.zkoss.util.media.Media media = Fileupload.get();
-        if (media instanceof org.zkoss.util.media.AMedia) {
-            String nombre = media.getName();
-
-            if (!nombre.contains(".pdf")) {
-                Clients.showNotification("Debe cargar un archivo PDF",
-                            Clients.NOTIFICATION_TYPE_ERROR, null, "middle_center", 2000, true);
-
-                return;
-            }
-            if (media.getByteData().length > 10 * 1024 * 1024) {
-                Messagebox.show("El arhivo seleccionado sobrepasa el tamaño de 10Mb.\n Por favor seleccione un archivo más pequeño.", "Atención", Messagebox.OK, Messagebox.ERROR);
-
-                return;
-            }
-            filePath = parametrizar.getParBase() + File.separator + parametrizar.getParImagenes() + File.separator + "FOTO";
-
-            File baseDir = new File(filePath);
-            if (!baseDir.exists()) {
-                baseDir.mkdirs();
-            }
-            Files.copy(new File(filePath + File.separator + media.getName()),
-                        media.getStreamData());
-
-            entidad.setSolPathRuc(filePath + File.separator + media.getName());
-            System.out.println("PATH SUBIR " + filePath + File.separator + media.getName());
-            pdfRuc = new AMedia("report", "pdf", "application/pdf", Imagen_A_Bytes(filePath + File.separator + media.getName()));
-
-        }
+    public boolean isMienbroEmpresa() {
+        return mienbroEmpresa;
     }
 
-    public AMedia getPdfRuc() {
-        return pdfRuc;
+    public void setMienbroEmpresa(boolean mienbroEmpresa) {
+        this.mienbroEmpresa = mienbroEmpresa;
     }
 
-    public void setPdfRuc(AMedia pdfRuc) {
-        this.pdfRuc = pdfRuc;
+    public AMedia getPdfAcecptacionNomb() {
+        return pdfAcecptacionNomb;
+    }
+
+    public void setPdfAcecptacionNomb(AMedia pdfAcecptacionNomb) {
+        this.pdfAcecptacionNomb = pdfAcecptacionNomb;
+    }
+
+    public AMedia getPdfRucEmpresa() {
+        return pdfRucEmpresa;
+    }
+
+    public void setPdfRucEmpresa(AMedia pdfRucEmpresa) {
+        this.pdfRucEmpresa = pdfRucEmpresa;
+    }
+
+    public AMedia getPdfCedRepreEmpresa() {
+        return pdfCedRepreEmpresa;
+    }
+
+    public void setPdfCedRepreEmpresa(AMedia pdfCedRepreEmpresa) {
+        this.pdfCedRepreEmpresa = pdfCedRepreEmpresa;
+    }
+
+    public AMedia getPdfAutoriRepre() {
+        return pdfAutoriRepre;
+    }
+
+    public void setPdfAutoriRepre(AMedia pdfAutoriRepre) {
+        this.pdfAutoriRepre = pdfAutoriRepre;
     }
 
 }

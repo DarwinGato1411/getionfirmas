@@ -14,15 +14,14 @@
             <div class="container_row_input">
                 <div class="wrapper_input_mod" style="flex:auto">
                     <span>Estado: </span>
-                    <combobox 
-                        readonly="true"                                        
-                        selectedItem="@bind(vm.solicitud.idEstadoProceso.estSigla)" 
-                      
+                    <combobox                                                       
+                        selectedItem="@bind(vm.solicitud.idEstadoProceso.idEstadoProceso)"          
                         style="width: 100%;"
                     >
-                        <comboitem label="INGRESADO" value="ING" />                    
-                        <comboitem label="APROBADO" value="APR" />
-                        <comboitem label="RECHAZADO" value="REC" />
+                        <comboitem label="INGRESADO" value="1" />                    
+                        <comboitem label="APROBADO" value="2" />
+                        <comboitem label="RECHAZADO" value="3" />
+                        <comboitem label="CANCELADO" value="4" />
                        
                     </combobox>
                 </div>

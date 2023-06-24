@@ -16,7 +16,10 @@ import com.ec.servicio.ServicioSolicitud;
 import com.ec.servicio.ServicioUsuario;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import net.sf.jasperreports.engine.JRException;
@@ -47,7 +50,8 @@ public class SolicitudController {
     ServicioSolicitud servicioSolicitud = new ServicioSolicitud();
     private List<Solicitud> listaDatos = new ArrayList<Solicitud>();
     private String buscar = "";
-
+    private Date fechainicio = new Date();
+    private Date fechafin = new Date();
     //subir pdf
     private String filePath;
     byte[] buffer = new byte[1024 * 1024];
@@ -58,7 +62,11 @@ public class SolicitudController {
     @AfterCompose
     public void afterCompose(@ContextParam(ContextType.VIEW) Component view) throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException, JRException, IOException {
         Selectors.wireComponents(view, this, false);
-
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(fechainicio);
+        calendar.add(Calendar.WEEK_OF_YEAR, -1);
+        fechainicio=calendar.getTime();
+        buscarSolicitudes();
     }
 
     public SolicitudController() {
@@ -128,8 +136,8 @@ public class SolicitudController {
     }
 
     private void buscarSolicitudes() {
-        listaDatos = servicioSolicitud.findLikeSolicitud(buscar, credential.getUsuarioSistema());
-
+        //listaDatos = servicioSolicitud.findLikeSolicitud(buscar, credential.getUsuarioSistema());
+        listaDatos = servicioSolicitud.findSolicitudFecha(fechainicio, fechafin, credential.getUsuarioSistema());
     }
 
     public List<Solicitud> getListaDatos() {
@@ -149,7 +157,7 @@ public class SolicitudController {
     }
 
     @Command
-     @NotifyChange({"listaDatos", "buscar"})
+    @NotifyChange({"listaDatos", "buscar"})
     public void cancelarSolicitud(@BindingParam("valor") Solicitud valor) {
 
         if (Messagebox.show("Desea cambiar e", "Question", Messagebox.OK | Messagebox.CANCEL, Messagebox.QUESTION) == Messagebox.OK) {
@@ -158,8 +166,65 @@ public class SolicitudController {
             servicioSolicitud.modificar(valor);
         } else {
             Clients.showNotification("Solicitud cancelada",
-                        Clients.NOTIFICATION_TYPE_INFO, null, "middle_center", 1000, true);
+                    Clients.NOTIFICATION_TYPE_INFO, null, "middle_center", 1000, true);
         }
+    }
+
+    @Command
+    @NotifyChange({"listaDatos", "buscar"})
+    public void buscarFechas(@BindingParam("valor") Solicitud valor) {
+        System.out.println(fechaFormateada("inicio", fechainicio));
+        System.out.println(fechaFormateada("fin", fechafin));
+        buscarSolicitudes();
+    }
+
+    public Date fechaFormateada(String tipo, Date fecha) {
+        Date fechaActual = fecha;
+
+        // Crear un objeto SimpleDateFormat para el formato de la hora
+        String horaEspecificaStr = "00:00:00";
+        SimpleDateFormat formatoHora = new SimpleDateFormat("HH:mm:ss");
+
+        if (tipo.equals("inicio")) {
+            horaEspecificaStr = "23:59:59";
+        }
+
+        try {
+            // Obtener la hora específica como una cadena
+
+            // Obtener la fecha actual como una cadena en formato "yyyy-MM-dd"
+            String fechaActualStr = new SimpleDateFormat("yyyy-MM-dd").format(fechaActual);
+
+            // Concatenar la fecha y la hora
+            String fechaHoraConcatenadaStr = fechaActualStr + " " + horaEspecificaStr;
+
+            // Crear un objeto SimpleDateFormat para el formato de fecha y hora
+            SimpleDateFormat formatoFechaHora = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+            // Parsear la cadena a un objeto Date
+            Date fechaHoraConcatenada = formatoFechaHora.parse(fechaHoraConcatenadaStr);
+
+            return fechaHoraConcatenada;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return fechaActual;
+        }
+    }
+
+    public Date getFechainicio() {
+        return fechainicio;
+    }
+
+    public void setFechainicio(Date fechainicio) {
+        this.fechainicio = fechainicio;
+    }
+
+    public Date getFechafin() {
+        return fechafin;
+    }
+
+    public void setFechafin(Date fechafin) {
+        this.fechafin = fechafin;
     }
 
 }

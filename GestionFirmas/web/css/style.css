@@ -3373,12 +3373,12 @@ input, button, select, textarea {
 
 .revisador  .z-listbox .tblCabecera{
     display: grid;
-    grid-template-columns:10% 25% 25% 20% 20% ;
+    grid-template-columns:10% 15% 15% 10% 15% 15% 20%;
 }
 
 .revisador  .z-listbox .tblCuerpo{
     display: grid;
-    grid-template-columns:10% 25% 25% 20% 20% ;
+    grid-template-columns:10% 15% 15% 10% 15% 15% 20%;
 }
 
 
@@ -3614,4 +3614,14 @@ div.z-listbox-header th.z-listheader, div.z-listbox-header th.z-auxheader {
     margin: 10px;
     padding: 10px;
     border-radius: 20px;
+}
+
+.campoImportante{
+    display: flex;
+}
+
+.campoImportante .importante .z-label{
+    color: red;
+    font-weight: bold !important;
+    font-size: 18px !important;
 }

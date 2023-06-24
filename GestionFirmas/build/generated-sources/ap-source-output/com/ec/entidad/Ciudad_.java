@@ -7,7 +7,7 @@ import javax.persistence.metamodel.CollectionAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2023-06-16T11:06:59")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2023-06-24T09:36:41")
 @StaticMetamodel(Ciudad.class)
 public class Ciudad_ { 
 

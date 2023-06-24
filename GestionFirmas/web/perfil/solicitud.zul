@@ -30,6 +30,43 @@
                         Buscar
                     </button>
                 </div>
+                <div class="contenedorGris busquedaCedula"> 
+                     <label value="Busqueda por fecha: "/>  
+                     <div class="wrapper_input">
+                                    <span>Inicio:</span>
+                                        <datebox 
+                                        value="@bind(vm.fechainicio)" 
+                                        compact="true" 
+                                        readonly="true" 
+                                        buttonVisible="true" 
+                                        class="input_date"
+                                        lenient="true" 
+                                        format="dd/MM/yyyy " 
+                                        constraint="no empty: Ingrese la fecha"
+                                    /> 
+                                        <div class="fa-solid fa-calendar icon" />                                 
+                                </div>
+                                <div class="wrapper_input">
+                                    <span>Fin:</span>
+                                    <datebox 
+                                        value="@bind(vm.fechafin)" 
+                                        compact="true" 
+                                        readonly="true" 
+                                        buttonVisible="true" 
+                                        class="input_date"
+                                        lenient="true" 
+                                        format="dd/MM/yyyy" 
+                                        constraint="no empty: Ingrese la fecha"
+                                    />
+                                    <div class="fa-solid fa-calendar icon" />
+                                </div>
+                     <button    
+                        iconSclass="z-icon-book"
+                        onClick="@command('buscarFechas')"  
+                        tooltiptext="Buscar por cédula/ruc">
+                        Buscar
+                    </button>
+                </div>
                 <div class="contenedorGris ">
                                              
                     <button    
@@ -53,8 +90,8 @@
                         <listheader label="Nombre"  />                                                                         
                         <listheader label="Correo"  />                                                                         
                         <listheader label="Teléfono" />                                                                         
-                        <listheader label="E-S"  tooltiptext="Estado de la solicitud" />                                                                         
-                        <listheader label="E-F"  tooltiptext="Estado de la firma "  />                                                                         
+                        <listheader label="E. Solicitud"  tooltiptext="Estado de la solicitud" />                                                                         
+                        <listheader label="E. Firma"  tooltiptext="Estado de la firma "  />                                                                         
                         <listheader label=""   />                                                                         
                     </listhead>  
                     <template name="model" >                                                            
