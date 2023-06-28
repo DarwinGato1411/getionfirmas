@@ -1,5 +1,6 @@
 <?init class="com.ec.seguridad.Autentificador"?>
-
+<?link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet" ?>
+<?script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"?>
 <zk  >
     <include src="/plantilla/banner.zul"/>
     <div class="contenedorMC">

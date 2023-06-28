@@ -5,8 +5,8 @@
 <?init class="com.ec.seguridad.Autentificador"?>
 <?init class="org.zkoss.zk.ui.util.Composition" arg0="/plantilla/plantilla.zul"?>
 <?link rel="icon" type="image/x-icon" href="/iconos/deckxel.ico"?>
-
-
+<?link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet" ?>
+<?script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"?>
 
 <zk   with="90%" >
     <div self="@define(content)" apply="org.zkoss.bind.BindComposer" 
@@ -174,7 +174,7 @@
                              
           
                                 <button 
-                                    if="${each.idEstadoProceso.estSigla=='ING'|| each.idEstadoProceso.estSigla=='REC'}"
+                                    if="${each.idEstadoProceso.estSigla=='ING'|| each.idEstadoProceso.estSigla=='REC' || each.idEstadoProceso.estSigla=='CAN'}"
                                     label=""
                                     class="btn-danger-zk"
                                     iconSclass="z-icon-trash-o"
@@ -182,16 +182,25 @@
                                     tooltiptext="Cancelar solicitud">
                                     
                                 </button>
-                                                 
+                                   
+                                <button 
+                                    if="${each.idEstadoProceso.estSigla=='ING'|| each.idEstadoProceso.estSigla=='REC' || each.idEstadoProceso.estSigla=='CAN'}"
+                                    label="Eliminar"
+                                    class="btn-warning-zk"
+                                    iconSclass="z-icon-trash-o" 
+                                    onClick="@command('elimiarSolicitud',valor=each)" 
+                                    tooltiptext="No se puede elimiar, solicitud aprobada">
+                                    
+                                </button>               
                                 <button 
                                     if="${each.idEstadoProceso.estSigla=='APR'}"
                                     label=""
                                     class="btn-nothing-zk"
                                     iconSclass="z-icon-trash-o" 
-                                    onClick="@command('eliminarPaciente',valor=each)" 
+                                    onClick="@command('elimiarSolicitud',valor=each)" 
                                     tooltiptext="No se puede elimiar, solicitud aprobada">
                                     
-                                </button>           
+                                </button>   
                                                                       
                                                   
                             </listcell>
@@ -202,6 +211,11 @@
                         </listitem>
                     </template>
                 </listbox>
+               <!-- <div sclass="@bind(vm.divClass)">
+                    <label value="hola"/>
+                </div>
+                
+                <button onClick="@command('cambiarClase')">Cambiar Clase</button>-->
             </div>
                         
                         

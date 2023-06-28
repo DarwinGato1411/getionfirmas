@@ -14,7 +14,7 @@
                     tooltiptext="Buscar">
                 </button> 
                 <!--<image  src="/imagenes/hospital.png" style="width:50px;" />-->
-                 <label value="HISTORIAL MÉDICO GENERAL" class="textoHeaderleft"></label> 
+                 <label value="Adminsitrador Usuarios" class="textoHeaderleft"></label> 
             </div>
             <div class="logo" style="margin:auto;">
                

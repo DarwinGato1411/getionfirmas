@@ -43,8 +43,15 @@
     
     <div class="nav ul" viewModel="@id('vm')" apply="com.ec.controlador.MenuOpciones" >
 
-         <div class="li">
-            <label class="m1" value="Solicitudes" id="btnSolicitudRevisador"/>
+        <div class="li">
+            <label class="m1" value="Solicitud General" id="btnSolicitudRevisador"/>
+        </div>
+        <div class="li">
+            <label class="m1" value="Solicitud Estado" id="btnSolicitudRevisadorEstadoSol"/>
+        </div>
+        
+        <div class="li">
+            <label class="m1" value="Solicitud Estado Firma" id="btnSolicitudRevisadorEstadoFir"/>
         </div>
      
         <div  apply="com.ec.controlador.LogoutController">

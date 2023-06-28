@@ -50,7 +50,7 @@ div.z-listbox-header th.z-listheader, div.z-listbox-header th.z-auxheader {
    <div class="login_container"  id="loginWin" apply="com.ec.controlador.LoginController">
         <div class="wrapper_login">
             <div class="container_img">
-                <image src="./imagenes/logodeckxel.png" class="logo"/>
+                <image src="./imagenes/logogf.jpeg" class="logo"/>
 <!--                <div class="wrapper_title">
                     <span class="title">Historial médico</span>
                     <span class="subtitle">Control de visitas médicas</span>

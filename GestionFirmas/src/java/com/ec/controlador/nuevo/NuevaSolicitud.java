@@ -52,6 +52,8 @@ import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Fileupload;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
+import org.zkoss.zul.Script;
+import org.zkoss.zk.ui.util.Clients;
 
 /**
  *
@@ -105,6 +107,7 @@ public class NuevaSolicitud {
     private List<DetalleTipoFirma> listaDetalleTipoFirmas = new ArrayList<DetalleTipoFirma>();
 
     ServicioEstadoProceso servicioEstadoProceso = new ServicioEstadoProceso();
+    private boolean solicitudCampos = false;
 
     @AfterCompose
     public void afterCompose(@ExecutionArgParam("valor") Solicitud valor, @ContextParam(ContextType.VIEW) Component view) {
@@ -118,12 +121,12 @@ public class NuevaSolicitud {
             if (provinciaSelected != null) {
                 listaCiudades = servicioCiudad.findByProvincia(provinciaSelected);
             }
-            tipoFirmaSelected = entidad.getIdDetalleTipoFirma()!= null ? entidad.getIdDetalleTipoFirma().getIdTipoFirma() : null;
+            tipoFirmaSelected = entidad.getIdDetalleTipoFirma() != null ? entidad.getIdDetalleTipoFirma().getIdTipoFirma() : null;
             if (tipoFirmaSelected != null) {
                 listaDetalleTipoFirmas = servicioDetalleTipoFirma.findByTipoFirma(tipoFirmaSelected);
             }
-
-            cargarVistaTiposSol(valor.getSolTipo()==null?"":valor.getSolTipo());
+            
+            cargarVistaTiposSol(valor.getSolTipo() == null ? "" : valor.getSolTipo());
         } else {
 
             //muestra 7 dias atras
@@ -132,6 +135,7 @@ public class NuevaSolicitud {
 
             this.entidad = new Solicitud();
             this.entidad.setSolFechaNacimiento(calendar.getTime());
+            this.entidad.setSolTipo("PN");
             accion = "create";
 
         }
@@ -279,9 +283,9 @@ public class NuevaSolicitud {
 
     @Command
     public void guardar() {
-        if (entidad.getSolNombre() != null
-                    && entidad.getSolRuc() != null
-                    && entidad.getSolCelular() != null) {
+        camposVaciosPorSolicitud();
+        System.out.println(solicitudCampos);
+        if (solicitudCampos) {
 //            entidad.setUsuNivel(Integer.valueOf(usuNivel));
             if (accion.equals("create")) {
                 entidad.setIdEstadoProceso(servicioEstadoProceso.findBySigla("ING"));
@@ -289,20 +293,103 @@ public class NuevaSolicitud {
                 entidad.setSolFechaCreacion(new Date());
                 servicio.crear(entidad);
                 wSolicitud.detach();
+                sweetAltert("success", "OK", "Solicitud creada con éxito");
             } else {
                 if (entidad.getIdEstadoProceso() == null) {
                     entidad.setIdEstadoProceso(servicioEstadoProceso.findBySigla("ING"));
                 }
-
+                entidad.setIdEstadoProceso(servicioEstadoProceso.findBySigla("ING"));
                 servicio.modificar(entidad);
                 wSolicitud.detach();
+                sweetAltert("success", "OK", "Solicitud editada con éxito");
             }
-            Clients.showNotification("Registro correcto",
-                        Clients.NOTIFICATION_TYPE_INFO, null, "middle_center", 2000, true);
-        } else {
-            Clients.showNotification("Verifique la información ingresada",
-                        Clients.NOTIFICATION_TYPE_ERROR, null, "middle_center", 2000, true);
+            
+        } 
+    }
+
+    public void camposVaciosPorSolicitud() {
+        tipoSolicitud = entidad.getSolTipo();
+        String mensaje = "";
+        switch (tipoSolicitud) {
+            case "PN":
+                solicitudCampos = verificarCamposVacios("PN");
+                break;
+            case "RLE":
+                solicitudCampos = verificarCamposVacios("RLE");
+                break;
+            case "ME":
+                solicitudCampos = verificarCamposVacios("ME");
+                break;
+            default:
+                System.out.println("Opción no válida");
+                break;
         }
+    }
+
+    public boolean verificarCamposVacios(String tipoSol) {
+
+        if (entidad.getSolTipoDocumento() == null
+                || entidad.getSolRuc() == null
+                || entidad.getSolCodigoDactilar() == null
+                || entidad.getSolFechaNacimiento() == null
+                || entidad.getSolNombre() == null
+                || entidad.getSolApellido1() == null
+                || entidad.getSolMail() == null
+                || entidad.getSolCelular() == null
+                || entidad.getSolSexo() == null
+                || entidad.getSolConRuc() == null
+                || provinciaSelected == null
+                || entidad.getIdCiudad().getCiuNombre() == null
+                || entidad.getSolDireccionCompleta() == null
+                || fotoGeneral == null
+                || fotoReverso == null
+                || fotoSelfi == null
+                || pdfRuc == null) {
+
+            sweetAltert("warning", "Datos faltantes", "Todos los campos con (*) son importantes, revice los siguientes apartados: Datos Personales, Direccion domicilio, Documentos personales(todos los documentos son obligatorios)");
+            return false;
+        } else {
+            if (tipoSol.equals("RLE")) {
+                if (entidad.getSolRucEmpresa() == null
+                        || entidad.getSolRazonSocial() == null
+                        || entidad.getSolCargoRepresentante() == null
+                        || pdfConstCompa == null
+                        || pdfNombraRepre == null
+                        || pdfAcecptacionNomb == null) {
+                    sweetAltert("warning", "Datos faltantes", "Todos los campos con (*) son importantes, revice los siguientes apartados: Datos de la empresa, Documentos");
+                    return false;
+                }
+            } else if (tipoSol.equals("ME")) {
+                if (entidad.getSolRucEmpresa() == null
+                        || entidad.getSolRazonSocial() == null
+                        || entidad.getSolArea() == null
+                        || entidad.getSolCargoSolicitante() == null
+                        || entidad.getSolTipoDocumento() == null
+                        || entidad.getSolMeRuc() == null
+                        || entidad.getSolMeNombres() == null
+                        || entidad.getSolApellido1() == null
+                        || pdfConstCompa == null
+                        || pdfNombraRepre == null
+                        || pdfAcecptacionNomb == null
+                        || pdfRucEmpresa == null
+                        || pdfCedRepreEmpresa == null
+                        || pdfAutoriRepre == null) {
+                    sweetAltert("warning", "Datos faltantes", "Todos los campos con (*) son importantes, revice los siguientes apartados: Datos de la empresa, Representante legal, Docmuentos");
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public void sweetAltert(String alertaTipo, String tituloMensaje, String detalleMensaje) {
+        String script = "Swal.fire(\n"
+                + "  '" + tituloMensaje + "',\n"
+                + "  '" + detalleMensaje + "',\n"
+                + "  '" + alertaTipo + "'\n"
+                + ")";
+        System.out.println(script);
+        Clients.evalJavaScript(script);
     }
 
     @Command
@@ -325,7 +412,7 @@ public class NuevaSolicitud {
                 baseDir.mkdirs();
             }
             Files.copy(new File(filePath + File.separator + media.getName()),
-                        media.getStreamData());
+                    media.getStreamData());
 
             entidad.setSolPathCedulaAnverso(filePath + File.separator + media.getName());
             System.out.println("PATH SUBIR " + filePath + File.separator + media.getName());
@@ -333,7 +420,7 @@ public class NuevaSolicitud {
 
         } else {
             Clients.showNotification("El archivo seleccionado no es un imagen",
-                        Clients.NOTIFICATION_TYPE_ERROR, null, "middle_center", 2000, true);
+                    Clients.NOTIFICATION_TYPE_ERROR, null, "middle_center", 2000, true);
         }
     }
 
@@ -361,14 +448,6 @@ public class NuevaSolicitud {
         return bytes;
     }
 
-    public AImage getFotoGeneral() {
-        return fotoGeneral;
-    }
-
-    public void setFotoGeneral(AImage fotoGeneral) {
-        this.fotoGeneral = fotoGeneral;
-    }
-
     @Command
     @NotifyChange({"fileContent", "entidad", "fotoReverso"})
     public void subirFotografiaCedulaReverso() throws InterruptedException, IOException {
@@ -389,7 +468,7 @@ public class NuevaSolicitud {
                 baseDir.mkdirs();
             }
             Files.copy(new File(filePath + File.separator + media.getName()),
-                        media.getStreamData());
+                    media.getStreamData());
 
             entidad.setSolPathCedulaReverso(filePath + File.separator + media.getName());
             System.out.println("PATH SUBIR " + filePath + File.separator + media.getName());
@@ -418,7 +497,7 @@ public class NuevaSolicitud {
                 baseDir.mkdirs();
             }
             Files.copy(new File(filePath + File.separator + media.getName()),
-                        media.getStreamData());
+                    media.getStreamData());
 
             entidad.setSolPathSelfi(filePath + File.separator + media.getName());
             System.out.println("PATH SUBIR " + filePath + File.separator + media.getName());
@@ -476,7 +555,7 @@ public class NuevaSolicitud {
 
             if (!nombre.contains(".pdf")) {
                 Clients.showNotification("Debe cargar un archivo PDF",
-                            Clients.NOTIFICATION_TYPE_ERROR, null, "middle_center", 2000, true);
+                        Clients.NOTIFICATION_TYPE_ERROR, null, "middle_center", 2000, true);
 
                 return;
             }
@@ -492,7 +571,7 @@ public class NuevaSolicitud {
                 baseDir.mkdirs();
             }
             Files.copy(new File(filePath + File.separator + media.getName()),
-                        media.getStreamData());
+                    media.getStreamData());
 
             entidad.setSolPathRuc(filePath + File.separator + media.getName());
             System.out.println("PATH SUBIR " + filePath + File.separator + media.getName());
@@ -511,7 +590,7 @@ public class NuevaSolicitud {
 
             if (!nombre.contains(".pdf")) {
                 Clients.showNotification("Debe cargar un archivo PDF",
-                            Clients.NOTIFICATION_TYPE_ERROR, null, "middle_center", 2000, true);
+                        Clients.NOTIFICATION_TYPE_ERROR, null, "middle_center", 2000, true);
 
                 return;
             }
@@ -527,7 +606,7 @@ public class NuevaSolicitud {
                 baseDir.mkdirs();
             }
             Files.copy(new File(filePath + File.separator + media.getName()),
-                        media.getStreamData());
+                    media.getStreamData());
 
             entidad.setSolPathConstitucionCompania(filePath + File.separator + media.getName());
             System.out.println("PATH SUBIR " + filePath + File.separator + media.getName());
@@ -546,7 +625,7 @@ public class NuevaSolicitud {
 
             if (!nombre.contains(".pdf")) {
                 Clients.showNotification("Debe cargar un archivo PDF",
-                            Clients.NOTIFICATION_TYPE_ERROR, null, "middle_center", 2000, true);
+                        Clients.NOTIFICATION_TYPE_ERROR, null, "middle_center", 2000, true);
 
                 return;
             }
@@ -562,7 +641,7 @@ public class NuevaSolicitud {
                 baseDir.mkdirs();
             }
             Files.copy(new File(filePath + File.separator + media.getName()),
-                        media.getStreamData());
+                    media.getStreamData());
 
             entidad.setSolPathNombramientoRepresentante(filePath + File.separator + media.getName());
             System.out.println("PATH SUBIR " + filePath + File.separator + media.getName());
@@ -581,7 +660,7 @@ public class NuevaSolicitud {
 
             if (!nombre.contains(".pdf")) {
                 Clients.showNotification("Debe cargar un archivo PDF",
-                            Clients.NOTIFICATION_TYPE_ERROR, null, "middle_center", 2000, true);
+                        Clients.NOTIFICATION_TYPE_ERROR, null, "middle_center", 2000, true);
 
                 return;
             }
@@ -597,7 +676,7 @@ public class NuevaSolicitud {
                 baseDir.mkdirs();
             }
             Files.copy(new File(filePath + File.separator + media.getName()),
-                        media.getStreamData());
+                    media.getStreamData());
 
             entidad.setSolPathAceptacionNombramiento(filePath + File.separator + media.getName());
             System.out.println("PATH SUBIR " + filePath + File.separator + media.getName());
@@ -616,7 +695,7 @@ public class NuevaSolicitud {
 
             if (!nombre.contains(".pdf")) {
                 Clients.showNotification("Debe cargar un archivo PDF",
-                            Clients.NOTIFICATION_TYPE_ERROR, null, "middle_center", 2000, true);
+                        Clients.NOTIFICATION_TYPE_ERROR, null, "middle_center", 2000, true);
 
                 return;
             }
@@ -632,7 +711,7 @@ public class NuevaSolicitud {
                 baseDir.mkdirs();
             }
             Files.copy(new File(filePath + File.separator + media.getName()),
-                        media.getStreamData());
+                    media.getStreamData());
 
             entidad.setSolPathRucEmpresa(filePath + File.separator + media.getName());
             System.out.println("PATH SUBIR " + filePath + File.separator + media.getName());
@@ -651,7 +730,7 @@ public class NuevaSolicitud {
 
             if (!nombre.contains(".pdf")) {
                 Clients.showNotification("Debe cargar un archivo PDF",
-                            Clients.NOTIFICATION_TYPE_ERROR, null, "middle_center", 2000, true);
+                        Clients.NOTIFICATION_TYPE_ERROR, null, "middle_center", 2000, true);
 
                 return;
             }
@@ -667,7 +746,7 @@ public class NuevaSolicitud {
                 baseDir.mkdirs();
             }
             Files.copy(new File(filePath + File.separator + media.getName()),
-                        media.getStreamData());
+                    media.getStreamData());
 
             entidad.setSolPathCedulaRepresentanteEmpresa(filePath + File.separator + media.getName());
             System.out.println("PATH SUBIR " + filePath + File.separator + media.getName());
@@ -686,7 +765,7 @@ public class NuevaSolicitud {
 
             if (!nombre.contains(".pdf")) {
                 Clients.showNotification("Debe cargar un archivo PDF",
-                            Clients.NOTIFICATION_TYPE_ERROR, null, "middle_center", 2000, true);
+                        Clients.NOTIFICATION_TYPE_ERROR, null, "middle_center", 2000, true);
 
                 return;
             }
@@ -702,7 +781,7 @@ public class NuevaSolicitud {
                 baseDir.mkdirs();
             }
             Files.copy(new File(filePath + File.separator + media.getName()),
-                        media.getStreamData());
+                    media.getStreamData());
 
             entidad.setSolPathAutorizacionRepresentante(filePath + File.separator + media.getName());
             System.out.println("PATH SUBIR " + filePath + File.separator + media.getName());
@@ -893,6 +972,14 @@ public class NuevaSolicitud {
 
     public void setTipoFirmaSelected(TipoFirma tipoFirmaSelected) {
         this.tipoFirmaSelected = tipoFirmaSelected;
+    }
+
+    public AImage getFotoGeneral() {
+        return fotoGeneral;
+    }
+
+    public void setFotoGeneral(AImage fotoGeneral) {
+        this.fotoGeneral = fotoGeneral;
     }
 
 }

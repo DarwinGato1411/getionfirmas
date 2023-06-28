@@ -1,16 +1,16 @@
 package com.ec.entidad;
 
 import com.ec.entidad.Ciudad;
+import com.ec.entidad.DetalleTipoFirma;
 import com.ec.entidad.EstadoFirma;
 import com.ec.entidad.EstadoProceso;
-import com.ec.entidad.TipoFirma;
 import com.ec.entidad.Usuario;
 import java.util.Date;
 import javax.annotation.Generated;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2023-06-24T09:42:12")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2023-06-28T08:50:58")
 @StaticMetamodel(Solicitud.class)
 public class Solicitud_ { 
 
@@ -22,6 +22,7 @@ public class Solicitud_ {
     public static volatile SingularAttribute<Solicitud, String> solNombre;
     public static volatile SingularAttribute<Solicitud, String> solTipo;
     public static volatile SingularAttribute<Solicitud, String> solSexo;
+    public static volatile SingularAttribute<Solicitud, DetalleTipoFirma> idDetalleTipoFirma;
     public static volatile SingularAttribute<Solicitud, String> solTipoDocumento;
     public static volatile SingularAttribute<Solicitud, EstadoProceso> idEstadoProceso;
     public static volatile SingularAttribute<Solicitud, String> solFormato;
@@ -45,7 +46,6 @@ public class Solicitud_ {
     public static volatile SingularAttribute<Solicitud, Date> solFechaNacimiento;
     public static volatile SingularAttribute<Solicitud, String> solMailOp;
     public static volatile SingularAttribute<Solicitud, Usuario> idUsuario;
-    public static volatile SingularAttribute<Solicitud, TipoFirma> idTipoFirma;
     public static volatile SingularAttribute<Solicitud, String> solCelular;
     public static volatile SingularAttribute<Solicitud, String> solPathCedulaRepresentanteEmpresa;
     public static volatile SingularAttribute<Solicitud, Ciudad> idCiudad;

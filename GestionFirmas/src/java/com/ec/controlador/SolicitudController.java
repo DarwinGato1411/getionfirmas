@@ -57,6 +57,8 @@ public class SolicitudController {
     byte[] buffer = new byte[1024 * 1024];
     private AImage fotoGeneral = null;
 
+    private String divClass = "claseModZK";
+
     ServicioEstadoProceso servicioEstadoProceso = new ServicioEstadoProceso();
 
     @AfterCompose
@@ -65,7 +67,12 @@ public class SolicitudController {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(fechainicio);
         calendar.add(Calendar.WEEK_OF_YEAR, -1);
-        fechainicio=calendar.getTime();
+        fechainicio = calendar.getTime();
+        fechainicio = fechaFormateada("inicio", fechainicio);
+        fechafin = fechaFormateada("fin", fechafin);
+        
+        System.out.println(fechafin);
+        System.out.println(fechainicio);
         buscarSolicitudes();
     }
 
@@ -74,6 +81,16 @@ public class SolicitudController {
         Session sess = Sessions.getCurrent();
         credential = (UserCredential) sess.getAttribute(EnumSesion.userCredential.getNombre());
         buscarSolicitudes();
+    }
+
+    @Command
+    @NotifyChange("divClass")
+    public void cambiarClase() {
+        String claseNueva = "asdasd";
+        if (!divClass.contains(claseNueva)) {
+            divClass += " " + claseNueva;
+        }
+
     }
 
     @Command
@@ -160,7 +177,7 @@ public class SolicitudController {
     @NotifyChange({"listaDatos", "buscar"})
     public void cancelarSolicitud(@BindingParam("valor") Solicitud valor) {
 
-        if (Messagebox.show("Desea cambiar e", "Question", Messagebox.OK | Messagebox.CANCEL, Messagebox.QUESTION) == Messagebox.OK) {
+        if (Messagebox.show("Desea cancelar la solicitud?", "Question", Messagebox.OK | Messagebox.CANCEL, Messagebox.QUESTION) == Messagebox.OK) {
             EstadoProceso estado = servicioEstadoProceso.findBySigla("CAN");
             valor.setIdEstadoProceso(estado);
             servicioSolicitud.modificar(valor);
@@ -172,9 +189,33 @@ public class SolicitudController {
 
     @Command
     @NotifyChange({"listaDatos", "buscar"})
+    public void elimiarSolicitud(@BindingParam("valor") Solicitud valor) {
+
+        if (Messagebox.show("Desea cancelar la solicitud?", "Question", Messagebox.OK | Messagebox.CANCEL, Messagebox.QUESTION) == Messagebox.OK) {
+            if (valor.getIdEstadoProceso().getEstSigla().equals("APR")) {
+                Clients.showNotification("No se puede eliminar la solicitud ya ha sido aporbada",
+                        Clients.NOTIFICATION_TYPE_INFO, null, "middle_center", 1000, true);
+            } else {
+                servicioSolicitud.eliminar(valor);
+                buscarLike();
+                Clients.showNotification("Solicitud eliminada con éxito",
+                        Clients.NOTIFICATION_TYPE_INFO, null, "middle_center", 1000, true);
+            }
+
+        } else {
+            Clients.showNotification("Solicitud cancelada",
+                    Clients.NOTIFICATION_TYPE_INFO, null, "middle_center", 1000, true);
+        }
+    }
+
+    @Command
+    @NotifyChange({"listaDatos", "buscar"})
     public void buscarFechas(@BindingParam("valor") Solicitud valor) {
-        System.out.println(fechaFormateada("inicio", fechainicio));
-        System.out.println(fechaFormateada("fin", fechafin));
+        fechainicio = fechaFormateada("inicio", fechainicio);
+        fechafin = fechaFormateada("fin", fechafin);
+        
+        System.out.println(fechainicio);
+        System.out.println(fechafin);
         buscarSolicitudes();
     }
 
@@ -185,7 +226,7 @@ public class SolicitudController {
         String horaEspecificaStr = "00:00:00";
         SimpleDateFormat formatoHora = new SimpleDateFormat("HH:mm:ss");
 
-        if (tipo.equals("inicio")) {
+        if (tipo.equals("fin")) {
             horaEspecificaStr = "23:59:59";
         }
 
@@ -225,6 +266,14 @@ public class SolicitudController {
 
     public void setFechafin(Date fechafin) {
         this.fechafin = fechafin;
+    }
+
+    public String getDivClass() {
+        return divClass;
+    }
+
+    public void setDivClass(String divClass) {
+        this.divClass = divClass;
     }
 
 }

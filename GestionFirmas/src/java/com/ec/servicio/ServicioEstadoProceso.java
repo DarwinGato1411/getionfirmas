@@ -4,6 +4,7 @@
  */
 package com.ec.servicio;
 
+import com.ec.entidad.EstadoFirma;
 import com.ec.entidad.EstadoProceso;
 import java.util.ArrayList;
 import java.util.List;
@@ -101,7 +102,7 @@ public class ServicioEstadoProceso {
         return estadoProcesoObtenido;
     }
 
-    public List<EstadoProceso> finAll(String nombre) {
+    public List<EstadoProceso> finAll() {
         List<EstadoProceso> listaEstadoProcesos = new ArrayList<EstadoProceso>();
         try {
             System.out.println("Entra a consultar estadoProcesos");
@@ -110,6 +111,25 @@ public class ServicioEstadoProceso {
             em.getTransaction().begin();
             Query query = em.createQuery("SELECT u FROM EstadoProceso u ");
             listaEstadoProcesos = (List<EstadoProceso>) query.getResultList();
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            System.out.println("Error estadoProcesos finAll " + e.getMessage());
+        } finally {
+            em.close();
+        }
+
+        return listaEstadoProcesos;
+    }
+    
+    public List<EstadoFirma> finAllFirmas() {
+        List<EstadoFirma> listaEstadoProcesos = new ArrayList<EstadoFirma>();
+        try {
+            System.out.println("Entra a consultar EstadoFirma");
+            //Connection connection = em.unwrap(Connection.class);
+            em = HelperPersistencia.getEMF();
+            em.getTransaction().begin();
+            Query query = em.createQuery("SELECT u FROM EstadoFirma u ");
+            listaEstadoProcesos = (List<EstadoFirma>) query.getResultList();
             em.getTransaction().commit();
         } catch (Exception e) {
             System.out.println("Error estadoProcesos finAll " + e.getMessage());

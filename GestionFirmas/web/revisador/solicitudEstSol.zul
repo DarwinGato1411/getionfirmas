@@ -11,27 +11,63 @@
 
 <zk   with="90%" >
     <div self="@define(content)" apply="org.zkoss.bind.BindComposer" 
-         viewModel="@id('vm') @init('com.ec.controlador.SolicitudRevisadorController')" >
+         viewModel="@id('vm') @init('com.ec.controlador.SolicitudRevisadorESolController')" >
                   
         <div  class="contenedorPacientes">
             <div  class="botonera">
                   
+                
                 <div class="contenedorGris busquedaCedula"> 
-                    <label value="Busqueda por Ruc: "/>  
-                    <textbox value="@bind(vm.buscar)" 
-                             class="form-control form-control-sm"
-                             tooltiptext="Buscar por Nombre o Cédula "                         
-                             placeholder="Ejm:1001234567"
-                             onOK="@command('buscarLike')" 
-                             onChange="self.setValue(self.getValue().toUpperCase());" />
+                    <div class="wrapper_input">
+                    <span>Estado:</span>
+                    <combobox  
+                        model="@load(vm.listadoEstados)" 
+                        selectedItem="@bind(vm.tipoEstadoSolSelected)"                        
+                        readonly="true" 
+                        width="100%"
+                        class="input_date">                        
+                        <template class="asdasds" width="100%"  name="model">
+                            <comboitem width="100%" label="@bind(each.estDescripcion)"  />
+                        </template>                                      
+                    </combobox>
+                    </div>
+                    <div class="wrapper_input">
+                        <span>Inicio:</span>
+                        <datebox 
+                            value="@bind(vm.fechainicio)" 
+                            compact="true" 
+                            readonly="true" 
+                            buttonVisible="true" 
+                            class="input_date"
+                            lenient="true" 
+                            format="dd/MM/yyyy " 
+                            constraint="no empty: Ingrese la fecha"
+                        /> 
+                        <div class="fa-solid fa-calendar icon" />                                 
+                    </div>
+                    <div class="wrapper_input">
+                        <span>Fin:</span>
+                        <datebox 
+                            value="@bind(vm.fechafin)" 
+                            compact="true" 
+                            readonly="true" 
+                            buttonVisible="true" 
+                            class="input_date"
+                            lenient="true" 
+                            format="dd/MM/yyyy" 
+                            constraint="no empty: Ingrese la fecha"
+                        />
+                        <div class="fa-solid fa-calendar icon" />
+                    </div>
                     <button    
                         iconSclass="z-icon-book"
-                        onClick="@command('buscarLike')"  
+                        onClick="@command('buscarEstadoFechas')"  
                         tooltiptext="Buscar por cédula/ruc">
                         Buscar
                     </button>
+                     
                 </div>
-                <div class="contenedorGris busquedaCedula"> 
+                <!--<div class="contenedorGris busquedaCedula"> 
                     <label value="Busqueda por fecha: "/>  
                     <div class="wrapper_input">
                         <span>Inicio:</span>
@@ -67,7 +103,7 @@
                         tooltiptext="Buscar por cédula/ruc">
                         Buscar
                     </button>
-                </div>
+                </div>-->
                 <div class="contenedorGris ">
                                              
                     <button    
@@ -78,17 +114,17 @@
                         Ingresar Solicitud
                     </button>
                     <button 
-                        label="PDF por fecha"          
-                        onClick="@command('pdfSolicitudFecha')" 
+                        label="PDF por Estado"          
+                        onClick="@command('pdfSolicitudEstadoSol')" 
                         tooltiptext="">
                                     
                     </button> 
-                    <button 
+                    <!--<button 
                         label="PDF"          
                         onClick="@command('pdfSolicitudAll')" 
                         tooltiptext="">
                                     
-                    </button> 
+                    </button> -->
                 </div>  
             </div>
             <div class="paciente revisador" >
@@ -104,7 +140,7 @@
                         <listheader label="Correo"  />                                                                         
                         <listheader label="Telefono" />
                         <listheader label="Creado por:" />  
-                                                                                                
+                        <listheader label="Estado Firma" />                                                                        
                         <!--                        <listheader label="E-S"  tooltiptext="Estado de la solicitud "  class="btnPc"/>                                                                         
                         <listheader label="E-F"  tooltiptext="Estado de la firma "  class="btnPc"/>                                                                         -->
                         <listheader label="" class="btnPc"  />                                                                         
@@ -147,12 +183,36 @@
                                
                                 
                                 <textbox readonly="true"  style="font-size:12px ;background:#EBF5FB"
-                                             class="form-control form-control-sm" 
-                                             value="@bind(each.idUsuario.usuNombre)" />
+                                         class="form-control form-control-sm" 
+                                         value="@bind(each.idUsuario.usuNombre)" />
                                
                                
                             </listcell>
-                           
+                            
+                            <listcell zclass = "mycss-listcell" style="width:100%;" >
+                               
+                                
+                                <textbox readonly="true"  style="font-size:12px ;background:#EBF5FB"
+                                         class="form-control form-control-sm" 
+                                         value="@bind(each.idEstadoProceso.estDescripcion)" />
+                               
+                               
+                            </listcell>
+                            
+                            
+                            <!--<listcell zclass = "mycss-listcell" style="width:100%;" >
+                                <div if="${each.idUsuario.usuNivel==1}">
+                                    <textbox readonly="true"  style="font-size:12px ;background:#EBF5FB"
+                                             class="form-control form-control-sm" 
+                                             value="DISTRIBUIDOR" /> 
+                                </div>
+                                <div if="${each.idUsuario.usuNivel==3}">
+                                    <textbox readonly="true"  style="font-size:12px ;background:#EBF5FB"
+                                             class="form-control form-control-sm" 
+                                             value="REVISADOR" />
+                                </div>
+                               
+                            </listcell>-->
 
                             <listcell zclass = "mycss-listcell"  class="btnPc" style="font-size:12px;background:#F8F9F9">   
 
@@ -171,14 +231,7 @@
                                          
                                 </button>                                                  
                                                                      
-                                <button 
-                                    label=""
-                                    class="btn-danger-zk"
-                                    iconSclass="z-icon-trash-o"
-                                    onClick="@command('eliminarPaciente',valor=each)" 
-                                    tooltiptext="">
-                                    
-                                </button>                                      
+                                                                  
                                 <button 
                                     label="PDF Solicitud"
                                     onClick="@command('pdfSolicitudIndividual',valor=each)" 

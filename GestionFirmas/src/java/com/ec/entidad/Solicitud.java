@@ -184,12 +184,15 @@ public class Solicitud implements Serializable {
     @JoinColumn(name = "id_ciudad", referencedColumnName = "id_ciudad")
     @ManyToOne
     private Ciudad idCiudad;
+    
     @JoinColumn(name = "id_estado_firma", referencedColumnName = "id_estado_firma")
     @ManyToOne
     private EstadoFirma idEstadoFirma;
+    
     @JoinColumn(name = "id_estado_proceso", referencedColumnName = "id_estado_proceso")
     @ManyToOne
     private EstadoProceso idEstadoProceso;
+    
     @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario")
     @ManyToOne
     private Usuario idUsuario;

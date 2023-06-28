@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="listadosolicitudGeneralFecha" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="busqueda" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="inicio" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fin" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select * from solicitud where sol_nombre LIKE ('%'||$P{busqueda}||'%') and TO_CHAR(sol_fecha_creacion, 'YYYY-MM-DD')::date between $P{inicio} and $P{fin};]]>
+	</queryString>
+	<field name="id_solicitud" class="java.lang.Integer"/>
+	<field name="sol_ruc" class="java.lang.String"/>
+	<field name="sol_codigo_dactilar" class="java.lang.String"/>
+	<field name="sol_nombre" class="java.lang.String"/>
+	<field name="sol_apellido1" class="java.lang.String"/>
+	<field name="sol_apellido2" class="java.lang.String"/>
+	<field name="sol_nacionalidad" class="java.lang.String"/>
+	<field name="sol_sexo" class="java.lang.String"/>
+	<field name="sol_celular" class="java.lang.String"/>
+	<field name="sol_mail" class="java.lang.String"/>
+	<field name="sol_celular_op" class="java.lang.String"/>
+	<field name="sol_mail_op" class="java.lang.String"/>
+	<field name="sol_provincia" class="java.lang.String"/>
+	<field name="sol_ciudad" class="java.lang.String"/>
+	<field name="sol_direccion_completa" class="java.lang.String"/>
+	<field name="sol_formato" class="java.lang.String"/>
+	<field name="sol_vigencia" class="java.lang.String"/>
+	<field name="sol_path_cedula" class="java.lang.String"/>
+	<field name="sol_path_selfi" class="java.lang.String"/>
+	<field name="sol_path_ruc" class="java.lang.String"/>
+	<field name="sol_path_constitucion" class="java.lang.String"/>
+	<field name="sol_path_cedula_anverso" class="java.lang.String"/>
+	<field name="sol_path_cedula_reverso" class="java.lang.String"/>
+	<field name="age_estado" class="java.lang.Boolean"/>
+	<field name="id_usuario" class="java.lang.Integer"/>
+	<field name="id_estado_proceso" class="java.lang.Integer"/>
+	<field name="id_ciudad" class="java.lang.Integer"/>
+	<field name="id_estado_firma" class="java.lang.Integer"/>
+	<field name="sol_certificado" class="java.lang.String"/>
+	<field name="sol_json" class="java.lang.String"/>
+	<field name="sol_id_request" class="java.lang.String"/>
+	<field name="sol_fecha_nacimiento" class="java.sql.Date"/>
+	<field name="sol_edad" class="java.lang.Integer"/>
+	<field name="sol_tipo_documento" class="java.lang.String"/>
+	<field name="sol_con_ruc" class="java.lang.Boolean"/>
+	<field name="id_tipo_firma" class="java.lang.Integer"/>
+	<field name="sol_tipo" class="java.lang.String"/>
+	<field name="sol_ruc_empresa" class="java.lang.String"/>
+	<field name="sol_razon_social" class="java.lang.String"/>
+	<field name="sol_area" class="java.lang.String"/>
+	<field name="sol_cargo_representante" class="java.lang.String"/>
+	<field name="sol_cargo_solicitante" class="java.lang.String"/>
+	<field name="sol_me_tipodocumento" class="java.lang.String"/>
+	<field name="sol_me_nombres" class="java.lang.String"/>
+	<field name="sol_me_apellido1" class="java.lang.String"/>
+	<field name="sol_me_apellido2" class="java.lang.String"/>
+	<field name="sol_me_ruc" class="java.lang.String"/>
+	<field name="sol_fecha_creacion" class="java.sql.Timestamp"/>
+	<field name="sol_path_constitucion_compania" class="java.lang.String"/>
+	<field name="sol_path_nombramiento_representante" class="java.lang.String"/>
+	<field name="sol_path_aceptacion_nombramiento" class="java.lang.String"/>
+	<field name="sol_path_ruc_empresa" class="java.lang.String"/>
+	<field name="sol_path_cedula_representante_empresa" class="java.lang.String"/>
+	<field name="sol_path_autorizacion_representante" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="21" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement x="15" y="0" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[sol_nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="134" y="0" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[sol_apellido1]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="247" y="0" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[sol_apellido2]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="401" y="0" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[sol_celular]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="26" splitType="Stretch">
+			<textField>
+				<reportElement x="15" y="6" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{sol_nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="134" y="6" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{sol_apellido1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="247" y="6" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{sol_apellido2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="401" y="6" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{sol_celular}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

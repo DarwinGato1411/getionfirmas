@@ -53,7 +53,7 @@ import org.zkoss.zul.Messagebox;
  *
  * @author Darwin
  */
-public class SolicitudRevisadorController {
+public class SolicitudRevisadorESolController {
 
     private Usuario usuario;
     ServicioUsuario servicioUsuario = new ServicioUsuario();
@@ -62,7 +62,8 @@ public class SolicitudRevisadorController {
     ServicioEstadoProceso servicioEstadoProceso = new ServicioEstadoProceso();
     private List<Solicitud> listaDatos = new ArrayList<Solicitud>();
     private List<EstadoProceso> listadoEstados = new ArrayList<EstadoProceso>();
-    private EstadoProceso tipoSolSelected = null;
+    private EstadoProceso tipoEstadoSolSelected = null;
+    
     private String buscar = "";
     private Date fechainicio = new Date();
     private Date fechafin = new Date();
@@ -70,6 +71,7 @@ public class SolicitudRevisadorController {
     private String filePath;
     byte[] buffer = new byte[1024 * 1024];
     private AImage fotoGeneral = null;
+    
 
     Connection con = null;
     //reporte
@@ -93,9 +95,10 @@ public class SolicitudRevisadorController {
 
     private void cargarDatos() {
         listadoEstados = servicioEstadoProceso.finAll();
+
     }
 
-    public SolicitudRevisadorController() {
+    public SolicitudRevisadorESolController() {
 
         Session sess = Sessions.getCurrent();
         credential = (UserCredential) sess.getAttribute(EnumSesion.userCredential.getNombre());
@@ -112,6 +115,22 @@ public class SolicitudRevisadorController {
     @Command
     @NotifyChange({"listaDatos", "buscar"})
     public void eliminarPaciente(@BindingParam("valor") Solicitud valor) {
+        try {
+            if (Messagebox.show("¿Esta seguro de eliminar el paciente?", "Atención", Messagebox.YES | Messagebox.NO, Messagebox.INFORMATION) == Messagebox.YES) {
+
+                servicioSolicitud.modificar(valor);
+                buscarLike();
+            }
+        } catch (Exception e) {
+            Clients.showNotification("Ocurrio un error " + e.getMessage(),
+                    Clients.NOTIFICATION_TYPE_ERROR, null, "middle_center", 2000, true);
+        }
+    }
+
+    @Command
+    @NotifyChange({"listaDatos", "buscar"})
+
+    public void consultaEstSol(@BindingParam("valor") Solicitud valor) {
         try {
             if (Messagebox.show("¿Esta seguro de eliminar el paciente?", "Atención", Messagebox.YES | Messagebox.NO, Messagebox.INFORMATION) == Messagebox.YES) {
 
@@ -219,9 +238,9 @@ public class SolicitudRevisadorController {
         }
 
     }
-
+    
     @Command
-    public void pdfSolicitudIndividual(@BindingParam("valor") Solicitud valor) {
+    public void pdfSolicitudEstadoSol() {
 
         EntityManager emf = HelperPersistencia.getEMF();
 
@@ -233,12 +252,14 @@ public class SolicitudRevisadorController {
                     .getRealPath("/reportes");
             String reportPath = "";
 
-            reportPath = reportFile + File.separator + "solicitud.jasper";
+            reportPath = reportFile + File.separator + "listadosolicitudEstadoSol.jasper";
 
             Map<String, Object> parametros = new HashMap<String, Object>();
 
             //  parametros.put("codUsuario", String.valueOf(credentialLog.getAdUsuario().getCodigoUsuario()));
-            parametros.put("idSolicitud", valor.getIdSolicitud());
+            parametros.put("busqueda", buscar);
+            parametros.put("inicio", fechainicio);
+            parametros.put("fin", fechafin);
 
             if (con != null) {
                 System.out.println("Conexión Realizada Correctamenteeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
@@ -268,13 +289,61 @@ public class SolicitudRevisadorController {
     }
 
     @Command
+    public void pdfSolicitudIndividual(@BindingParam("valor") Solicitud valor) {
+
+        EntityManager emf = HelperPersistencia.getEMF();
+
+        try {
+            emf.getTransaction().begin();
+            con = emf.unwrap(Connection.class);
+
+            String reportFile = Executions.getCurrent().getDesktop().getWebApp()
+                    .getRealPath("/reportes");
+            String reportPath = "";
+
+            reportPath = reportFile + File.separator + "solicitudIndividual.jasper";
+
+            Map<String, Object> parametros = new HashMap<String, Object>();
+
+            //  parametros.put("codUsuario", String.valueOf(credentialLog.getAdUsuario().getCodigoUsuario()));
+            parametros.put("idSolicitud", valor.getIdSolicitud());
+
+            if (con != null) {
+                System.out.println("Conexión Realizada Correctamente");
+            }
+            FileInputStream is = null;
+            is = new FileInputStream(reportPath);
+
+            byte[] buf = JasperRunManager.runReportToPdf(is, parametros, con);
+            InputStream mediais = new ByteArrayInputStream(buf);
+            AMedia amedia = new AMedia("Reporte", "pdf", "application/pdf", mediais);
+            fileContent = amedia;
+            final HashMap<String, AMedia> map = new HashMap<String, AMedia>();
+//para pasar al visor
+            map.put("pdf", fileContent);
+            org.zkoss.zul.Window window = (org.zkoss.zul.Window) Executions.createComponents(
+                    "/modal/visorreporte.zul", null, map);
+            window.doModal();
+        } catch (Exception e) {
+            System.out.println("ERROR EL PRESENTAR EL REPORTE " + e.getMessage());
+        } finally {
+            if (emf != null) {
+                emf.getTransaction().commit();
+            }
+
+        }
+
+    }
+
+    @Command
     @NotifyChange({"listaDatos", "buscar"})
-    public void buscarFechas(@BindingParam("valor") Solicitud valor) {
+    public void buscarEstadoFechas(@BindingParam("valor") Solicitud valor) {
         fechainicio = fechaFormateada("inicio", fechainicio);
         fechafin = fechaFormateada("fin", fechafin);
 
         System.out.println(fechainicio);
         System.out.println(fechafin);
+        System.out.println(tipoEstadoSolSelected.getEstDescripcion());
         buscarSolicitudes();
     }
 
@@ -356,18 +425,17 @@ public class SolicitudRevisadorController {
             Messagebox.show("Error " + e.toString(), "Atención", Messagebox.OK, Messagebox.INFORMATION);
         }
     }
-    
+
     @Command
     @NotifyChange({"listaDetalleTipoFirmas", "tipoFirmaSelected"})
     public void consultaDetalleTipoFirma() {
 
         //listaDatos = servicioDetalleTipoFirma.findByTipoFirma(tipoFirmaSelected);
-
     }
 
     private void buscarSolicitudes() {
-        //listaDatos = servicioSolicitud.findLikeSolicitud(buscar, credential.getUsuarioSistema());
-        listaDatos = servicioSolicitud.findSolicitudFecha(fechainicio, fechafin, credential.getUsuarioSistema());
+
+        listaDatos = servicioSolicitud.findSolicitudEstadoSol(fechainicio, fechafin, tipoEstadoSolSelected, credential.getUsuarioSistema());
     }
 
     public List<Solicitud> getListaDatos() {
@@ -400,6 +468,22 @@ public class SolicitudRevisadorController {
 
     public void setFechafin(Date fechafin) {
         this.fechafin = fechafin;
+    }
+
+    public List<EstadoProceso> getListadoEstados() {
+        return listadoEstados;
+    }
+
+    public void setListadoEstados(List<EstadoProceso> listadoEstados) {
+        this.listadoEstados = listadoEstados;
+    }
+
+    public EstadoProceso getTipoEstadoSolSelected() {
+        return tipoEstadoSolSelected;
+    }
+
+    public void setTipoEstadoSolSelected(EstadoProceso tipoEstadoSolSelected) {
+        this.tipoEstadoSolSelected = tipoEstadoSolSelected;
     }
 
 }

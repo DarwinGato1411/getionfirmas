@@ -65,8 +65,9 @@ body {
 }
 .login_container .wrapper_login .container_img .logo {
 
-    height: 50px;
+    height: 90px;
     margin: 0 auto 0 auto;
+    border-radius: 20px;
 }
 .login_container .wrapper_login .container_img .wrapper_title {
     position: relative;

@@ -3625,3 +3625,7 @@ div.z-listbox-header th.z-listheader, div.z-listbox-header th.z-auxheader {
     font-weight: bold !important;
     font-size: 18px !important;
 }
+
+.swal2-container{
+    z-index: 2000;
+}

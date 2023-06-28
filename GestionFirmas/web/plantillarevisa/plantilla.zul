@@ -1,5 +1,6 @@
 <?init class="com.ec.seguridad.Autentificador"?>
 
+
 <zk  >
     <include src="/plantillarevisa/banner.zul"/>
     <div class="contenedorMC">
