@@ -102,8 +102,8 @@
                         <listheader label="Cédula/RUC" > </listheader>                                                                         
                         <listheader label="Nombre"  />                                                                         
                         <listheader label="Correo"  />                                                                         
-                        <listheader label="Telefono" />
-                        <listheader label="Creado por:" />  
+                        <listheader label="Teléfono"  />
+                        <listheader label="Creado por" />  
                                                                                                 
                         <!--                        <listheader label="E-S"  tooltiptext="Estado de la solicitud "  class="btnPc"/>                                                                         
                         <listheader label="E-F"  tooltiptext="Estado de la firma "  class="btnPc"/>                                                                         -->
@@ -171,14 +171,14 @@
                                          
                                 </button>                                                  
                                                                      
-                                <button 
+                               <!-- <button 
                                     label=""
                                     class="btn-danger-zk"
                                     iconSclass="z-icon-trash-o"
                                     onClick="@command('eliminarPaciente',valor=each)" 
                                     tooltiptext="">
                                     
-                                </button>                                      
+                                </button>    -->                                  
                                 <button 
                                     label="PDF Solicitud"
                                     onClick="@command('pdfSolicitudIndividual',valor=each)" 

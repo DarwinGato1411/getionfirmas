@@ -180,6 +180,8 @@ public class Solicitud implements Serializable {
     @Column(name = "sol_path_autorizacion_representante")
     private String solPathAutorizacionRepresentante;
     
+    @Column(name = "sol_num_retencion")
+    private String solNumRetencion;
 
     @JoinColumn(name = "id_ciudad", referencedColumnName = "id_ciudad")
     @ManyToOne
@@ -664,6 +666,14 @@ public class Solicitud implements Serializable {
 
     public void setSolPathAutorizacionRepresentante(String solPathAutorizacionRepresentante) {
         this.solPathAutorizacionRepresentante = solPathAutorizacionRepresentante;
+    }
+
+    public String getSolNumRetencion() {
+        return solNumRetencion;
+    }
+
+    public void setSolNumRetencion(String solNumRetencion) {
+        this.solNumRetencion = solNumRetencion;
     }
 
     

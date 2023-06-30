@@ -106,7 +106,7 @@ public class SolicitudRevisadorController {
     @NotifyChange({"listaDatos", "buscar"})
     public void buscarLike() {
 
-        buscarSolicitudes();
+        listaDatos = servicioSolicitud.findLikeSolicitud(buscar, credential.getUsuarioSistema());
     }
 
     @Command
@@ -275,7 +275,7 @@ public class SolicitudRevisadorController {
 
         System.out.println(fechainicio);
         System.out.println(fechafin);
-        buscarSolicitudes();
+        listaDatos = servicioSolicitud.findSolicitudFecha(fechainicio, fechafin, credential.getUsuarioSistema());
     }
 
     public Date fechaFormateada(String tipo, Date fecha) {
@@ -367,7 +367,7 @@ public class SolicitudRevisadorController {
 
     private void buscarSolicitudes() {
         //listaDatos = servicioSolicitud.findLikeSolicitud(buscar, credential.getUsuarioSistema());
-        listaDatos = servicioSolicitud.findSolicitudFecha(fechainicio, fechafin, credential.getUsuarioSistema());
+        
     }
 
     public List<Solicitud> getListaDatos() {

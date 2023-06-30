@@ -70,7 +70,7 @@ public class SolicitudController {
         fechainicio = calendar.getTime();
         fechainicio = fechaFormateada("inicio", fechainicio);
         fechafin = fechaFormateada("fin", fechafin);
-        
+
         System.out.println(fechafin);
         System.out.println(fechainicio);
         buscarSolicitudes();
@@ -96,8 +96,8 @@ public class SolicitudController {
     @Command
     @NotifyChange({"listaDatos", "buscar"})
     public void buscarLike() {
-
-        buscarSolicitudes();
+        listaDatos = servicioSolicitud.findLikeSolicitud(buscar, credential.getUsuarioSistema());
+        //buscarSolicitudes();
     }
 
     @Command
@@ -153,8 +153,8 @@ public class SolicitudController {
     }
 
     private void buscarSolicitudes() {
-        //listaDatos = servicioSolicitud.findLikeSolicitud(buscar, credential.getUsuarioSistema());
-        listaDatos = servicioSolicitud.findSolicitudFecha(fechainicio, fechafin, credential.getUsuarioSistema());
+        listaDatos = servicioSolicitud.findLikeSolicitud(buscar, credential.getUsuarioSistema());
+        //listaDatos = servicioSolicitud.findSolicitudFecha(fechainicio, fechafin, credential.getUsuarioSistema());
     }
 
     public List<Solicitud> getListaDatos() {
@@ -213,10 +213,10 @@ public class SolicitudController {
     public void buscarFechas(@BindingParam("valor") Solicitud valor) {
         fechainicio = fechaFormateada("inicio", fechainicio);
         fechafin = fechaFormateada("fin", fechafin);
-        
+
         System.out.println(fechainicio);
         System.out.println(fechafin);
-        buscarSolicitudes();
+        listaDatos = servicioSolicitud.findSolicitudFecha(fechainicio, fechafin, credential.getUsuarioSistema());
     }
 
     public Date fechaFormateada(String tipo, Date fecha) {

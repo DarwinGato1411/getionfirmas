@@ -8,7 +8,7 @@
 <?link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet" ?>
 <?script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"?>
 
-<zk   with="90%" >
+<zk >
     <div self="@define(content)" apply="org.zkoss.bind.BindComposer" 
          viewModel="@id('vm') @init('com.ec.controlador.SolicitudController')" >
                   
@@ -16,7 +16,7 @@
             <div  class="botonera">
                   
                  <div class="contenedorGris busquedaCedula"> 
-                     <label value="Busqueda por Ruc: "/>  
+                     <label value="Buscar por Ruc: "/>  
                      <textbox value="@bind(vm.buscar)" 
                                      class="form-control form-control-sm"
                                      tooltiptext="Buscar por Nombre o Cédula "                         
@@ -31,7 +31,7 @@
                     </button>
                 </div>
                 <div class="contenedorGris busquedaCedula"> 
-                     <label value="Busqueda por fecha: "/>  
+                     <label value="Buscar por fecha: "/>  
                      <div class="wrapper_input">
                                     <span>Inicio:</span>
                                         <datebox 
@@ -78,7 +78,7 @@
                     </button>
                  </div>  
             </div>
-            <div class="paciente" >
+            <div class="paciente distribuidor" >
                
                 <listbox class="" 
                          model="@load(vm.listaDatos)" 
@@ -120,19 +120,16 @@
                                          value="@bind(each.solCelular)" />
                             </listcell>
                             <listcell zclass = "mycss-listcell" style="width:100%;" >
-                                <textbox readonly="true"  style="font-size:12px ;background:#EBF5FB"
+                                <textbox readonly="true"  style="font-size:12px ;background:#EBF5FB; text-align:center;"
                                          class="form-control form-control-sm" 
                                          value="@bind(each.idEstadoProceso.estDescripcion)" />
                             </listcell>
                             <listcell zclass = "mycss-listcell" style="width:100%;" >
-                                <textbox readonly="true"  style="font-size:12px ;background:#EBF5FB"
+                                <textbox readonly="true"  style="font-size:12px ;background:#EBF5FB; text-align:center;"
                                          class="form-control form-control-sm" 
                                          value="@bind(each.idEstadoFirma.estDescripcion)" />
                             </listcell>
-                            <listcell zclass = "mycss-listcell"  class="btnCell"   style="font-size:12px;background:#F8F9F9">   
-                                
-                                                                        
-                                                                               
+                            <listcell zclass = "mycss-listcell"  class="btnCell"   style="font-size:12px;background:#F8F9F9">                                                           
                                 <button class="btn btn-primary"
                                         iconSclass="z-icon-pencil"
                                         onClick="@command('modificarSolicitud',valor=each)" 

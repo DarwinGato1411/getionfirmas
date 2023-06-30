@@ -108,6 +108,7 @@ public class NuevaSolicitud {
 
     ServicioEstadoProceso servicioEstadoProceso = new ServicioEstadoProceso();
     private boolean solicitudCampos = false;
+    private boolean retencion = false;
 
     @AfterCompose
     public void afterCompose(@ExecutionArgParam("valor") Solicitud valor, @ContextParam(ContextType.VIEW) Component view) {
@@ -125,7 +126,11 @@ public class NuevaSolicitud {
             if (tipoFirmaSelected != null) {
                 listaDetalleTipoFirmas = servicioDetalleTipoFirma.findByTipoFirma(tipoFirmaSelected);
             }
-            
+
+            if (entidad.getSolNumRetencion() != null) {
+                retencion = true;
+            }
+
             cargarVistaTiposSol(valor.getSolTipo() == null ? "" : valor.getSolTipo());
         } else {
 
@@ -246,6 +251,7 @@ public class NuevaSolicitud {
         listaNacionalidad = servicioNacionalidad.finAll();
         listaProvincias = servicioProvincia.finAll();
         listaTipoFirmas = servicioTipoFirma.finAll();
+
     }
 
     public NuevaSolicitud() {
@@ -303,8 +309,8 @@ public class NuevaSolicitud {
                 wSolicitud.detach();
                 sweetAltert("success", "OK", "Solicitud editada con éxito");
             }
-            
-        } 
+
+        }
     }
 
     public void camposVaciosPorSolicitud() {
@@ -980,6 +986,14 @@ public class NuevaSolicitud {
 
     public void setFotoGeneral(AImage fotoGeneral) {
         this.fotoGeneral = fotoGeneral;
+    }
+
+    public boolean isRetencion() {
+        return retencion;
+    }
+
+    public void setRetencion(boolean retencion) {
+        this.retencion = retencion;
     }
 
 }

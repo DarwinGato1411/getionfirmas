@@ -3304,7 +3304,7 @@ input, button, select, textarea {
 }
 
 .contenedorPacientes .paciente{
-    
+
 }
 
 
@@ -3349,36 +3349,48 @@ input, button, select, textarea {
 
 }
 
+
+
 .contenedorPacientes  .z-listbox .tblCabecera{
     display: grid;
-    grid-template-columns:10% 15% 20% 10% 15% 15% 15%;
+    grid-template-columns:10% 15% 20% 10% 10% 10% 25%;
 }
 
 .contenedorPacientes  .z-listbox .tblCuerpo{
     display: grid;
-    grid-template-columns:10% 15% 20% 10% 15% 15% 15%;
-}
-
-.contenedorPacientes  .z-listbox .tblCabecera{
-    display: grid;
-    grid-template-columns:10% 15% 20% 10% 15% 15% 15%;
-}
-
-.contenedorPacientes  .z-listbox .tblCuerpo{
-    display: grid;
-    grid-template-columns:10% 15% 20% 10% 15% 15% 15%;
+    grid-template-columns:10% 15% 20% 10% 10% 10% 25%;
 }
 
 
 
 .revisador  .z-listbox .tblCabecera{
     display: grid;
-    grid-template-columns:10% 15% 15% 10% 15% 15% 20%;
+    grid-template-columns:10% 15% 15% 15% 20% 25%;
 }
 
 .revisador  .z-listbox .tblCuerpo{
     display: grid;
-    grid-template-columns:10% 15% 15% 10% 15% 15% 20%;
+    grid-template-columns:10% 15% 15% 15% 20% 25%;
+}
+
+.revisador2  .z-listbox .tblCabecera{
+    display: grid;
+    grid-template-columns:10% 15% 15% 20% 15% 25%;
+}
+
+.revisador2  .z-listbox .tblCuerpo{
+    display: grid;
+    grid-template-columns:10% 15% 15% 20% 15% 25%;
+}
+
+.revisador3  .z-listbox .tblCabecera{
+    display: grid;
+    grid-template-columns:10% 15% 15% 15% 20% 5% 25%;
+}
+
+.revisador3  .z-listbox .tblCuerpo{
+    display: grid;
+    grid-template-columns:10% 15% 15% 15% 20% 25%;
 }
 
 
@@ -3540,7 +3552,7 @@ div.z-listbox-header th.z-listheader, div.z-listbox-header th.z-auxheader {
 }
 
 .perfilUser{
-    
+
 }
 
 .perfilUser .tituloUserheader{
@@ -3551,16 +3563,16 @@ div.z-listbox-header th.z-listheader, div.z-listbox-header th.z-auxheader {
 }
 
 .tituloUserheader{
-    
+
     color: black;
     background: #eee;
     border-radius: 20px;
     padding: 10px;
-    
+
 }
 
 .perfilUser .tituloUserheader span{
-   
+
 }
 
 .btn-primary-zk {

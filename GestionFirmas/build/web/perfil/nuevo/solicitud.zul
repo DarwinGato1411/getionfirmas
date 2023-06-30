@@ -684,12 +684,13 @@
                        
                  </div>
                   <div class="DP"> 
-                      <div class="leyenda">
-                        <label class="leyenda" value="Retención"/>
-                         <checkbox id="checkbox" label="Casilla de verificación" checked="${true}" />
-                        
+                      <div class="">              
+                        <checkbox id="checkbox" label="Tiene retención?" checked="@bind(vm.retencion)" />    
                     </div>
-                    <div class="wrapper_input_mod_group">
+                      <div class="leyenda" visible="@bind(vm.retencion)">
+                        <label class="leyenda" value="Retención"/>         
+                    </div>
+                    <div class="wrapper_input_mod_group" visible="@bind(vm.retencion)">
                         <div class="wrapper_input_mod">
                          <div class="campoImportante">
                                 <span class="importante">*</span>
@@ -701,7 +702,7 @@
                             <textbox  
                                 maxlength="100"    
                                 onChange="self.setValue(self.getValue().toUpperCase());"  
-                                value="@bind(vm.entidad.solDireccionCompleta)" 
+                                value="@bind(vm.entidad.solNumRetencion)" 
                                 class="input_text" />
                         </div>
                         </div>

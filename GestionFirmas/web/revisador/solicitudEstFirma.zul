@@ -119,7 +119,13 @@
                         tooltiptext="">
                                     
                     </button> 
-                    <!--<button 
+                  <!--  <button 
+                        label="Pdf Solicitudes"          
+                        onClick="@command('pdfSolicitudEstadoSol')" 
+                        tooltiptext="">
+                                    
+                    </button> 
+                   <button 
                         label="PDF"          
                         onClick="@command('pdfSolicitudAll')" 
                         tooltiptext="">
@@ -127,7 +133,7 @@
                     </button> -->
                 </div>  
             </div>
-            <div class="paciente revisador" >
+            <div class="paciente revisador3" >
                    
                 <listbox class="tabla table-responsive table table-striped table-bordered second" 
                          model="@load(vm.listaDatos)" 
@@ -140,7 +146,7 @@
                         <listheader label="Correo"  />                                                                         
                         <listheader label="Telefono" />
                         <listheader label="Creado por:" />  
-                        <listheader label="Rol:" />                                                                        
+                                                                                     
                         <!--                        <listheader label="E-S"  tooltiptext="Estado de la solicitud "  class="btnPc"/>                                                                         
                         <listheader label="E-F"  tooltiptext="Estado de la firma "  class="btnPc"/>                                                                         -->
                         <listheader label="" class="btnPc"  />                                                                         
@@ -188,7 +194,7 @@
                                
                                
                             </listcell>
-                            <listcell zclass = "mycss-listcell" style="width:100%;" >
+                            <!--<listcell zclass = "mycss-listcell" style="width:100%;" >
                                 <div if="${each.idUsuario.usuNivel==1}">
                                     <textbox readonly="true"  style="font-size:12px ;background:#EBF5FB"
                                              class="form-control form-control-sm" 
@@ -200,7 +206,7 @@
                                              value="REVISADOR" />
                                 </div>
                                
-                            </listcell>
+                            </listcell>-->
 
                             <listcell zclass = "mycss-listcell"  class="btnPc" style="font-size:12px;background:#F8F9F9">   
 

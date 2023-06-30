@@ -127,7 +127,7 @@
                     </button> -->
                 </div>  
             </div>
-            <div class="paciente revisador" >
+            <div class="paciente revisador2" >
                    
                 <listbox class="tabla table-responsive table table-striped table-bordered second" 
                          model="@load(vm.listaDatos)" 
@@ -138,7 +138,7 @@
                         <listheader label="Cédula/RUC" > </listheader>                                                                         
                         <listheader label="Nombre"  />                                                                         
                         <listheader label="Correo"  />                                                                         
-                        <listheader label="Telefono" />
+                        
                         <listheader label="Creado por:" />  
                         <listheader label="Estado Firma" />                                                                        
                         <!--                        <listheader label="E-S"  tooltiptext="Estado de la solicitud "  class="btnPc"/>                                                                         
@@ -163,11 +163,11 @@
                                          class="form-control form-control-sm" 
                                          value="@bind(each.solMail)" />
                             </listcell>
-                            <listcell zclass = "mycss-listcell" style="width:100%;" >
+                            <!--<listcell zclass = "mycss-listcell" style="width:100%;" >
                                 <textbox readonly="true"  style="font-size:12px ;background:#EBF5FB"
                                          class="form-control form-control-sm" 
                                          value="@bind(each.solCelular)" />
-                            </listcell>
+                            </listcell>-->
                             <!--                            <listcell zclass = "mycss-listcell" style="width:100%;" class="btnPc">
                                 <textbox readonly="true"  style="font-size:12px ;background:#EBF5FB"
                                          class="form-control form-control-sm" 

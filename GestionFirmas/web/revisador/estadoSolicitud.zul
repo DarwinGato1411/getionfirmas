@@ -15,14 +15,14 @@
                 <div class="wrapper_input_mod" style="flex:auto">
                     <span>Estado: </span>
                     <combobox                                                       
-                        selectedItem="@bind(vm.solicitud.idEstadoProceso.idEstadoProceso)"          
+                        selectedItem="@bind(vm.solicitud.idEstadoProceso)"          
                         style="width: 100%;"
-                    >
-                        <comboitem label="INGRESADO" value="1" />                    
-                        <comboitem label="APROBADO" value="2" />
-                        <comboitem label="RECHAZADO" value="3" />
-                        <comboitem label="CANCELADO" value="4" />
+                        model="@load(vm.listaEstadoProceso)"  >
                        
+                        <template  width="100%"  name="model">
+                            <comboitem width="100%" 
+                                               label="@bind(each.estDescripcion)"  />
+                        </template> 
                     </combobox>
                 </div>
                 
