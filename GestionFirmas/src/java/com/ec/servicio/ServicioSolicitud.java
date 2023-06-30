@@ -4,6 +4,7 @@
  */
 package com.ec.servicio;
 
+import com.ec.entidad.EstadoFirma;
 import com.ec.entidad.EstadoProceso;
 import com.ec.entidad.Solicitud;
 import com.ec.entidad.Usuario;
@@ -218,6 +219,42 @@ public class ServicioSolicitud {
             query.setParameter("fechaInicio", fechaInicio);
             query.setParameter("fechaFin", fechaFin);
             query.setParameter("estadoSol", estadoSol);
+
+//
+            if (usuario.getUsuNivel() == 1) {
+                query.setParameter("idUsuario", usuario);
+            }
+            listaSolicituds = (List<Solicitud>) query.getResultList();
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            System.out.println("Error solicituds finAll " + e);
+        } finally {
+            em.close();
+        }
+
+        return listaSolicituds;
+    }
+    public List<Solicitud> findSolicitudEstadoSFirma(Date fechaInicio, Date fechaFin, EstadoFirma estado, Usuario usuario) {
+
+        List<Solicitud> listaSolicituds = new ArrayList<Solicitud>();
+        try {
+            String SQL = "SELECT u FROM Solicitud u WHERE u.solFechaCreacion>=:fechaInicio AND u.solFechaCreacion<=:fechaFin AND u.idEstadoProceso=:idEstadoProceso";
+            String WHERE = " AND u.idUsuario=:idUsuario";
+            String ORDERBY = " ORDER BY u.solNombre ASC";
+//            System.out.println("Entra a consultar solicituds");
+//            //Connection connection = em.unwrap(Connection.class);
+            em = HelperPersistencia.getEMF();
+            em.getTransaction().begin();
+//
+            if (usuario.getUsuNivel() == 1) {
+                SQL = SQL + WHERE + ORDERBY;
+            } else {
+                SQL = SQL + ORDERBY;
+            }
+            Query query = em.createQuery(SQL);
+            query.setParameter("fechaInicio", fechaInicio);
+            query.setParameter("fechaFin", fechaFin);
+            query.setParameter("idEstadoProceso", estado);
 
 //
             if (usuario.getUsuNivel() == 1) {

@@ -63,7 +63,7 @@ public class SolicitudRevisadorEFirController {
     ServicioEstadoProceso servicioEstadoProceso = new ServicioEstadoProceso();
     private List<Solicitud> listaDatos = new ArrayList<Solicitud>();
     private List<EstadoFirma> listadoEstados = new ArrayList<EstadoFirma>();
-    private EstadoProceso tipoEstadoSolSelected = null;
+    private EstadoFirma tipoEstadoSolSelected = null;
     
     private String buscar = "";
     private Date fechainicio = new Date();
@@ -436,7 +436,7 @@ public class SolicitudRevisadorEFirController {
 
     private void buscarSolicitudes() {
 
-        listaDatos = servicioSolicitud.findSolicitudEstadoSol(fechainicio, fechafin, tipoEstadoSolSelected, credential.getUsuarioSistema());
+        listaDatos = servicioSolicitud.findSolicitudEstadoSFirma(fechainicio, fechafin, tipoEstadoSolSelected, credential.getUsuarioSistema());
     }
 
     public List<Solicitud> getListaDatos() {
@@ -479,14 +479,15 @@ public class SolicitudRevisadorEFirController {
         this.listadoEstados = listadoEstados;
     }
 
-    
-
-    public EstadoProceso getTipoEstadoSolSelected() {
+    public EstadoFirma getTipoEstadoSolSelected() {
         return tipoEstadoSolSelected;
     }
 
-    public void setTipoEstadoSolSelected(EstadoProceso tipoEstadoSolSelected) {
+    public void setTipoEstadoSolSelected(EstadoFirma tipoEstadoSolSelected) {
         this.tipoEstadoSolSelected = tipoEstadoSolSelected;
     }
+
+    
+
 
 }

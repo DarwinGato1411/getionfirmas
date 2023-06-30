@@ -51,14 +51,16 @@
 	<title>
 		<band height="50" splitType="Stretch">
 			<staticText>
-				<reportElement x="218" y="0" width="100" height="20"/>
-				<textElement textAlignment="Center"/>
-				<text><![CDATA[Solicitud]]></text>
+				<reportElement x="0" y="0" width="555" height="50"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="32" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Datos de la solicitud]]></text>
 			</staticText>
 		</band>
 	</title>
 	<detail>
-		<band height="110" splitType="Stretch">
+		<band height="172" splitType="Stretch">
 			<textField isBlankWhenNull="true">
 				<reportElement x="118" y="30" width="100" height="20"/>
 				<textElement/>
@@ -100,12 +102,12 @@
 				<text><![CDATA[Genero:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="352" y="10" width="100" height="20"/>
+				<reportElement x="352" y="90" width="100" height="20"/>
 				<textElement/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{sol_celular}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="252" y="10" width="100" height="20"/>
+				<reportElement x="252" y="90" width="100" height="20"/>
 				<textElement/>
 				<text><![CDATA[Celular:]]></text>
 			</staticText>
