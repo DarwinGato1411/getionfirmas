@@ -24,7 +24,7 @@
                         model="@load(vm.listadoEstados)" 
                         selectedItem="@bind(vm.tipoEstadoSolSelected)"                        
                         readonly="true" 
-                        width="100%"
+                        width="150px"
                         class="input_date">                        
                         <template class="asdasds" width="100%"  name="model">
                             <comboitem width="100%" label="@bind(each.estDescripcion)"  />
