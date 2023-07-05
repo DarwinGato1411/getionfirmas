@@ -32,7 +32,7 @@
                     </button>
                 </div>
                 <div class="contenedorGris busquedaCedula"> 
-                    <label value="Busqueda por fecha: "/>  
+                    <!--<label value="Busqueda por fecha: "/>-->  
                     <div class="wrapper_input">
                         <span>Inicio:</span>
                         <datebox 
@@ -164,12 +164,25 @@
                                     
                                 </button> 
                                 <button  class="btn-success-zk"
-                                         label="Estado" 
+                                         label="Emitir firma" 
                                          iconSclass="z-icon-pencil"      
-                                         onClick="@command('cambiarEstadoSol',valor=each)" 
+                                        
                                          tooltiptext="">
                                          
-                                </button>                                                  
+                                </button>  
+                                 <button  class="btn-success-zk"
+                                         label="Cancelar firma" 
+                                         iconSclass="z-icon-pencil"      
+                                        
+                                         tooltiptext="">
+                                          </button> 
+                                 <button  class="btn-success-zk"
+                                         label="Revocer firma" 
+                                         iconSclass="z-icon-pencil"      
+                                        
+                                         tooltiptext="">
+                                         
+                                </button>                                                 
                                                                      
                                <!-- <button 
                                     label=""
