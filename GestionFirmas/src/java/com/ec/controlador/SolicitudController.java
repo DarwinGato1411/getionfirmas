@@ -154,6 +154,7 @@ public class SolicitudController {
 
     private void buscarSolicitudes() {
         listaDatos = servicioSolicitud.findLikeSolicitud(buscar, credential.getUsuarioSistema());
+        
         //listaDatos = servicioSolicitud.findSolicitudFecha(fechainicio, fechafin, credential.getUsuarioSistema());
     }
 

@@ -178,19 +178,41 @@
                                          value="@bind(each.idEstadoFirma.estDescripcion)" />
                             </listcell>
                            
-                           
+                           <listcell zclass = "mycss-listcell" style="width:100%;" class="btnPc">
+                                <textbox readonly="true"  style="font-size:12px ;background:#EBF5FB"
+                                         class="form-control form-control-sm" 
+                                         value="@bind(each.solObservacion)" />
+                            </listcell>
                            
 
                             <listcell zclass = "mycss-listcell"   style="font-size:12px;background:#F8F9F9">   
 
                                 <button 
-                                    label=""
+                                    label="Ver / Editar"
                                     iconSclass="z-icon-eye"
                                     onClick="@command('modificarSolicitud',valor=each)" 
-                                    tooltiptext="">
-                                    
-                                </button> 
+                                    tooltiptext=""/> 
                                                                             
+                               <!-- <button  class="btn-success-zk"
+                                         label="Emitir firma" 
+                                         iconSclass="z-icon-pencil"      
+                                        
+                                         tooltiptext="">
+                                         
+                                </button>  
+                                <button  class="btn-success-zk"
+                                         label="Cancelar firma" 
+                                         iconSclass="z-icon-pencil"      
+                                        
+                                         tooltiptext="">
+                                          </button> 
+                                 <button  class="btn-success-zk"
+                                         label="Revocer firma" 
+                                         iconSclass="z-icon-pencil"      
+                                        
+                                         tooltiptext="">
+                                         
+                                </button>  -->                                               
                                                                      
                                <!-- <button 
                                     label=""
@@ -200,24 +222,23 @@
                                     tooltiptext="">
                                     
                                 </button>    -->                                  
+                                
+                                <button 
+                                    label="Emitir Firma"
+                                    onClick="@command('emitirFirma',valor=each)" 
+                                    class="btn-success-zk"
+                                    if="${each.idEstadoProceso.estSigla!='CAN' and each.idEstadoProceso.estSigla!='REC'}"
+                                    tooltiptext=""/>
+                                    
+                                
                                 <button 
                                     label="PDF"
                                     onClick="@command('pdfSolicitudIndividual',valor=each)" 
                                     tooltiptext=""
-                                    image="/iconos/pdf.png"
-                                >
+                                    image="/iconos/pdf.png" />
                                     
-                                </button> 
-                                <button 
-                                    label="Emitir"
-                                    onClick="@command('emitirFirma',valor=each)" 
-                                    class="btn-success-zk" 
-                                    tooltiptext=""
-                                    
-                                >
-                                    
-                                </button> 
-                                <button 
+                                
+<!--                                <button 
                                     label="Revocar"
                                     onClick="@command('revocarFirma',valor=each)" 
                                     class="btn-danger-zk" 
@@ -231,10 +252,16 @@
                                     tooltiptext="" 
                                     class="btn-warning-zk"                 
                                 >        
-                                </button>
+                                </button>-->
                                                                 
                                                                      
-                                                  
+<!--                                        <button  class="btn-success-zk"
+                                         label="LlamarWS" 
+                                         iconSclass="z-icon-pencil"      
+                                          onClick="@command('generarFirma',valor=each)" 
+                                         tooltiptext="">
+                                         
+                                </button>             -->
                             </listcell>
                                       
                                

@@ -93,10 +93,11 @@
                     <listhead  class="tblCabecera" > 
                         <listheader label="R/C"  />                                                                          
                         <listheader label="Nombre"  />                                                                         
-                        <listheader label="Correo"  />                                                                         
+                                                                                                
                         <listheader label="Teléfono" />                                                                         
                         <listheader label="E. Solicitud"  tooltiptext="Estado de la solicitud" />                                                                         
-                        <listheader label="E. Firma"  tooltiptext="Estado de la firma "  />                                                                         
+                        <listheader label="E. Firma"  tooltiptext="Estado de la firma "  />           
+                        <listheader label="Observación"   />                                                              
                         <listheader label=""   />                                                                         
                     </listhead>  
                     <template name="model" >                                                            
@@ -113,27 +114,25 @@
                                  <label       
                                          value="@bind(each.solNombre)" />
                             </listcell>
-                            <listcell zclass = "mycss-listcell" style="width:100%;" >
-                                <textbox readonly="true"  style="font-size:12px ;background:#EBF5FB"
-                                         class="form-control form-control-sm" 
-                                         value="@bind(each.solMail)" />
-                            </listcell>
+                            
                            
                             
                             <listcell zclass = "mycss-listcell" style="width:100%;">
                                 <textbox readonly="true"  style="font-size:12px ;background:#EBF5FB"
                                          class="form-control form-control-sm" 
-                                         value="@bind(each.solCelular)" />
+                                         value="@bind(each.solCelular)" rows="2"/>
                             </listcell>
                             <listcell zclass = "mycss-listcell" style="width:100%;" >
                                 <textbox readonly="true"  style="font-size:12px ;background:#EBF5FB; text-align:center;"
                                          class="form-control form-control-sm" 
-                                         value="@bind(each.idEstadoProceso.estDescripcion)" />
+                                         value="@bind(each.idEstadoProceso.estDescripcion)" rows="2"/>
                             </listcell>
                             <listcell zclass = "mycss-listcell" style="width:100%;" >
                                 <textbox readonly="true"  style="font-size:12px ;background:#EBF5FB; text-align:center;"
                                          class="form-control form-control-sm" 
-                                         value="@bind(each.idEstadoFirma.estDescripcion)" />
+                                         value="@bind(each.idEstadoFirma.estDescripcion)"
+                                         rows="2"
+                                />
                             </listcell>
                             <listcell zclass = "mycss-listcell"  class="btnCell"   style="font-size:12px;background:#F8F9F9">                                                           
                                 <button class="btn btn-primary"
@@ -148,8 +147,15 @@
                                     onClick="@command('cancelarSolicitud',valor=each)" 
                                     tooltiptext="Cancelar Solicitud">
                                     
+                                    
                                 </button>                                 
                                                   
+                            </listcell>
+                            <listcell zclass = "mycss-listcell" style="width:100%;" class="btnPc">
+                                <textbox readonly="true"  style="font-size:12px ;background:#EBF5FB"
+                                         class="form-control form-control-sm" 
+                                         rows="2"
+                                         value="@bind(each.solObservacion)" />
                             </listcell>
                             
 

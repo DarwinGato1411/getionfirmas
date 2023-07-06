@@ -6,6 +6,8 @@
 package com.ec.controlador;
 
 import com.ec.entidad.EstadoFirma;
+import com.ec.controlador.consumirws.RequestApiEmpresa;
+import com.ec.controlador.consumirws.ServiciosRest;
 import com.ec.entidad.Solicitud;
 import com.ec.entidad.Usuario;
 import com.ec.entidad.EstadoProceso;
@@ -644,7 +646,15 @@ public class SolicitudRevisadorController {
 
         //listaDatos = servicioDetalleTipoFirma.findByTipoFirma(tipoFirmaSelected);
     }
-    
+    @Command
+    public void generarFirma(@BindingParam("valor") Solicitud valor) {
+
+        ServiciosRest rest= new ServiciosRest();
+        RequestApiEmpresa param= new RequestApiEmpresa(valor.getIdSolicitud(), valor.getIdUsuario().getIdUsuario());
+        rest.obtenerFirmaEmpresa(param,valor.getSolTipo());
+
+    }
+
     private void buscarSolicitudes() {
         listaDatos = servicioSolicitud.findLikeSolicitud(buscar, credential.getUsuarioSistema());
         

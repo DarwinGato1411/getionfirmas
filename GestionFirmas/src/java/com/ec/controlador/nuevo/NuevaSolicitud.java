@@ -112,6 +112,7 @@ public class NuevaSolicitud {
     ServicioEstadoProceso servicioEstadoProceso = new ServicioEstadoProceso();
     private boolean solicitudCampos = false;
     private boolean retencion = false;
+    private boolean combo=false;
 
     @AfterCompose
     public void afterCompose(@ExecutionArgParam("valor") Solicitud valor, @ContextParam(ContextType.VIEW) Component view) {
@@ -145,6 +146,7 @@ public class NuevaSolicitud {
             Calendar calendar = Calendar.getInstance(); //obtiene la fecha de hoy 
             calendar.add(Calendar.YEAR, -18); //el -3 indica que se le restaran 3 dias 
 
+            entidad.setSolConRuc(false);
             this.entidad = new Solicitud();
             this.entidad.setSolFechaNacimiento(calendar.getTime());
             this.entidad.setSolTipo("PN");
@@ -278,6 +280,20 @@ public class NuevaSolicitud {
     }
 
     @Command
+
+    @NotifyChange({"listaCiudades", "provinciaSelected","entidad"})
+    public void conRuc(@BindingParam("valor") boolean valor) {
+        if (valor) {
+            entidad.setSolRuc(entidad.getSolCedula() + "001");
+            
+        } else {
+            entidad.setSolRuc("");
+           
+        }
+
+    }
+
+    @Command
     @NotifyChange({"listaDetalleTipoFirmas", "tipoFirmaSelected"})
     public void consultaDetalleTipoFirma() {
 
@@ -305,7 +321,7 @@ public class NuevaSolicitud {
                 entidad.setIdUsuario(usuario);
                 entidad.setSolFechaCreacion(new Date());
                 entidad.setSolTipo(tipoSolicitud);
-                EstadoFirma idEstadoFirma=new EstadoFirma();
+                EstadoFirma idEstadoFirma = new EstadoFirma();
                 idEstadoFirma.setIdEstadoFirma(1);
                 entidad.setIdEstadoFirma(idEstadoFirma);
                 servicio.crear(entidad);
@@ -541,21 +557,27 @@ public class NuevaSolicitud {
     }
 
     @Command
-    @NotifyChange({"mienbroEmpresa", "repremiembros", "cargoRepresentate"})
+    @NotifyChange({"mienbroEmpresa", "repremiembros", "cargoRepresentate","entidad","combo"})
     public void personaNatural() {
         cargarVistaTiposSol("PN");
+        entidad.setSolConRuc(true);
+        combo=false;
     }
 
     @Command
-    @NotifyChange({"mienbroEmpresa", "repremiembros", "cargoRepresentate"})
+    @NotifyChange({"mienbroEmpresa", "repremiembros", "cargoRepresentate","entidad","combo"})
     public void repreLegalEmpresa() {
         cargarVistaTiposSol("RLE");
+        entidad.setSolConRuc(true);
+        combo=true;
     }
 
     @Command
-    @NotifyChange({"mienbroEmpresa", "repremiembros", "cargoRepresentate"})
+    @NotifyChange({"mienbroEmpresa", "repremiembros", "cargoRepresentate","entidad","combo"})
     public void miembEmpresa() {
         cargarVistaTiposSol("ME");
+        entidad.setSolConRuc(true);
+        combo=true;
     }
 
     public void cargarVistaTiposSol(String tipoSol) {
@@ -1030,6 +1052,14 @@ public class NuevaSolicitud {
 
     public void setTipoUsuario(boolean tipoUsuario) {
         this.tipoUsuario = tipoUsuario;
+    }
+
+    public boolean isCombo() {
+        return combo;
+    }
+
+    public void setCombo(boolean combo) {
+        this.combo = combo;
     }
 
 }
