@@ -65,73 +65,26 @@
                         tooltiptext="Buscar por cédula/ruc">
                         Buscar
                     </button>
+                      <button 
+                        label="PDF por Estado"          
+                        onClick="@command('pdfSolicitudEstadoFirma')" 
+                         image="/iconos/pdf.png"
+                        tooltiptext="">
+                                    
+                    </button> 
+                    <button 
+                        label="Excel por Estado"          
+                        onClick="@command('reporteExel')" 
+                        tooltiptext=""
+                        class="btn-success-zk"    
+                        image="/iconos/excel1.png" 
+                    >
+                             
+                    </button> 
                      
                 </div>
-                <!--<div class="contenedorGris busquedaCedula"> 
-                    <label value="Busqueda por fecha: "/>  
-                    <div class="wrapper_input">
-                        <span>Inicio:</span>
-                        <datebox 
-                            value="@bind(vm.fechainicio)" 
-                            compact="true" 
-                            readonly="true" 
-                            buttonVisible="true" 
-                            class="input_date"
-                            lenient="true" 
-                            format="dd/MM/yyyy " 
-                            constraint="no empty: Ingrese la fecha"
-                        /> 
-                        <div class="fa-solid fa-calendar icon" />                                 
-                    </div>
-                    <div class="wrapper_input">
-                        <span>Fin:</span>
-                        <datebox 
-                            value="@bind(vm.fechafin)" 
-                            compact="true" 
-                            readonly="true" 
-                            buttonVisible="true" 
-                            class="input_date"
-                            lenient="true" 
-                            format="dd/MM/yyyy" 
-                            constraint="no empty: Ingrese la fecha"
-                        />
-                        <div class="fa-solid fa-calendar icon" />
-                    </div>
-                    <button    
-                        iconSclass="z-icon-book"
-                        onClick="@command('buscarFechas')"  
-                        tooltiptext="Buscar por cédula/ruc">
-                        Buscar
-                    </button>
-                </div>-->
-                <div class="contenedorGris ">
-                                             
-                    <button    
-                        iconSclass="z-icon-plus"
-                        onClick="@command('nuevaSolicitud')"  
-                        class="fa fa-plus"
-                        tooltiptext="Buscar">
-                        Ingresar Solicitud
-                    </button>
-                    <button 
-                        label="PDF por Estado"          
-                        onClick="@command('pdfSolicitudEstadoSol')" 
-                        tooltiptext="">
-                                    
-                    </button> 
-                  <!--  <button 
-                        label="Pdf Solicitudes"          
-                        onClick="@command('pdfSolicitudEstadoSol')" 
-                        tooltiptext="">
-                                    
-                    </button> 
-                   <button 
-                        label="PDF"          
-                        onClick="@command('pdfSolicitudAll')" 
-                        tooltiptext="">
-                                    
-                    </button> -->
-                </div>  
+               
+               
             </div>
             <div class="paciente revisador3" >
                    
@@ -143,13 +96,13 @@
                     <listhead  class="tblCabecera " > 
                         <listheader label="Cédula/RUC" > </listheader>                                                                         
                         <listheader label="Nombre"  />                                                                         
-                        <listheader label="Correo"  />                                                                         
-                        <listheader label="Telefono" />
-                        <listheader label="Creado por:" />  
-                                                                                     
+                        <listheader label="Correo"  />  
+                        <listheader label="Creado por" />                                                                         
+                        <listheader label="Estado Solicitud"  />
+                        <listheader label="Estado Firma"  />                                                                        
                         <!--                        <listheader label="E-S"  tooltiptext="Estado de la solicitud "  class="btnPc"/>                                                                         
                         <listheader label="E-F"  tooltiptext="Estado de la firma "  class="btnPc"/>                                                                         -->
-                        <listheader label="" class="btnPc"  />                                                                         
+                        <listheader label=""  />                                                                         
                     </listhead>  
                     <template name="model" >                                                            
                         <listitem class="tblCuerpo" >
@@ -169,12 +122,18 @@
                                          class="form-control form-control-sm" 
                                          value="@bind(each.solMail)" />
                             </listcell>
-                            <listcell zclass = "mycss-listcell" style="width:100%;" >
+                           <!--  <listcell zclass = "mycss-listcell" style="width:100%;" >
                                 <textbox readonly="true"  style="font-size:12px ;background:#EBF5FB"
                                          class="form-control form-control-sm" 
                                          value="@bind(each.solCelular)" />
+                               
+                            </listcell>-->
+                            <listcell zclass = "mycss-listcell" style="width:100%;" >
+                                <textbox readonly="true"  style="font-size:12px ;background:#EBF5FB"
+                                         class="form-control form-control-sm" 
+                                         value="@bind(each.idUsuario.usuNombre)" />
                             </listcell>
-                            <!--                            <listcell zclass = "mycss-listcell" style="width:100%;" class="btnPc">
+                            <listcell zclass = "mycss-listcell" style="width:100%;" class="btnPc">
                                 <textbox readonly="true"  style="font-size:12px ;background:#EBF5FB"
                                          class="form-control form-control-sm" 
                                          value="@bind(each.idEstadoProceso.estDescripcion)" />
@@ -183,60 +142,19 @@
                                 <textbox readonly="true"  style="font-size:12px ;background:#EBF5FB"
                                          class="form-control form-control-sm" 
                                          value="@bind(each.idEstadoFirma.estDescripcion)" />
-                            </listcell>-->
-                           
-                            <listcell zclass = "mycss-listcell" style="width:100%;" >
-                               
-                                
-                                <textbox readonly="true"  style="font-size:12px ;background:#EBF5FB"
-                                         class="form-control form-control-sm" 
-                                         value="@bind(each.idUsuario.usuNombre)" />
-                               
-                               
                             </listcell>
-                            <!--<listcell zclass = "mycss-listcell" style="width:100%;" >
-                                <div if="${each.idUsuario.usuNivel==1}">
-                                    <textbox readonly="true"  style="font-size:12px ;background:#EBF5FB"
-                                             class="form-control form-control-sm" 
-                                             value="DISTRIBUIDOR" /> 
-                                </div>
-                                <div if="${each.idUsuario.usuNivel==3}">
-                                    <textbox readonly="true"  style="font-size:12px ;background:#EBF5FB"
-                                             class="form-control form-control-sm" 
-                                             value="REVISADOR" />
-                                </div>
-                               
-                            </listcell>-->
+                           
+                           
+                           
 
-                            <listcell zclass = "mycss-listcell"  class="btnPc" style="font-size:12px;background:#F8F9F9">   
-
+                            <listcell zclass = "mycss-listcell"   style="font-size:12px;background:#F8F9F9">   
+                         
                                 <button 
-                                    label="Ver"
-                                    iconSclass="z-icon-eye"
-                                    onClick="@command('modificarSolicitud',valor=each)" 
-                                    tooltiptext="">
-                                    
-                                </button> 
-                                <button  class="btn-success-zk"
-                                         label="Estado" 
-                                         iconSclass="z-icon-pencil"      
-                                         onClick="@command('cambiarEstadoSol',valor=each)" 
-                                         tooltiptext="">
-                                         
-                                </button>                                                  
-                                                                     
-                                <button 
-                                    label=""
-                                    class="btn-danger-zk"
-                                    iconSclass="z-icon-trash-o"
-                                    onClick="@command('eliminarPaciente',valor=each)" 
-                                    tooltiptext="">
-                                    
-                                </button>                                      
-                                <button 
-                                    label="PDF Solicitud"
+                                    label="PDF"
                                     onClick="@command('pdfSolicitudIndividual',valor=each)" 
-                                    tooltiptext="">
+                                    tooltiptext=""
+                                    image="/iconos/pdf.png"
+                                >
                                     
                                 </button>                                      
                                                                      

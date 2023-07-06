@@ -15,9 +15,18 @@
                   
         <div  class="contenedorPacientes">
             <div  class="botonera">
-                  
+                  <div class="contenedorGris ">
+                                             
+                    <button    
+                        iconSclass="z-icon-plus"
+                        onClick="@command('nuevaSolicitud')"  
+                        class="fa fa-plus"
+                        tooltiptext="Buscar">
+                        Ingresar Solicitud
+                    </button>
+                  </div>
                 <div class="contenedorGris busquedaCedula"> 
-                    <label value="Busqueda por Ruc: "/>  
+                    
                     <textbox value="@bind(vm.buscar)" 
                              class="form-control form-control-sm"
                              tooltiptext="Buscar por Nombre o Cédula "                         
@@ -31,8 +40,8 @@
                         Buscar
                     </button>
                 </div>
-                <div class="contenedorGris busquedaCedula"> 
-                    <label value="Busqueda por fecha: "/>  
+                <div class="contenedorGris busquedaFecha"> 
+                    <div class="fecha">
                     <div class="wrapper_input">
                         <span>Inicio:</span>
                         <datebox 
@@ -45,7 +54,7 @@
                             format="dd/MM/yyyy " 
                             constraint="no empty: Ingrese la fecha"
                         /> 
-                        <div class="fa-solid fa-calendar icon" />                                 
+                                             
                     </div>
                     <div class="wrapper_input">
                         <span>Fin:</span>
@@ -64,11 +73,35 @@
                     <button    
                         iconSclass="z-icon-book"
                         onClick="@command('buscarFechas')"  
+                        
                         tooltiptext="Buscar por cédula/ruc">
                         Buscar
                     </button>
+                    </div>
+                    <div class="botonera">
+                    <div>
+                        <button 
+                        label="PDF por fecha"          
+                        onClick="@command('pdfSolicitudFecha')" 
+                        class="btn-info-zk z-button"
+                        image="/iconos/pdf.png"
+                        tooltiptext="">                        
+                    </button> 
+                        
+                    </div>
+                    <div>
+                        <button 
+                        label="Excel por fecha"          
+                        onClick="@command('reporteExel')" 
+                        class="btn-success-zk" 
+                        image="/iconos/excel1.png"
+                        tooltiptext="">                        
+                    </button> 
+                        
+                    </div>
+                    </div>
                 </div>
-                <div class="contenedorGris ">
+                <!--<div class="contenedorGris ">
                                              
                     <button    
                         iconSclass="z-icon-plus"
@@ -77,19 +110,15 @@
                         tooltiptext="Buscar">
                         Ingresar Solicitud
                     </button>
-                    <button 
-                        label="PDF por fecha"          
-                        onClick="@command('pdfSolicitudFecha')" 
-                        tooltiptext="">
-                                    
-                    </button> 
+                   
                     <button 
                         label="PDF"          
                         onClick="@command('pdfSolicitudAll')" 
                         tooltiptext="">
                                     
                     </button> 
-                </div>  
+                    
+                </div>  -->
             </div>
             <div class="paciente revisador" >
                    
@@ -101,13 +130,13 @@
                     <listhead  class="tblCabecera " > 
                         <listheader label="Cédula/RUC" > </listheader>                                                                         
                         <listheader label="Nombre"  />                                                                         
-                        <listheader label="Correo"  />                                                                         
-                        <listheader label="Teléfono"  />
-                        <listheader label="Creado por" />  
-                                                                                                
+                        <listheader label="Correo"  />  
+                        <listheader label="Creado por" />                                                                         
+                        <listheader label="Estado Sol."  />
+                        <listheader label="Estado Fir."  />                                                                        
                         <!--                        <listheader label="E-S"  tooltiptext="Estado de la solicitud "  class="btnPc"/>                                                                         
                         <listheader label="E-F"  tooltiptext="Estado de la firma "  class="btnPc"/>                                                                         -->
-                        <listheader label="" class="btnPc"  />                                                                         
+                        <listheader label=""  />                                                                         
                     </listhead>  
                     <template name="model" >                                                            
                         <listitem class="tblCuerpo" >
@@ -127,12 +156,18 @@
                                          class="form-control form-control-sm" 
                                          value="@bind(each.solMail)" />
                             </listcell>
-                            <listcell zclass = "mycss-listcell" style="width:100%;" >
+                           <!--  <listcell zclass = "mycss-listcell" style="width:100%;" >
                                 <textbox readonly="true"  style="font-size:12px ;background:#EBF5FB"
                                          class="form-control form-control-sm" 
                                          value="@bind(each.solCelular)" />
+                               
+                            </listcell>-->
+                             <listcell zclass = "mycss-listcell" style="width:100%;" >
+                                    <textbox readonly="true"  style="font-size:12px ;background:#EBF5FB"
+                                             class="form-control form-control-sm" 
+                                             value="@bind(each.idUsuario.usuNombre)" />
                             </listcell>
-                            <!--                            <listcell zclass = "mycss-listcell" style="width:100%;" class="btnPc">
+                            <listcell zclass = "mycss-listcell" style="width:100%;" class="btnPc">
                                 <textbox readonly="true"  style="font-size:12px ;background:#EBF5FB"
                                          class="form-control form-control-sm" 
                                          value="@bind(each.idEstadoProceso.estDescripcion)" />
@@ -141,35 +176,21 @@
                                 <textbox readonly="true"  style="font-size:12px ;background:#EBF5FB"
                                          class="form-control form-control-sm" 
                                          value="@bind(each.idEstadoFirma.estDescripcion)" />
-                            </listcell>-->
-                           
-                            <listcell zclass = "mycss-listcell" style="width:100%;" >
-                               
-                                
-                                <textbox readonly="true"  style="font-size:12px ;background:#EBF5FB"
-                                             class="form-control form-control-sm" 
-                                             value="@bind(each.idUsuario.usuNombre)" />
-                               
-                               
                             </listcell>
                            
+                           
+                           
 
-                            <listcell zclass = "mycss-listcell"  class="btnPc" style="font-size:12px;background:#F8F9F9">   
+                            <listcell zclass = "mycss-listcell"   style="font-size:12px;background:#F8F9F9">   
 
                                 <button 
-                                    label="Ver"
+                                    label=""
                                     iconSclass="z-icon-eye"
                                     onClick="@command('modificarSolicitud',valor=each)" 
                                     tooltiptext="">
                                     
                                 </button> 
-                                <button  class="btn-success-zk"
-                                         label="Estado" 
-                                         iconSclass="z-icon-pencil"      
-                                         onClick="@command('cambiarEstadoSol',valor=each)" 
-                                         tooltiptext="">
-                                         
-                                </button>                                                  
+                                                                            
                                                                      
                                <!-- <button 
                                     label=""
@@ -180,11 +201,38 @@
                                     
                                 </button>    -->                                  
                                 <button 
-                                    label="PDF Solicitud"
+                                    label="PDF"
                                     onClick="@command('pdfSolicitudIndividual',valor=each)" 
-                                    tooltiptext="">
+                                    tooltiptext=""
+                                    image="/iconos/pdf.png"
+                                >
                                     
-                                </button>                                      
+                                </button> 
+                                <button 
+                                    label="Emitir"
+                                    onClick="@command('emitirFirma',valor=each)" 
+                                    class="btn-success-zk" 
+                                    tooltiptext=""
+                                    
+                                >
+                                    
+                                </button> 
+                                <button 
+                                    label="Revocar"
+                                    onClick="@command('revocarFirma',valor=each)" 
+                                    class="btn-danger-zk" 
+                                    tooltiptext=""
+                                    
+                                >        
+                                </button>
+                                 <button 
+                                    label="Suspender"
+                                    onClick="@command('suspenderFirma',valor=each)" 
+                                    tooltiptext="" 
+                                    class="btn-warning-zk"                 
+                                >        
+                                </button>
+                                                                
                                                                      
                                                   
                             </listcell>

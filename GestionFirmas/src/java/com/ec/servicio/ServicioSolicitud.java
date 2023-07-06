@@ -234,11 +234,13 @@ public class ServicioSolicitud {
 
         return listaSolicituds;
     }
+    
+    
     public List<Solicitud> findSolicitudEstadoSFirma(Date fechaInicio, Date fechaFin, EstadoFirma estado, Usuario usuario) {
 
         List<Solicitud> listaSolicituds = new ArrayList<Solicitud>();
         try {
-            String SQL = "SELECT u FROM Solicitud u WHERE u.solFechaCreacion>=:fechaInicio AND u.solFechaCreacion<=:fechaFin AND u.idEstadoProceso=:idEstadoProceso";
+            String SQL = "SELECT u FROM Solicitud u WHERE u.solFechaCreacion>=:fechaInicio AND u.solFechaCreacion<=:fechaFin AND u.idEstadoFirma=:estadofirma";
             String WHERE = " AND u.idUsuario=:idUsuario";
             String ORDERBY = " ORDER BY u.solNombre ASC";
 //            System.out.println("Entra a consultar solicituds");
@@ -254,7 +256,7 @@ public class ServicioSolicitud {
             Query query = em.createQuery(SQL);
             query.setParameter("fechaInicio", fechaInicio);
             query.setParameter("fechaFin", fechaFin);
-            query.setParameter("idEstadoProceso", estado);
+            query.setParameter("estadofirma", estado);
 
 //
             if (usuario.getUsuNivel() == 1) {

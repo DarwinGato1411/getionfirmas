@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="solicitudIndividual" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
-	<property name="ireport.zoom" value="1.3310000000000006"/>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="solicitudIndividualRLE" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.2100000000000009"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="idSolicitud" class="java.lang.Integer">
@@ -93,161 +93,241 @@ and tf.id_tipo_firma=dtf.id_tipo_firma;]]>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="24" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Solicitud Persona Natural]]></text>
+				<text><![CDATA[Solicitud Representante Legal empresa]]></text>
 			</staticText>
 		</band>
 	</title>
 	<detail>
-		<band height="217" splitType="Stretch">
+		<band height="399" splitType="Stretch">
 			<rectangle>
-				<reportElement x="1" y="146" width="555" height="51"/>
+				<reportElement x="0" y="144" width="555" height="51"/>
 			</rectangle>
-			<staticText>
-				<reportElement x="1" y="146" width="555" height="21"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="14" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Firma]]></text>
-			</staticText>
 			<rectangle>
-				<reportElement x="1" y="2" width="555" height="125"/>
+				<reportElement x="0" y="0" width="555" height="125"/>
 			</rectangle>
-			<staticText>
-				<reportElement x="255" y="63" width="59" height="20"/>
-				<textElement verticalAlignment="Middle"/>
-				<text><![CDATA[Edad:]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="255" y="42" width="59" height="20"/>
-				<textElement verticalAlignment="Middle"/>
-				<text><![CDATA[1er Apellido:]]></text>
-			</staticText>
+			<rectangle>
+				<reportElement x="0" y="300" width="277" height="90"/>
+			</rectangle>
 			<textField isBlankWhenNull="true">
-				<reportElement x="130" y="102" width="125" height="20"/>
+				<reportElement x="313" y="20" width="242" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{sol_nombre}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="313" y="41" width="242" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{sol_apellido1}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="129" y="100" width="125" height="20"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{sol_celular}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="314" y="22" width="242" height="20"/>
-				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{sol_nombre}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="12" y="42" width="118" height="20"/>
-				<textElement verticalAlignment="Middle"/>
-				<text><![CDATA[Código dactilar:]]></text>
-			</staticText>
-			<textField isBlankWhenNull="true">
-				<reportElement x="130" y="23" width="125" height="20"/>
+				<reportElement x="129" y="21" width="125" height="20"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{sol_ruc}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="77" y="167" width="93" height="20"/>
+			<staticText>
+				<reportElement x="11" y="20" width="118" height="20"/>
 				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{tip_descripcion}]]></textFieldExpression>
+				<text><![CDATA[RUC/Cedula:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="300" width="277" height="21"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Datos Empresa]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="11" y="321" width="107" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[RUC:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="118" y="321" width="159" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{sol_ruc_empresa}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="11" y="341" width="107" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Razon Social:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="118" y="341" width="159" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{sol_razon_social}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="11" y="361" width="107" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Cargo Representante:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="118" y="361" width="159" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{sol_cargo_representante}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="314" y="82" width="242" height="20"/>
+				<reportElement x="313" y="80" width="242" height="20"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{sol_sexo}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="395" y="167" width="105" height="20"/>
-				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{det_precio_compra}]]></textFieldExpression>
-			</textField>
 			<staticText>
-				<reportElement x="1" y="2" width="555" height="21"/>
+				<reportElement x="11" y="40" width="118" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Código dactilar:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="11" y="60" width="118" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Fecha Nacimiento:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="254" y="61" width="59" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Edad:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="254" y="20" width="59" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Nombres:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="254" y="40" width="59" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[1er Apellido:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="11" y="80" width="118" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Email:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="11" y="100" width="118" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Movil:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="254" y="100" width="59" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Con RUC:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="254" y="81" width="59" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Sexo:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="21"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Datos Personales]]></text>
 			</staticText>
+			<rectangle>
+				<reportElement x="0" y="216" width="555" height="71"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="216" width="555" height="21"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Dirección Domicilio]]></text>
+			</staticText>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement x="129" y="41" width="125" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{sol_codigo_dactilar}]]></textFieldExpression>
+			</textField>
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-				<reportElement x="130" y="62" width="125" height="20"/>
+				<reportElement x="129" y="60" width="125" height="20"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression class="java.util.Date"><![CDATA[$F{sol_fecha_nacimiento}]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement x="356" y="167" width="39" height="20"/>
-				<textElement verticalAlignment="Middle"/>
-				<text><![CDATA[Precio:]]></text>
-			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="130" y="83" width="125" height="20"/>
+				<reportElement x="129" y="81" width="125" height="20"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{sol_mail}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="314" y="63" width="242" height="20"/>
+				<reportElement x="313" y="61" width="242" height="20"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{sol_edad}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="314" y="43" width="242" height="20"/>
-				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{sol_apellido1}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="255" y="83" width="59" height="20"/>
-				<textElement verticalAlignment="Middle"/>
-				<text><![CDATA[Sexo:]]></text>
-			</staticText>
-			<textField isBlankWhenNull="true">
-				<reportElement x="314" y="102" width="242" height="20"/>
+				<reportElement x="313" y="100" width="242" height="20"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{sol_con_ruc}?"SI":"NO"]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="12" y="257" width="74" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Dirección:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="86" y="257" width="469" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.util.Date"><![CDATA[$F{sol_fecha_nacimiento}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="12" y="237" width="74" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Provincia:]]></text>
+			</staticText>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement x="86" y="237" width="125" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{prov_nombre}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="211" y="237" width="58" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Ciudad:]]></text>
+			</staticText>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement x="269" y="237" width="125" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ciu_nombre}]]></textFieldExpression>
+			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="263" y="167" width="93" height="20"/>
+				<reportElement x="76" y="165" width="93" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{tip_descripcion}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="394" y="165" width="105" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{det_precio_compra}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="262" y="165" width="93" height="20"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{det_descripcion}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="12" y="22" width="118" height="20"/>
+				<reportElement x="355" y="165" width="39" height="20"/>
 				<textElement verticalAlignment="Middle"/>
-				<text><![CDATA[RUC/Cedula:]]></text>
+				<text><![CDATA[Precio:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="12" y="82" width="118" height="20"/>
-				<textElement verticalAlignment="Middle"/>
-				<text><![CDATA[Email:]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="255" y="102" width="59" height="20"/>
-				<textElement verticalAlignment="Middle"/>
-				<text><![CDATA[Con RUC:]]></text>
-			</staticText>
-			<textField pattern="" isBlankWhenNull="true">
-				<reportElement x="130" y="43" width="125" height="20"/>
-				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{sol_codigo_dactilar}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="12" y="62" width="118" height="20"/>
-				<textElement verticalAlignment="Middle"/>
-				<text><![CDATA[Fecha Nacimiento:]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="12" y="102" width="118" height="20"/>
-				<textElement verticalAlignment="Middle"/>
-				<text><![CDATA[Movil:]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="170" y="167" width="93" height="20"/>
-				<textElement verticalAlignment="Middle"/>
-				<text><![CDATA[Tiempo Contrato:]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="13" y="167" width="64" height="20"/>
+				<reportElement x="12" y="165" width="64" height="20"/>
 				<textElement verticalAlignment="Middle"/>
 				<text><![CDATA[Tipo Firma:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="255" y="22" width="59" height="20"/>
+				<reportElement x="0" y="144" width="555" height="21"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Firma]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="169" y="165" width="93" height="20"/>
 				<textElement verticalAlignment="Middle"/>
-				<text><![CDATA[Nombres:]]></text>
+				<text><![CDATA[Tiempo Contrato:]]></text>
 			</staticText>
 		</band>
 	</detail>

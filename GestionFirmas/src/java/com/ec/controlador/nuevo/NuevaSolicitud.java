@@ -6,6 +6,7 @@ package com.ec.controlador.nuevo;
 
 import com.ec.entidad.Ciudad;
 import com.ec.entidad.DetalleTipoFirma;
+import com.ec.entidad.EstadoFirma;
 import com.ec.entidad.Nacionalidad;
 import com.ec.entidad.Parametrizar;
 import com.ec.entidad.Provincia;
@@ -35,6 +36,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.zkoss.bind.annotation.AfterCompose;
+import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
@@ -72,6 +74,7 @@ public class NuevaSolicitud {
     private boolean mienbroEmpresa = false;
     private boolean repremiembros = false;
     private boolean cargoRepresentate = false;
+    private boolean tipoUsuario = false;
 
     ServicioParametrizar servicioParametrizar = new ServicioParametrizar();
     private Parametrizar parametrizar = new Parametrizar();
@@ -132,8 +135,12 @@ public class NuevaSolicitud {
             }
 
             cargarVistaTiposSol(valor.getSolTipo() == null ? "" : valor.getSolTipo());
+            System.out.println(usuario.getUsuNivel());
+            if (usuario.getUsuNivel() == 3) {
+                tipoUsuario = true;
+            }
         } else {
-
+            System.out.println(usuario.getUsuNivel());
             //muestra 7 dias atras
             Calendar calendar = Calendar.getInstance(); //obtiene la fecha de hoy 
             calendar.add(Calendar.YEAR, -18); //el -3 indica que se le restaran 3 dias 
@@ -297,6 +304,10 @@ public class NuevaSolicitud {
                 entidad.setIdEstadoProceso(servicioEstadoProceso.findBySigla("ING"));
                 entidad.setIdUsuario(usuario);
                 entidad.setSolFechaCreacion(new Date());
+                entidad.setSolTipo(tipoSolicitud);
+                EstadoFirma idEstadoFirma=new EstadoFirma();
+                idEstadoFirma.setIdEstadoFirma(1);
+                entidad.setIdEstadoFirma(idEstadoFirma);
                 servicio.crear(entidad);
                 wSolicitud.detach();
                 sweetAltert("success", "OK", "Solicitud creada con éxito");
@@ -309,6 +320,23 @@ public class NuevaSolicitud {
                 wSolicitud.detach();
                 sweetAltert("success", "OK", "Solicitud editada con éxito");
             }
+
+        }
+    }
+
+    @Command
+    public void aprobar(@BindingParam("valor") int valor) {
+        camposVaciosPorSolicitud();
+        System.out.println(solicitudCampos);
+        if (solicitudCampos) {
+            if (entidad.getIdEstadoProceso() == null) {
+                entidad.setIdEstadoProceso(servicioEstadoProceso.findBySigla("ING"));
+            }
+            entidad.setIdEstadoProceso(servicioEstadoProceso.findBySigla("ING"));
+            entidad.getIdEstadoProceso().setIdEstadoProceso(valor);
+            servicio.modificar(entidad);
+            wSolicitud.detach();
+            sweetAltert("success", "OK", "Solicitud editada con éxito");
 
         }
     }
@@ -994,6 +1022,14 @@ public class NuevaSolicitud {
 
     public void setRetencion(boolean retencion) {
         this.retencion = retencion;
+    }
+
+    public boolean isTipoUsuario() {
+        return tipoUsuario;
+    }
+
+    public void setTipoUsuario(boolean tipoUsuario) {
+        this.tipoUsuario = tipoUsuario;
     }
 
 }

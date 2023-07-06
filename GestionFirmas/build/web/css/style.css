@@ -2958,7 +2958,7 @@ input, button, select, textarea {
 .mainContainer{
     /*margin-left: 200px;*/
     width: 100%;
-    padding: 10px;
+    padding: 15px;
     height: 90vh;
     overflow-y: scroll;
 }
@@ -3303,6 +3303,16 @@ input, button, select, textarea {
     margin-top: 10px;
 }
 
+.busquedaFecha{
+    display: flex;
+    
+    gap:10px;
+}
+
+.busquedaFecha .fecha{
+    display: flex;
+    gap:10px;
+}
 .contenedorPacientes .paciente{
 
 }
@@ -3365,32 +3375,32 @@ input, button, select, textarea {
 
 .revisador  .z-listbox .tblCabecera{
     display: grid;
-    grid-template-columns:10% 15% 15% 15% 20% 25%;
+    grid-template-columns:10% 15% 15% 15% 10% 10% 25% ;
 }
 
 .revisador  .z-listbox .tblCuerpo{
     display: grid;
-    grid-template-columns:10% 15% 15% 15% 20% 25%;
+    grid-template-columns:10% 15% 15% 15% 10% 10% 25% ;
 }
 
 .revisador2  .z-listbox .tblCabecera{
     display: grid;
-    grid-template-columns:10% 15% 15% 20% 15% 25%;
+    grid-template-columns:10% 15% 15% 15% 10% 10% 25% ;
 }
 
 .revisador2  .z-listbox .tblCuerpo{
     display: grid;
-    grid-template-columns:10% 15% 15% 20% 15% 25%;
+   grid-template-columns:10% 15% 15% 15% 10% 10% 25% ;
 }
 
 .revisador3  .z-listbox .tblCabecera{
     display: grid;
-    grid-template-columns:10% 15% 15% 15% 20% 5% 25%;
+   grid-template-columns:10% 15% 15% 15% 10% 10% 25% ;
 }
 
 .revisador3  .z-listbox .tblCuerpo{
     display: grid;
-    grid-template-columns:10% 15% 15% 15% 20% 25%;
+    grid-template-columns:10% 15% 15% 15% 10% 10% 25% ;
 }
 
 
@@ -3419,7 +3429,7 @@ input, button, select, textarea {
 
 
 
-@media only screen and (min-width: 1024px){
+/*@media only screen and (min-width: 1024px){
     .contenedorTest{
         grid-template-columns:repeat(1,1fr);
     }
@@ -3437,7 +3447,7 @@ input, button, select, textarea {
     }
 
 
-}
+}*/
 
 
 

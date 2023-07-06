@@ -13,6 +13,8 @@
 
 .modalAll{
     width: 400px;
+    height: 90%;
+    padding: 0;
 }
 
 .btn_modal{
@@ -139,12 +141,13 @@
 
 .modalPaciente{
     width: 90%;
-    
+    height: 90%;
 }
 
 .modalPaciente .z-window-content{
     padding: 0;
     margin: 0;
+    height: 93.5%;
 }
 
 .modalPaciente .z-window-header{
@@ -172,7 +175,7 @@
     flex-direction: column-reverse;    
     padding: 20px;
     overflow-y: scroll;
-    height: 700px;
+   height: 100%
 
 }
 

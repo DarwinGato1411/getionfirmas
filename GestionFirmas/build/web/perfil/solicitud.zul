@@ -9,14 +9,28 @@
 <?script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"?>
 
 <zk >
-    <div self="@define(content)" apply="org.zkoss.bind.BindComposer" 
+  
+    
+    <div self="@define(content)" apply= "org.zkoss.bind.BindComposer" 
          viewModel="@id('vm') @init('com.ec.controlador.SolicitudController')" >
                   
         <div  class="contenedorPacientes">
             <div  class="botonera">
-                  
+                  <div class="contenedorGris ">
+                                             
+                    <button    
+                        iconSclass="z-icon-plus"
+                        onClick="@command('nuevaSolicitud')"  
+                        class="fa fa-plus"
+                        tooltiptext="Buscar">
+                        Ingresar Solicitud
+                    </button>
+                 </div>  
+                
+  
+  
                  <div class="contenedorGris busquedaCedula"> 
-                     <label value="Buscar por Ruc: "/>  
+                     
                      <textbox value="@bind(vm.buscar)" 
                                      class="form-control form-control-sm"
                                      tooltiptext="Buscar por Nombre o Cédula "                         
@@ -30,9 +44,9 @@
                         Buscar
                     </button>
                 </div>
-                <div class="contenedorGris busquedaCedula"> 
-                     <label value="Buscar por fecha: "/>  
-                     <div class="wrapper_input">
+                <div class="contenedorGris busquedaFecha"> 
+                     
+                                <div class="wrapper_input">
                                     <span>Inicio:</span>
                                         <datebox 
                                         value="@bind(vm.fechainicio)" 
@@ -67,16 +81,7 @@
                         Buscar
                     </button>
                 </div>
-                <div class="contenedorGris ">
-                                             
-                    <button    
-                        iconSclass="z-icon-plus"
-                        onClick="@command('nuevaSolicitud')"  
-                        class="fa fa-plus"
-                        tooltiptext="Buscar">
-                        Ingresar Solicitud
-                    </button>
-                 </div>  
+                
             </div>
             <div class="paciente distribuidor" >
                
@@ -102,9 +107,10 @@
                                          class="form-control form-control-sm" 
                                          value="@bind(each.solRuc)" />
                             </listcell>
-                            <listcell  zclass = "mycss-listcell" style="width:100%;" >
-                                <textbox readonly="true"  style="font-size:12px ;background:#EBF5FB"
-                                         class="form-control form-control-sm" 
+                            <listcell  zclass = "mycss-listcell" style="width:100%;padding:0 0 0 10px; " class="form-control form-control-sm"  >
+                                <label   
+                                         value="@bind(each.solNombre)" />
+                                 <label       
                                          value="@bind(each.solNombre)" />
                             </listcell>
                             <listcell zclass = "mycss-listcell" style="width:100%;" >
@@ -172,9 +178,9 @@
           
                                 <button 
                                     if="${each.idEstadoProceso.estSigla=='ING'|| each.idEstadoProceso.estSigla=='REC' || each.idEstadoProceso.estSigla=='CAN'}"
-                                    label=""
+                                    label="Cancelar"
                                     class="btn-danger-zk"
-                                    iconSclass="z-icon-trash-o"
+                                    iconSclass="z-icon-times-circle"
                                     onClick="@command('cancelarSolicitud',valor=each)" 
                                     tooltiptext="Cancelar solicitud">
                                     
@@ -194,6 +200,7 @@
                                     label=""
                                     class="btn-nothing-zk"
                                     iconSclass="z-icon-trash-o" 
+                                    
                                     onClick="@command('elimiarSolicitud',valor=each)" 
                                     tooltiptext="No se puede elimiar, solicitud aprobada">
                                     

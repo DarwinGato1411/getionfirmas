@@ -24,7 +24,7 @@
         window.addEventListener('resize', function () {
         let ancho = window.innerWidth;
         console.log(ancho);
-        if (ancho >= 1024) {
+        if (ancho >= 1) {
         cerrarMenu.style.display = 'none';
         menu.classList.remove('desplegar');
         }
@@ -47,11 +47,11 @@
             <label class="m1" value="Solicitud General" id="btnSolicitudRevisador"/>
         </div>
         <div class="li">
-            <label class="m1" value="Solicitud Estado" id="btnSolicitudRevisadorEstadoSol"/>
+            <label class="m1" value="Reporte Estado Solicitud" id="btnSolicitudRevisadorEstadoSol"/>
         </div>
         
         <div class="li">
-            <label class="m1" value="Solicitud Estado Firma" id="btnSolicitudRevisadorEstadoFir"/>
+            <label class="m1" value="Reporte Estado Firma" id="btnSolicitudRevisadorEstadoFir"/>
         </div>
      
         <div  apply="com.ec.controlador.LogoutController">
