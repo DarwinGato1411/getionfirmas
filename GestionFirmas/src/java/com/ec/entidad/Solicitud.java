@@ -489,7 +489,7 @@ public class Solicitud implements Serializable {
     }
 
     public Boolean getSolConRuc() {
-        return solConRuc;
+        return solConRuc==null?false:solConRuc;
     }
 
     public void setSolConRuc(Boolean solConRuc) {

@@ -223,6 +223,7 @@
                             <div class="wrapper_input_text">
                                 <textbox  
                                     maxlength="20"     
+                                    onChange="@command('conRuc')"   
                                     value="@bind(vm.entidad.solCedula)" 
                                     class="input_text"
                                     constraint="/^[0-9]+$/ :'Solo números'"
@@ -255,8 +256,8 @@
                                 selectedItem="@bind(vm.entidad.solConRuc)"
                                 style="display:flex;gap:10px;"
                             >                   
-                                <radio disabled="@bind(vm.combo)" label="SI" onClick="@command('conRuc',valor=true)" value="${true}"/>                            
-                                <radio disabled="@bind(vm.combo)" label="NO" onClick="@command('conRuc',valor=false)" value="${false}"/>                          
+                                <radio disabled="@bind(vm.combo)" label="SI" onClick="@command('conRuc')" value="${true}"/>                            
+                                <radio disabled="@bind(vm.combo)" label="NO" onClick="@command('conRuc')" value="${false}"/>                          
                             </radiogroup>
                     
                         </div>

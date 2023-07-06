@@ -227,7 +227,7 @@
                                     label="Emitir Firma"
                                     onClick="@command('emitirFirma',valor=each)" 
                                     class="btn-success-zk"
-                                    if="${each.idEstadoProceso.estSigla!='CAN' and each.idEstadoProceso.estSigla!='REC'}"
+                                    if="${each.idEstadoProceso.estSigla=='APR'}"
                                     tooltiptext=""/>
                                     
                                 
