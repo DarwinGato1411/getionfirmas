@@ -3375,12 +3375,12 @@ input, button, select, textarea {
 
 .revisador  .z-listbox .tblCabecera{
     display: grid;
-    grid-template-columns:10% 15% 15% 15% 10% 10% 25% ;
+    grid-template-columns:10% 13% 12% 10% 8% 8% 9% 10% 20%;
 }
 
 .revisador  .z-listbox .tblCuerpo{
     display: grid;
-    grid-template-columns:10% 15% 15% 15% 10% 10% 25% ;
+    grid-template-columns:10% 13% 12% 10% 8% 8% 9% 10% 20%;
 }
 
 .revisador2  .z-listbox .tblCabecera{

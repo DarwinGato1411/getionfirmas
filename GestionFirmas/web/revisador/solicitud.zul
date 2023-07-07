@@ -133,10 +133,12 @@
                         <listheader label="Correo"  />  
                         <listheader label="Creado por" />                                                                         
                         <listheader label="Estado Sol."  />
-                        <listheader label="Estado Fir."  />                                                                        
+                        <listheader label="Estado Fir."  />
+                        <listheader label="Tipo Sol."  />                                                                               
                         <!--                        <listheader label="E-S"  tooltiptext="Estado de la solicitud "  class="btnPc"/>                                                                         
                         <listheader label="E-F"  tooltiptext="Estado de la firma "  class="btnPc"/>                                                                         -->
-                        <listheader label=""  />                                                                         
+                        <listheader label="Observación"  />  
+                        <listheader label=""  />                                                                              
                     </listhead>  
                     <template name="model" >                                                            
                         <listitem class="tblCuerpo" >
@@ -181,7 +183,27 @@
                            <listcell zclass = "mycss-listcell" style="width:100%;" class="btnPc">
                                 <textbox readonly="true"  style="font-size:12px ;background:#EBF5FB"
                                          class="form-control form-control-sm" 
+                                         rows="2"
                                          value="@bind(each.solObservacion)" />
+                            </listcell>
+                            <listcell zclass = "mycss-listcell" style="width:100%;" class="btnPc">
+                                <textbox readonly="true"  style="font-size:12px ;background:#EBF5FB"
+                                         class="form-control form-control-sm"
+                                         value="Persona Natural"
+                                         if="${each.solTipo=='PN'}"
+                                /> 
+                                <textbox readonly="true"  style="font-size:12px ;background:#EBF5FB"
+                                         class="form-control form-control-sm"
+                                         value="Representante Legal"
+                                         if="${each.solTipo=='RLE'}"
+                                /> 
+                                <textbox readonly="true"  style="font-size:12px ;background:#EBF5FB"
+                                         class="form-control form-control-sm"
+                                         value="Empresa"
+                                         if="${each.solTipo=='ME'}"
+                                /> 
+
+                                         
                             </listcell>
                            
 
