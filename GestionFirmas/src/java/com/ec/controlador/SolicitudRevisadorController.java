@@ -651,7 +651,13 @@ public class SolicitudRevisadorController {
 
         ServiciosRest rest= new ServiciosRest();
         RequestApiEmpresa param= new RequestApiEmpresa(valor.getIdSolicitud(), valor.getIdUsuario().getIdUsuario());
-        rest.obtenerFirmaEmpresa(param,valor.getSolTipo());
+        Boolean result=rest.obtenerFirmaEmpresa(param,valor.getSolTipo());
+        
+        if (result) {
+            sweetAltert("success", "Emitida con éxito", "La firma ha sido emitida");
+        }else{
+        sweetAltert("error", "Firma no emitida", "La firma no pudo se emitida");
+        }
 
     }
 
