@@ -138,14 +138,24 @@ public class SolicitudController {
     @Command
     @NotifyChange({"listaDatos", "buscar"})
     public void modificarSolicitud(@BindingParam("valor") Solicitud valor) {
-        try {
+         try {
 //            if (Messagebox.show("¿Desea modificar el registro, recuerde que debe crear las reteniones nuevamente?", "Atención", Messagebox.YES | Messagebox.NO, Messagebox.INFORMATION) == Messagebox.YES) {
             final HashMap<String, Solicitud> map = new HashMap<String, Solicitud>();
-
             map.put("valor", valor);
-            org.zkoss.zul.Window window = (org.zkoss.zul.Window) Executions.createComponents(
-                    "/perfil/nuevo/solicitud.zul", null, map);
-            window.doModal();
+
+            if (valor.getIdEstadoFirma().getEstSigla().equals("EMT") ||
+                    valor.getIdEstadoProceso().getEstSigla().equals("APR")||
+                    valor.getIdEstadoProceso().getEstSigla().equals("REC")||
+                    valor.getIdEstadoProceso().getEstSigla().equals("CAN")) {
+                org.zkoss.zul.Window window = (org.zkoss.zul.Window) Executions.createComponents(
+                        "/perfil/nuevo/solicitudNE.zul", null, map);
+                window.doModal();
+            } else {
+                org.zkoss.zul.Window window = (org.zkoss.zul.Window) Executions.createComponents(
+                        "/perfil/nuevo/solicitud.zul", null, map);
+                window.doModal();
+            }
+
         } catch (Exception e) {
             Clients.showNotification("Ocurrio un error " + e.getMessage(),
                     Clients.NOTIFICATION_TYPE_ERROR, null, "middle_center", 2000, true);

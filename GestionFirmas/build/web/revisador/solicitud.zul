@@ -179,14 +179,7 @@
                                          class="form-control form-control-sm" 
                                          value="@bind(each.idEstadoFirma.estDescripcion)" />
                             </listcell>
-                           
                            <listcell zclass = "mycss-listcell" style="width:100%;" class="btnPc">
-                                <textbox readonly="true"  style="font-size:12px ;background:#EBF5FB"
-                                         class="form-control form-control-sm" 
-                                         rows="2"
-                                         value="@bind(each.solObservacion)" />
-                            </listcell>
-                            <listcell zclass = "mycss-listcell" style="width:100%;" class="btnPc">
                                 <textbox readonly="true"  style="font-size:12px ;background:#EBF5FB"
                                          class="form-control form-control-sm"
                                          value="Persona Natural"
@@ -205,6 +198,13 @@
 
                                          
                             </listcell>
+                           <listcell zclass = "mycss-listcell" style="width:100%;" class="btnPc">
+                                <textbox readonly="true"  style="font-size:12px ;background:#EBF5FB"
+                                         class="form-control form-control-sm" 
+                                         rows="2"
+                                         value="@bind(each.solObservacion)" />
+                            </listcell>
+                            
                            
 
                             <listcell zclass = "mycss-listcell"   style="font-size:12px;background:#F8F9F9">   
@@ -244,14 +244,16 @@
                                     tooltiptext="">
                                     
                                 </button>    -->                                  
-                                
+                               
+                                        
+                                    
                                 <button 
                                     label="Emitir Firma"
                                     onClick="@command('emitirFirma',valor=each)" 
                                     class="btn-success-zk"
-                                    if="${each.idEstadoProceso.estSigla=='APR'}"
+                                    if="${each.idEstadoProceso.estSigla=='APR' and each.idEstadoFirma.estSigla=='PEN'}"
                                     tooltiptext=""/>
-                                    
+                              
                                 
                                 <button 
                                     label="PDF"
@@ -259,7 +261,14 @@
                                     tooltiptext=""
                                     image="/iconos/pdf.png" />
                                     
-                                
+                                <button 
+                                    label=""
+                                    onClick="@command('emitirFirma',valor=each)" 
+                                    class=""
+                                    style="background:transparent;padding:0px;"
+                                    if="${ each.idEstadoFirma.estSigla=='EMT'}"
+                                    image="/iconos/listo.png"
+                                    tooltiptext="Su firma ya ha sido emitida"/>
 <!--                                <button 
                                     label="Revocar"
                                     onClick="@command('revocarFirma',valor=each)" 
