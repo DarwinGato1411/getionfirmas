@@ -249,7 +249,7 @@
                                     
                                 <button 
                                     label="Emitir Firma"
-                                    onClick="@command('emitirFirma',valor=each)" 
+                                    onClick="@command('generarFirma',valor=each)" 
                                     class="btn-success-zk"
                                     if="${each.idEstadoProceso.estSigla=='APR' and each.idEstadoFirma.estSigla=='PEN'}"
                                     tooltiptext=""/>

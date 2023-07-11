@@ -20,14 +20,20 @@ public class ServiciosRest {
     private String url = "http://localhost:8443/api/procesar-firma-empresa";
 
     public Boolean obtenerFirmaEmpresa(RequestApiEmpresa param, String tipoEmision) {
+        
+        System.out.println("TIPO EMIION "+tipoEmision);
         if (tipoEmision.equals("PN")) {
             //PERSONA NATURAL
+            System.out.println("INGRESA PN");
             url = "http://localhost:8443/api/procesar-persona-natural";
         } else if (tipoEmision.equals("ME")) {
+            System.out.println("INGRESA ME");
             url = "http://localhost:8443/api/procesar-firma-empresa";
         } else if (tipoEmision.equals("RLE")) {
+            System.out.println("INGRESA PN");
             url = "http://localhost:8443/api/procesar-persona-juridica";
         } else {
+             System.out.println("NO INGRESA");
             return false;
         }
         try {
