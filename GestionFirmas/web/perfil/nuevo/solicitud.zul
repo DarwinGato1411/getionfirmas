@@ -579,7 +579,14 @@
                                 <a  class="btn_modal"  onClick="@command('subirPDFRuc')"  >
                                     Pdf RUC *
                                 </a>
+                                
                             </div>
+                            <button label="Ver examen"
+                                                    iconSclass="z-icon-pencil"
+                                                    onClick="@command('verImagen',valor='ruc')" 
+                                                    tooltiptext="visualizar examen">
+                                            </button>
+                            
                         </div>
                     
                     
@@ -602,6 +609,11 @@
                                     Constitución de compañia *
                                 </a>
                             </div>
+                            <button label="Ver examen"
+                                                    iconSclass="z-icon-pencil"
+                                                    onClick="@command('verImagen',valor='CNC')" 
+                                                    tooltiptext="visualizar examen">
+                                            </button>
                         </div>
                         
                         <div class="wrapper_input_mod">
