@@ -11,7 +11,7 @@
 
 <zk   with="90%" >
     <div self="@define(content)" apply="org.zkoss.bind.BindComposer" 
-         viewModel="@id('vm') @init('com.ec.controlador.SolicitudRevisadorController')" >
+         viewModel="@id('vm') @init('com.ec.controlador.SolicitudClienteController')" >
                   
         <div  class="contenedorPacientes">
             <div  class="botonera">
@@ -249,13 +249,13 @@
                                     label="Emitir Firma"
                                     onClick="@command('generarFirma',valor=each)" 
                                     class="btn-success-zk"
-                                   
+                                    if="${each.idEstadoProceso.estSigla=='APR' and each.idEstadoFirma.estSigla=='PEN'}"
                                     tooltiptext=""/>
                                 
-<!--                                 <image src="/iconos/photo.png" 
+                                 <image src="/iconos/photo.png" 
                                     class="btn-success-zk"
                                     if="${each.idEstadoProceso.estSigla!='APR' and each.idEstadoFirma.estSigla!='EMT'}"
-                                    tooltiptext=""/>-->
+                                    tooltiptext=""/>
                                     
                                 
                                 <button 

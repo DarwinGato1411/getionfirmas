@@ -4,12 +4,10 @@
  */
 package com.ec.utilitario;
 
-
-import com.ec.entidad.Parametrizar;
-import com.ec.servicio.ServicioParametrizar;
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.mail.Session;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
@@ -29,8 +27,8 @@ import javax.mail.internet.MimeUtility;
  */
 public class MailerClass {
 
-    private Parametrizar parametrizar = new Parametrizar();
-    ServicioParametrizar servicioParametrizar = new ServicioParametrizar();
+    public String usuario;
+    public String contrasenia;
 
     /**
      * Recupera el nombre del catálogo descrito en la enumeración
@@ -39,140 +37,9 @@ public class MailerClass {
      * @return
      */
     public String getConfiguracionCorreo(String categoria) {
-//        Set<BeCatalogo> dato = ofertaServicio.getCatalogo1(categoria);
-//        if (dato.iterator().hasNext()) {
-//            return dato.iterator().next().getNbCatalogo();
-//        }
+
         return null;
     }
-
-    /**
-     * Método que envía al mail las credenciales de acceso al sistema
-     *
-     * @param address Dirección de correo electronico
-     * @param mensaje Contenido del mensaje
-     * @return
-     * @throws java.rmi.RemoteException
-     */
-//    public boolean sendMail(List<String> address, String mensaje,
-//            String pathAdjunto, String asuntoInf,
-//            String nombreArchivoMail, String rutaFTP)
-//            throws java.rmi.RemoteException {
-//
-//        try {
-//            System.out.println("INGRESA AL ENVIO");
-//            String asunto = asuntoInf;
-//            String host = "smtp.gmail.com";
-//            String port = "587";
-//            String from = "imdiquito@gmail.com";
-//            String protocol = "smtp";
-//            String usuarioSmpt = "imdiquito@gmail.com";
-//            String password = "mspmsp506";
-//
-//            // Propiedades de la conexión
-//            // Get system properties
-//            Properties properties = System.getProperties();
-//
-//            // Setup mail server
-//            properties.setProperty("mail.smtp.host", host);
-//            properties.setProperty("mail.smtp.user", usuarioSmpt);
-//            properties.setProperty("mail.smtp.password", password);
-//            properties.setProperty("mail.smtp.port", port);
-//            properties.setProperty("mail.smtp.starttls.enable", "true");
-//            properties.setProperty("mail.smtp.auth", "true");
-//            properties.setProperty("mail.debug", "false");
-//            // Setup Port
-//            properties.put("mail.smtp.ssl.trust", host);
-//            SmtpAuthenticator auth = new SmtpAuthenticator();
-//            // Get the default Session object.
-//            Session session = Session.getInstance(properties, auth);
-//            MimeMessage m = new MimeMessage(session);
-//            Address addressfrom = new InternetAddress();
-//            InternetAddress[] recipientAddress = new InternetAddress[address.size()];
-//            int count = 0;
-//            for (String item : address) {
-//                recipientAddress[count] = new InternetAddress(item.trim());
-//                count++;
-//            }
-//
-//            Address[] addresTto = recipientAddress;
-//
-//            m.setFrom(addressfrom);
-//
-//            BodyPart texto = new MimeBodyPart();
-////            texto.setText("Informacion que  se desee enviar");
-//            String linkFacebook = "https://www.facebook.com/Imagen.Digital.Impresiones/timeline";
-//            String linkPagina = "http://www.imagenec.com/";
-//
-//            texto.setContent("<h4>" + mensaje + "</h4><br>"
-//                    + "<IMG SRC='" + rutaFTP + "'>"
-//                    + "<table>\n"
-//                    + "	<tr>\n"
-//                    + "	<td>Visitanos en nuestra página oficial:\n"
-//                    + "	</td>\n"
-//                    + "	<td>\n"
-//                    + "	<a href=" + linkPagina + ">  " + linkPagina + " </a>\n"
-//                    + "	</td>\n"
-//                    + "	</tr>\n"
-//                    + "	\n"
-//                    + "    <tr>\n"
-//                    + "	<td>Visitanos en facebook:</td>\n"
-//                    + "	<td>\n"
-//                    + "	<a href=" + linkFacebook + "> " + linkFacebook + "</a>\n"
-//                    + "	</td></tr>\n"
-//                    + " <tr>\n"
-//                    + " <td>Contactenos:</td>\n"
-//                    + "	<td>Pontevedra N24-275 entre Guipuzcoa y Vizcaya (A una cuadra del Cine Ocho y Medio, sector Floresta)\n"
-//                    + "Quito</td>"
-//                    + "</tr>\n"
-//                    + " <tr>\n"
-//                    + "	<td>Telefax:</td><td> (593 2) 2 904 639</td>\n"
-//                    + "</tr>\n"
-//                    + " <tr>\n"
-//                    + "	<td>Movil:</td><td> (593 2) 9982 37 099 / 098 3515 718</td>\n"
-//                    + "</tr>\n"
-//                    + " <tr>\n"
-//                    + "	<td>Ventas: </td><td>ventas@imagenec.com</td>\n"
-//                    + "</tr>\n"
-//                    + " <tr>\n"
-//                    + "	<td>Gerencia:</td><td> barlin@imagenec.com</td>\n"
-//                    + "</tr>\n"
-//                    + "</table>", "text/html");
-//
-//            MimeMultipart multiParte = new MimeMultipart();
-//            // inicio adjunto
-//
-//            if (pathAdjunto.equals("")) {
-//            } else {
-//                BodyPart adjunto = new MimeBodyPart();
-//                adjunto.setDataHandler(new DataHandler(new FileDataSource(
-//                        pathAdjunto)));
-//                adjunto.setFileName(nombreArchivoMail);
-//                multiParte.addBodyPart(adjunto);
-//            }
-//
-//            multiParte.addBodyPart(texto);
-//
-//            m.setRecipients(Message.RecipientType.TO, addresTto);
-////            m.setRecipients(Message.RecipientType.BCC, from);
-//            m.setSubject(asunto);
-//            m.setSentDate(new java.util.Date());
-////             m.setContent(dirDatos, "text/plain");
-//            m.setContent(multiParte);
-//
-//            Transport t = session.getTransport(protocol);
-////             t.connect();
-//            t.connect(host, usuarioSmpt, password);
-//            t.send(m);
-//            t.close();
-//            return true;
-//        } catch (javax.mail.MessagingException e) {
-//            System.out.println("error" + e);
-//            e.printStackTrace();
-//
-//            return false;
-//        }
-//    }
 
     class SmtpAuthenticator extends Authenticator {
 
@@ -183,41 +50,38 @@ public class MailerClass {
 
         @Override
         public PasswordAuthentication getPasswordAuthentication() {
-            parametrizar = servicioParametrizar.findActivo();
-            String username = parametrizar.getParCorreo().trim();
-            String password = parametrizar.getParContrasena().trim();
-
-            return new PasswordAuthentication(username, password);
+            System.out.println("nombreUsaurio "+usuario);
+            return new PasswordAuthentication(usuario, contrasenia);
 
         }
     }
 
     //envio de mail simple
-//    
-//      m.setRecipients(Message.RecipientType.TO,
-//                    InternetAddress.parse(address));
-    public boolean sendMailSimple(String address, String mensaje,
-            String[] attachFiles, String asuntoInf)
-            throws java.rmi.RemoteException, UnsupportedEncodingException {
+    public boolean sendMailSimple(String smtpHost,
+            String puerto,
+            String SSL,
+            String starttls,
+            String nombreUsaurio,
+            String contrasenia,
+            String correoremitente,
+            String correodestino,
+            String asuntoP,
+            String mensaje) {
 
         try {
-//                        String usuarioSmpt = "deckxelec@gmail.com";
-//            String password = "metalicas366";
-
-            parametrizar = servicioParametrizar.findActivo();
-
-//            String asunto = asuntoInf;
-//            String host = "smtp.gmail.com";
+            this.usuario = nombreUsaurio;
+            this.contrasenia = contrasenia;
+            String asunto = asuntoP;
+            String host = smtpHost;
+            String port = puerto;
+            String protocol = "smtp";
+            String usuarioSmpt = nombreUsaurio;
+            String password = contrasenia;
+//            String host = "smtp.office365.com";
 //            String port = "587";
 //            String protocol = "smtp";
-//            String usuarioSmpt = "deckxelec@gmail.com";
-//            String password = "Dereckandre02";
-            String asunto = asuntoInf;
-            String host = parametrizar.getParHost();
-            String port = parametrizar.getParPuerto().toString();
-            String protocol = parametrizar.getParaProtocolo();
-            String usuarioSmpt = parametrizar.getParCorreo().trim();
-            String password = parametrizar.getParContrasena().trim();
+//            String usuarioSmpt = "eval.socio@cooperativaambato.com";
+//            String password = "2021Siacc";
 
             // Propiedades de la conexión
             // Get system properties
@@ -228,33 +92,29 @@ public class MailerClass {
             properties.setProperty("mail.smtp.user", usuarioSmpt);
             properties.setProperty("mail.smtp.password", password);
             properties.setProperty("mail.smtp.port", port);
-            properties.setProperty("mail.smtp.starttls.enable", "true");
+            properties.setProperty("mail.smtp.starttls.enable", starttls);
             properties.setProperty("mail.smtp.auth", "true");
             properties.setProperty("mail.debug", "false");
             // Setup Port
-            properties.put("mail.smtp.ssl.trust", host);
+            properties.put("mail.smtp.ssl.trust", smtpHost);
             SmtpAuthenticator auth = new SmtpAuthenticator();
             // Get the default Session object.
             Session session = Session.getInstance(properties, auth);
             MimeMessage m = new MimeMessage(session);
-              String nickFrom = MimeUtility.encodeText("Consultorio Medico");
-               Address addressfrom = new InternetAddress(usuarioSmpt, nickFrom);
+            String nickFrom = MimeUtility.encodeText("Cooperativa Ambato");
+            Address addressfrom = new InternetAddress(usuarioSmpt, nickFrom);
+//            Address addressfrom = new InternetAddress(usuarioSmpt);
 
             m.setFrom(addressfrom);
 
             BodyPart texto = new MimeBodyPart();
-//            texto.setText("Informacion que  se desee enviar");
-//            String linkFacebook = "https://www.facebook.com/papeleriacom/?fref=ts";
-//            String linkPortal = "http://186.4.130.202:8080/ventas/portal/inicio.zul";
-//            String nombrePortal = "Portal para sus facturas electonicas";
-
-             String HTMLENVIO = "<html xmlns=\"http://www.w3.org/1999/xhtml\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:o=\"urn:schemas-microsoft-com:office:office\">\n"
+            String HTMLENVIO = "<html xmlns=\"http://www.w3.org/1999/xhtml\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:o=\"urn:schemas-microsoft-com:office:office\">\n"
                     + "<head>\n"             
                     + "  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n"
                     + "  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n"
                     + "  <meta name=\"x-apple-disable-message-reformatting\">\n"
                     + "  <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n"
-                    + "  <title>"+parametrizar.getParDescripcion()+"</title>\n"
+                    + "  <title>Cooperativa Ambato</title>\n"
                     + "\n"
                     + "  <style type=\"text/css\">\n"
                     + "    table,\n"
@@ -369,7 +229,7 @@ public class MailerClass {
                     + "                                <tr>\n"
                     + "                                  <td style=\"padding-right: 0px;padding-left: 0px;\" align=\"center\">\n"
                     + "\n"
-                    + "                                    <img align=\"center\" border=\"0\" src=\"https://static.vecteezy.com/system/resources/previews/001/886/209/non_2x/doctor-medical-cartoon-design-vector.jpg \" alt=\"Image\" title=\"Image\" style=\"outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: inline-block !important;border: none;height: auto;float: none;width: 81%;max-width: 453.6px;\"\n"
+                    + "                                    <img align=\"center\" border=\"0\" src=\"https://ambatiko.cooperativaambato.fin.ec/img/encuestas/logo-movil.png\" alt=\"Image\" title=\"Image\" style=\"outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: inline-block !important;border: none;height: auto;float: none;width: 81%;max-width: 453.6px;\"\n"
                     + "                                      width=\"453.6\" />\n"
                     + "\n"
                     + "                                  </td>\n"
@@ -480,7 +340,7 @@ public class MailerClass {
                     + "                            <td style=\"overflow-wrap:break-word;word-break:break-word;padding:10px;font-family:'Cabin',sans-serif;\" align=\"left\">\n"
                     + "\n"
                     + "                              <div style=\"color: #fafafa; line-height: 180%; text-align: center; word-wrap: break-word;\">\n"
-                    + "                                <p style=\"font-size: 14px; line-height: 180%;\"><span style=\"font-size: 16px; line-height: 28.8px;\">Copyrights &copy; Deckxel derechos reservados</span></p>\n"
+                    + "                                <p style=\"font-size: 14px; line-height: 180%;\"><span style=\"font-size: 16px; line-height: 28.8px;\">Copyrights &copy; Cooperativa Ambato derechos reservados</span></p>\n"
                     + "                              </div>\n"
                     + "\n"
                     + "                            </td>\n"
@@ -504,21 +364,21 @@ public class MailerClass {
 
             MimeMultipart multiParte = new MimeMultipart();
             // inicio adjunto
-            if (attachFiles != null && attachFiles.length > 0) {
-                for (String filePath : attachFiles) {
-                    MimeBodyPart attachPartDoc = new MimeBodyPart();
-                    try {
-                        if (!filePath.equals("")) {
-                            attachPartDoc.attachFile(filePath);
-                        }
-                    } catch (IOException ex) {
-                        ex.printStackTrace();
-                    }
-                    multiParte.addBodyPart(attachPartDoc);
-                }
-            }
+//            if (attachFiles != null && attachFiles.length > 0) {
+//                for (String filePath : attachFiles) {
+//                    MimeBodyPart attachPartDoc = new MimeBodyPart();
+//                    try {
+//                        if (!filePath.equals("")) {
+//                            attachPartDoc.attachFile(filePath);
+//                        }
+//                    } catch (IOException ex) {
+//                        ex.printStackTrace();
+//                    }
+//                    multiParte.addBodyPart(attachPartDoc);
+//                }
+//            }
             m.setRecipients(Message.RecipientType.TO,
-                    InternetAddress.parse(address));
+                    InternetAddress.parse(correodestino));
             multiParte.addBodyPart(texto);
 
 //            m.setRecipients(Message.RecipientType.TO, addresTto);
@@ -536,8 +396,10 @@ public class MailerClass {
             return true;
         } catch (javax.mail.MessagingException e) {
             System.out.println("error" + e);
-            e.printStackTrace();
 
+            return false;
+        }catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(MailerClass.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
     }
