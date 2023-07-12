@@ -31,7 +31,6 @@ public class NuevoUsuario {
     private String accion = "create";
     private String usuNivel = "1";
 
-
     @AfterCompose
     public void afterCompose(@ExecutionArgParam("valor") Usuario valor, @ContextParam(ContextType.VIEW) Component view) {
         Selectors.wireComponents(view, this, false);
@@ -50,12 +49,21 @@ public class NuevoUsuario {
 
     @Command
     public void guardar() {
-        
+
         /*validar que no exista dos usuarios iguales*/
         if (entidad.getUsuRuc() != null
                     && entidad.getUsuLogin() != null
                     && entidad.getUsuPassword() != null) {
             entidad.setUsuNivel(Integer.valueOf(usuNivel));
+            if (Integer.valueOf(usuNivel) == 1) {
+                entidad.setUsuTipoUsuario("DISTRIBUIDOR");
+            } else if (Integer.valueOf(usuNivel) == 2) {
+                entidad.setUsuTipoUsuario("ADMINISTRADOR");
+            } else if (Integer.valueOf(usuNivel) == 3) {
+                entidad.setUsuTipoUsuario("REVISADOR");
+            } else if (Integer.valueOf(usuNivel) == 4) {
+                entidad.setUsuTipoUsuario("CLIENTE");
+            }
             if (accion.equals("create")) {
                 servicio.crear(entidad);
                 wUsuario.detach();

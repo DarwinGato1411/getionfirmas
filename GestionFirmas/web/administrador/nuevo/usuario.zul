@@ -35,7 +35,7 @@
                              width="90%"                    />
                 </div>                     
                 <div class="inputGroup"  >
-                    <label value="Dirección:"/>
+                    <label value="Nombre:"/>
                     <textbox value="@bind(vm.entidad.usuNombre)" 
                              placeholder="Nombre"
                              class="form-control form-control-sm"

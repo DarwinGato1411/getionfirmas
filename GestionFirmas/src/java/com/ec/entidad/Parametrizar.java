@@ -60,6 +60,8 @@ public class Parametrizar implements Serializable {
     private Boolean parActivo;
     @Column(name = "par_host")
     private String parHost;
+    @Column(name = "par_enlace_descarga")
+    private String parEnlaceDescarga;
 
     public Parametrizar() {
     }
@@ -146,6 +148,14 @@ public class Parametrizar implements Serializable {
 
     public void setParHost(String parHost) {
         this.parHost = parHost;
+    }
+
+    public String getParEnlaceDescarga() {
+        return parEnlaceDescarga;
+    }
+
+    public void setParEnlaceDescarga(String parEnlaceDescarga) {
+        this.parEnlaceDescarga = parEnlaceDescarga;
     }
 
     @Override

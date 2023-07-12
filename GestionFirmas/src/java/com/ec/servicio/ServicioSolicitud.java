@@ -272,4 +272,35 @@ public class ServicioSolicitud {
 
         return listaSolicituds;
     }
+    
+    
+    public List<Solicitud> findLikeSolicitudCliente(String nombre) {
+        List<Solicitud> listaSolicituds = new ArrayList<Solicitud>();
+        try {
+
+            String SQL = "SELECT u FROM Solicitud u WHERE (u.solNombre like :solNombre OR u.solRuc LIKE :solRuc OR u.solApellido1 like :solApellido1) ";
+//            String WHERE = " AND u.idUsuario=:idUsuario";
+            String ORDERBY = " ORDER BY u.solNombre ASC";
+            System.out.println("Entra a consultar solicituds");
+            //Connection connection = em.unwrap(Connection.class);
+            em = HelperPersistencia.getEMF();
+            em.getTransaction().begin();
+
+           
+            Query query = em.createQuery(SQL +ORDERBY);
+            query.setParameter("solNombre", "%" + nombre + "%");
+            query.setParameter("solRuc", "%" + nombre + "%");
+            query.setParameter("solApellido1", "%" + nombre + "%");
+
+          
+            listaSolicituds = (List<Solicitud>) query.getResultList();
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            System.out.println("Error solicituds findLikeSolicitudCliente " + e.getMessage());
+        } finally {
+            em.close();
+        }
+
+        return listaSolicituds;
+    }
 }

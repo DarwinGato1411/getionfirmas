@@ -159,10 +159,10 @@
                                          value="@bind(each.solMail)" />
                             </listcell>
 
-                             <listcell zclass = "mycss-listcell" style="width:100%;" >
-                                    <textbox readonly="true"  style="font-size:12px ;background:#EBF5FB"
-                                             class="form-control form-control-sm" 
-                                             value="@bind(each.idUsuario.usuNombre)" />
+                            <listcell zclass = "mycss-listcell" style="width:100%;" >
+                                <textbox readonly="true"  style="font-size:12px ;background:#EBF5FB"
+                                         class="form-control form-control-sm" 
+                                         value="@bind(each.idUsuario.usuNombre)" />
                             </listcell>
                             <listcell zclass = "mycss-listcell" style="width:100%;" class="btnPc">
                                 <textbox readonly="true"  style="font-size:12px ;background:#EBF5FB"
@@ -174,7 +174,7 @@
                                          class="form-control form-control-sm" 
                                          value="@bind(each.idEstadoFirma.estDescripcion)" />
                             </listcell>
-                           <listcell zclass = "mycss-listcell" style="width:100%;" class="btnPc">
+                            <listcell zclass = "mycss-listcell" style="width:100%;" class="btnPc">
                                 <textbox readonly="true"  style="font-size:12px ;background:#EBF5FB"
                                          class="form-control form-control-sm"
                                          value="Persona Natural"
@@ -193,10 +193,10 @@
 
                                          
                             </listcell>
-                           <listcell zclass = "mycss-listcell" style="width:100%;" class="btnPc">
+                            <listcell zclass = "mycss-listcell" style="width:100%;" class="btnPc">
                                 <textbox readonly="true"  style="font-size:12px ;background:#EBF5FB"
                                          class="form-control form-control-sm" 
-                                           tooltiptext="@bind(each.solObservacion)"
+                                         tooltiptext="@bind(each.solObservacion)"
                                          value="@bind(each.solObservacion)" />
                             </listcell>
                             
@@ -211,27 +211,23 @@
                                     tooltiptext=""/> 
                              
                                 <button 
-                                    label="Emitir Firma"
+                                    label="Aprobar Firma"
                                     onClick="@command('generarFirma',valor=each)" 
                                     class="btn-success-zk"
-                                   
+                                    if="${ each.idEstadoProceso.estSigla=='APR'}"                                    
                                     tooltiptext=""/>
-
+                                <textbox if="${ each.idEstadoProceso.estSigla!='APR'}" 
+                                         readonly="true"
+                                         value="   No Aprobado"
+                                         class="alertList alert-primary" >
+                                
+                                </textbox>
                                     
 
                                 <button 
                                     label="PDF"
                                     onClick="@command('pdfSolicitudIndividual',valor=each)" 
                                     tooltiptext="" />
-                                    
-                                <button 
-                                    label=""
-                                    onClick="@command('emitirFirma',valor=each)" 
-                                    class=""
-                                    style="background:transparent;padding:0px;"
-                                    if="${ each.idEstadoFirma.estSigla=='EMT'}"
-                                    image="/iconos/listo.png"
-                                    tooltiptext="Su firma ya ha sido emitida"/>
 
                             </listcell>
                                       

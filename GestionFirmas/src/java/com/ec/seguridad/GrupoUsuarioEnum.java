@@ -12,6 +12,7 @@ public enum GrupoUsuarioEnum {
 
     DISTRIBUIDOR("distribuidor", Integer.valueOf("1")),
     ADMINISTRADOR("admin", Integer.valueOf("2")),
+    CLIENTE("cliente", Integer.valueOf("4")),
     REVISADOR("revisador", Integer.valueOf("3"));
 
     private String descripcion;

@@ -52,4 +52,8 @@ public class MenuOpciones extends SelectorComposer<Component> {
     public void btnSolicitudRevisadorEstadoFir() {
         Executions.sendRedirect("/revisador/solicitudEstFirma.zul");
     }
+     @Listen("onClick = #btnSusFirmas")
+    public void btnSusFirmas() {
+        Executions.sendRedirect("/cliente/solicitud.zul");
+    }
 }

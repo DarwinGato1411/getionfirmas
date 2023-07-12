@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<window  id="wDescargar"  position="center" closable="true"  
+
+         apply="org.zkoss.bind.BindComposer" 
+         viewModel="@id('vm') @init('com.ec.controlador.nuevo.NuevoDescargarFirma')"
+         class=" modalForm">
+    
+    <caption label="Descargar firma " style="font-weight:bold" class="titulo"/> 
+    
+
+    
+    <div  class="contenedorInfo" >
+            
+           
+        <div class="infoEmpresa">
+               
+            <div  class="contenedorInfoInputsdos">    
+                <div class="inputGroup">
+                    <label value="Password:"/>
+                    <textbox value="@bind(vm.usuPassword)" 
+                             placeholder="Password"
+                             class="form-control form-control-sm"
+                             tooltiptext="Nombre Comercial" 
+                             width="90%"/>
+                </div>  
+                <div class="inputGroup">
+                    <label value="Password:"/>
+                    <textbox value="@bind(vm.usuPasswordVer)" 
+                             placeholder="COnformar Password"
+                             class="form-control form-control-sm"
+                             tooltiptext="Nombre Comercial" 
+                             width="90%"/>
+                </div>  
+                    
+                <div class="inputGroup" align="center">
+                    <button 
+                        class="inputGroupBtn"
+                        onClick="@command('generarFirma')"
+                        iconSclass="z-icon-save"
+                        tooltiptext="Generar firma">
+                        Generar firma
+                    </button>      
+                </div>
+            </div>
+        </div>
+            
+            
+    </div>
+                        
+                        
+
+                  
+
+</window>
+
+
+
+
+

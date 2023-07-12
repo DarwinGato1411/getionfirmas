@@ -3651,3 +3651,23 @@ div.z-listbox-header th.z-listheader, div.z-listbox-header th.z-auxheader {
 .swal2-container{
     z-index: 2000;
 }
+
+.alert-primary {
+    color: #004085;
+    background-color: #cce5ff;
+    border-color: #b8daff;
+}
+.alert {
+    padding: 0.1rem 0.1rem;
+    margin-bottom: 0rem;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+}
+
+.alertList {
+    padding: 0.1rem 0.1rem;
+    margin-bottom: 0rem;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+    width: 100px
+}

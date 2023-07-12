@@ -56,7 +56,9 @@ public class LoginController extends SelectorComposer<Component> {
                 Executions.sendRedirect("/revisador/solicitud.zul");
             }  else if (cre.getNivelUsuario().intValue() == GrupoUsuarioEnum.ADMINISTRADOR.getCodigo()) {
                 Executions.sendRedirect("/administrador/usuario.zul");
-            } else {
+            } else if (cre.getNivelUsuario().intValue() == GrupoUsuarioEnum.CLIENTE.getCodigo()) {
+                Executions.sendRedirect("/cliente/solicitud.zul");
+            }else {
                 Clients.showNotification("El usuario no tiene permisos para ingrear a la plataforma.",
                             Clients.NOTIFICATION_TYPE_ERROR, null, "middle_center", 2000, true);
             }
