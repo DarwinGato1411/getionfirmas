@@ -450,16 +450,25 @@ public class NuevaSolicitud {
     }
 
     @Command
-    public void verImagen(@BindingParam("valor") String tipoarchivo) {
+    public void verPDF(@BindingParam("valor") String tipoarchivo) {
         try {
 
             File f = new File(entidad.getSolPathRuc());
 
             if (tipoarchivo.equals("ruc")) {
-
                 f = new File(entidad.getSolPathRuc());
             } else if (tipoarchivo.equals("CNC")) {
                 f = new File(entidad.getSolPathConstitucionCompania());
+            }else if (tipoarchivo.equals("AN")) {
+                f = new File(entidad.getSolPathAceptacionNombramiento());
+            }else if (tipoarchivo.equals("CRE")) {
+                f = new File(entidad.getSolPathCedulaRepresentanteEmpresa());
+            }else if (tipoarchivo.equals("AR")) {
+                f = new File(entidad.getSolPathAutorizacionRepresentante());
+            }else if (tipoarchivo.equals("NR")) {
+                f = new File(entidad.getSolPathNombramientoRepresentante());
+            }else if (tipoarchivo.equals("RE")) {
+                f = new File(entidad.getSolPathRucEmpresa());
             }
             FileInputStream fs = new FileInputStream(f);
             fs.read(buffer);
@@ -474,8 +483,7 @@ public class NuevaSolicitud {
                     "/visor/visorreporte.zul", null, map);
             window.doModal();
         } catch (Exception e) {
-            Clients.showNotification("Ocurrio un error " + e.getMessage(),
-                    Clients.NOTIFICATION_TYPE_ERROR, null, "middle_center", 2000, true);
+            sweetAltert("error", "Error visualización", "No existe el archivo");
         }
     }
 

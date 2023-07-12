@@ -17,9 +17,9 @@
             <div class="container_row_input">  
                 
   <radiogroup selectedItem="@bind(vm.entidad.solTipo)" style="display:flex;gap:20px;">
-    <radio label="Persona Natural" disabled="true" value="PN" onClick="@command('personaNatural')"  />
-    <radio label="Representante Legal" disabled="true" value="RLE" onClick="@command('repreLegalEmpresa')" />
-    <radio label="Empresa" value="ME" disabled="true"  onClick="@command('miembEmpresa')"/>
+    <radio label="Persona Natural" value="PN" onClick="@command('personaNatural')"  />
+    <radio label="Representante Legal" value="RLE" onClick="@command('repreLegalEmpresa')" />
+    <radio label="Empresa" value="ME"  onClick="@command('miembEmpresa')"/>
   </radiogroup>
                 <div class="DP" visible="@bind(vm.repremiembros)">                   
                                 
@@ -36,7 +36,6 @@
                             <div class="wrapper_input_text">
                         
                                 <textbox  
-                                    readonly="true"
                                     maxlength="100"    
                                     onChange="self.setValue(self.getValue().toUpperCase());"  
                                     value="@bind(vm.entidad.solRucEmpresa)" 
@@ -54,8 +53,7 @@
                             
                             <div class="wrapper_input_text">
                         
-                                <textbox 
-                                    readonly="true" 
+                                <textbox  
                                     maxlength="100"    
                                     onChange="self.setValue(self.getValue().toUpperCase());"  
                                     value="@bind(vm.entidad.solRazonSocial)" 
@@ -70,8 +68,7 @@
                             
                             <div class="wrapper_input_text">
                         
-                                <textbox 
-                                    readonly="true" 
+                                <textbox  
                                     maxlength="100"    
                                     onChange="self.setValue(self.getValue().toUpperCase());"  
                                     value="@bind(vm.entidad.solCargoRepresentante)" 
@@ -87,7 +84,6 @@
                             </div>
                             <div  class="wrapper_input_text">  
                                 <textbox  
-                                    readonly="true"
                                     maxlength="100"    
                                     onChange="self.setValue(self.getValue().toUpperCase());"  
                                     value="@bind(vm.entidad.solArea)" 
@@ -103,7 +99,6 @@
                             <div class="wrapper_input_text">
                         
                                 <textbox  
-                                    readonly="true"
                                     maxlength="100"    
                                     onChange="self.setValue(self.getValue().toUpperCase());"  
                                     value="@bind(vm.entidad.solCargoSolicitante)" 
@@ -144,7 +139,6 @@
                             <div class="wrapper_input_text">
                         
                                 <textbox  
-                                    readonly="true"
                                     maxlength="100"    
                                     onChange="self.setValue(self.getValue().toUpperCase());"  
                                     value="@bind(vm.entidad.solMeRuc)" 
@@ -163,7 +157,6 @@
                             <div class="wrapper_input_text">
                         
                                 <textbox  
-                                    readonly="true"
                                     maxlength="100"    
                                     onChange="self.setValue(self.getValue().toUpperCase());"  
                                     value="@bind(vm.entidad.solMeNombres)" 
@@ -179,7 +172,6 @@
                             <div class="wrapper_input_text">
                         
                                 <textbox  
-                                    readonly="true"
                                     maxlength="100"    
                                     onChange="self.setValue(self.getValue().toUpperCase());"  
                                     value="@bind(vm.entidad.solMeApellido1)" 
@@ -190,8 +182,7 @@
                             <span>2do Apellido</span>
                             <div class="wrapper_input_text">
                         
-                                <textbox 
-                                    readonly="true" 
+                                <textbox  
                                     maxlength="100"    
                                     onChange="self.setValue(self.getValue().toUpperCase());"  
                                     value="@bind(vm.entidad.solMeApellido2)" 
@@ -231,7 +222,6 @@
                            
                             <div class="wrapper_input_text">
                                 <textbox  
-                                    readonly="true"
                                     maxlength="20"     
                                     onChange="@command('conRuc')"   
                                     value="@bind(vm.entidad.solCedula)" 
@@ -249,7 +239,6 @@
                             <div class="wrapper_input_text">
                         
                                 <textbox  
-                                    readonly="true"
                                     maxlength="10"
                                     onChange="self.setValue(self.getValue().toUpperCase());"      
                                     value="@bind(vm.entidad.solCodigoDactilar)" 
@@ -262,7 +251,7 @@
                                <span>Firma con RUC / Sin RUC</span>
                             </div>
                             
-                            <radiogroup orient="horizontal"
+                            <radiogroup  orient="horizontal"
                                 class="radio_group" 
                                 selectedItem="@bind(vm.entidad.solConRuc)"
                                 style="display:flex;gap:10px;"
@@ -300,11 +289,10 @@
                                 
                    
                                 <div class="wrapper_input_text">
-                                    <datebox compact="true"
-                                    readonly="true" 
+                                    <datebox compact="true" 
                                              value="@bind(vm.entidad.solFechaNacimiento)" 
                                              onChange="@command('obtenerEdad')" 
-                                            
+                                             readonly="false"   
                                              buttonVisible="true" 
                                              lenient="true" 
                                              format="dd/MM/yyyy"
@@ -319,10 +307,9 @@
                                 <div class="wrapper_input_text">
                            
                                     <intbox constraint="no negative,no zero"  
-                                    readonly="true"
                                             value="@bind(vm.entidad.solEdad)" 
                                             format="##" class="input_text"
-                                           
+                                            readonly="true"
                                             tabindex="1" />
                            
                                 </div>
@@ -341,7 +328,6 @@
                             <div class="wrapper_input_text">
                         
                                 <textbox  
-                                    readonly="true"
                                     maxlength="100"    
                                     onChange="self.setValue(self.getValue().toUpperCase());"  
                                     value="@bind(vm.entidad.solNombre)" 
@@ -357,7 +343,6 @@
                             <div class="wrapper_input_text">
                         
                                 <textbox  
-                                    readonly="true"
                                     maxlength="100"    
                                     onChange="self.setValue(self.getValue().toUpperCase());"  
                                     value="@bind(vm.entidad.solApellido1)" 
@@ -369,7 +354,6 @@
                             <div class="wrapper_input_text">
                         
                                 <textbox  
-                                    readonly="true"
                                     maxlength="100"    
                                     onChange="self.setValue(self.getValue().toUpperCase());"  
                                     value="@bind(vm.entidad.solApellido2)" 
@@ -392,7 +376,6 @@
                                 <textbox  
                                     maxlength="100"    
                                     value="@bind(vm.entidad.solMail)" 
-                                    readonly="true"
                                     class="input_text" />
                             </div>
                         </div>
@@ -408,7 +391,6 @@
                             <div class="wrapper_input_text">
                         
                                 <textbox  
-                                    readonly="true"
                                     maxlength="100"    
                                     onChange="self.setValue(self.getValue().toUpperCase());"  
                                     value="@bind(vm.entidad.solCelular)" 
@@ -421,7 +403,6 @@
                             <div class="wrapper_input_text">
                         
                                 <textbox  
-                                    readonly="true"
                                     maxlength="100"    
                                     onChange="self.setValue(self.getValue().toUpperCase());"  
                                     value="@bind(vm.entidad.solMailOp)" 
@@ -439,7 +420,6 @@
                             <div class="wrapper_input_text">
                         
                                 <textbox  
-                                    readonly="true"
                                     maxlength="100"    
                                     onChange="self.setValue(self.getValue().toUpperCase());"  
                                     value="@bind(vm.entidad.solCelularOp)" 
@@ -520,7 +500,6 @@
                             </div>
                            
                             <combobox  
-                                
                                 model="@load(vm.listaCiudades)"  
                                 selectedItem="@bind(vm.entidad.idCiudad)"  
                                 readonly="true" 
@@ -541,8 +520,7 @@
                         
                         <div class="wrapper_input_text">
                         
-                            <textbox
-                                readonly="true"  
+                            <textbox  
                                 maxlength="100"    
                                 onChange="self.setValue(self.getValue().toUpperCase());"  
                                 value="@bind(vm.entidad.solDireccionCompleta)" 
@@ -567,7 +545,7 @@
                                 <image   content="@bind(vm.fotoGeneral)" class="panelImagen" width="300px" height="200px"/>
                             </div>
                             <div style="display:flex;justify-content:flex-end;">
-                                <a class="btn_modal"   >
+                                <a class="btn_modal"  onClick="@command('subirFotografiaCedula')"  >
                                     Cedula anverso *
                                 </a>
                             </div>
@@ -578,7 +556,7 @@
                                 <image   content="@bind(vm.fotoReverso)" class="panelImagen" width="300px" height="200px" />
                             </div>
                             <div style="display:flex;justify-content:flex-end;">
-                                <a class="btn_modal"  >
+                                <a class="btn_modal"  onClick="@command('subirFotografiaCedulaReverso')"  >
                                     Cedula reverso fotografía *
                                 </a>
                             </div>
@@ -588,7 +566,7 @@
                                 <image   content="@bind(vm.fotoSelfi)" class="panelImagen"  width="300px" height="200px"/>
                             </div>
                             <div style="display:flex;justify-content:flex-end;">
-                                <a class="btn_modal"  >
+                                <a class="btn_modal"  onClick="@command('subirSelfi')"  >
                                     Selfi *
                                 </a>
                             </div>
@@ -598,10 +576,17 @@
                                  <iframe width="200px" height="200px" content="@bind(vm.pdfRuc)"/> 
                             </div>
                             <div style="display:flex;justify-content:flex-end;">
-                                <a  class="btn_modal"    >
+                                <a  class="btn_modal"  onClick="@command('subirPDFRuc')"  >
                                     Pdf RUC *
                                 </a>
+                                
                             </div>
+                            <button label="Ver examen"
+                                iconSclass="z-icon-pencil"
+                                onClick="@command('verPDF',valor='ruc')" 
+                                tooltiptext="Visualizar documento">
+                            </button>
+                            
                         </div>
                     
                     
@@ -620,10 +605,15 @@
                                 <iframe width="200px" height="200px" content="@bind(vm.pdfConstCompa)"/> 
                             </div>
                             <div style="display:flex;justify-content:flex-end;">
-                                <a class="btn_modal"   >
+                                <a class="btn_modal"  onClick="@command('subirConstCompa')"  >
                                     Constitución de compañia *
                                 </a>
                             </div>
+                            <button label="Ver examen"
+                                iconSclass="z-icon-pencil"
+                                onClick="@command('verPDF',valor='CNC')" 
+                                tooltiptext="Visualizar documento">
+                           </button>
                         </div>
                         
                         <div class="wrapper_input_mod">
@@ -631,50 +621,75 @@
                                  <iframe width="200px" height="200px" content="@bind(vm.pdfNombraRepre)"/>
                             </div>
                             <div style="display:flex;justify-content:flex-end;">
-                                <a class="btn_modal"  >
+                                <a class="btn_modal"  onClick="@command('subirNombraRepre')"  >
                                     Nombramiento de representante *
                                 </a>
                             </div>
+                            <button label="Ver examen"
+                                iconSclass="z-icon-pencil"
+                                onClick="@command('verPDF',valor='NR')" 
+                                tooltiptext="Visualizar documento">
+                           </button>
                         </div>
                         <div class="wrapper_input_mod">
                              <div  align="center" >
                                  <iframe width="200px" height="200px" content="@bind(vm.pdfAcecptacionNomb)"/>
                             </div>
                             <div style="display:flex;justify-content:flex-end;">
-                                <a class="btn_modal"   >
+                                <a class="btn_modal"  onClick="@command('subirAceptacionNomb')"  >
                                     Aceptación de nombramiento *
                                 </a>
                             </div>
+                            <button label="Ver examen"
+                                iconSclass="z-icon-pencil"
+                                onClick="@command('verPDF',valor='AN')" 
+                                tooltiptext="Visualizar documento">
+                           </button>
                         </div>
                     <div class="wrapper_input_mod" visible="@bind(vm.mienbroEmpresa)">
                              <div  align="center">
                                   <iframe width="200px" height="200px" content="@bind(vm.pdfRucEmpresa)"/>
                             </div>
                             <div style="display:flex;justify-content:flex-end;">
-                                <a  class="btn_modal"    >
+                                <a  class="btn_modal"  onClick="@command('subirRucEmpresa')"  >
                                     Copia del ruc de la empresa *
                                 </a>
                             </div>
+                            <button label="Ver examen"
+                                iconSclass="z-icon-pencil"
+                                onClick="@command('verPDF',valor='RE')" 
+                                tooltiptext="Visualizar documento">
+                           </button>
                         </div>
                         <div class="wrapper_input_mod" visible="@bind(vm.mienbroEmpresa)">
                              <div  align="center">
                                  <iframe width="200px" height="200px" content="@bind(vm.pdfCedRepreEmpresa)"/> 
                             </div>
                             <div style="display:flex;justify-content:flex-end;">
-                                <a  class="btn_modal"    >
+                                <a  class="btn_modal"  onClick="@command('subirCedulaRepre')"  >
                                     Cédula representante de la empresa *
                                 </a>
                             </div>
+                            <button label="Ver examen"
+                                iconSclass="z-icon-pencil"
+                                onClick="@command('verPDF',valor='CRE')" 
+                                tooltiptext="Visualizar documento">
+                           </button>
                         </div>
                         <div class="wrapper_input_mod" visible="@bind(vm.mienbroEmpresa)">
                              <div  align="center">
                                  <iframe width="200px" height="200px" content="@bind(vm.pdfAutoriRepre)"/> 
                             </div>
                             <div style="display:flex;justify-content:flex-end;">
-                                <a  class="btn_modal"   >
+                                <a  class="btn_modal"  onClick="@command('subirAutoRepre')"  >
                                     Autorización del representante *
                                 </a>
                             </div>
+                             <button label="Ver examen"
+                                iconSclass="z-icon-pencil"
+                                onClick="@command('verPDF',valor='AR')" 
+                                tooltiptext="Visualizar documento">
+                           </button>
                         </div>
                     </div>
                 </div>
@@ -747,7 +762,6 @@
                         <div class="wrapper_input_text">
                         
                             <textbox  
-                                 readonly="true" 
                                 maxlength="100"    
                                 onChange="self.setValue(self.getValue().toUpperCase());"  
                                 value="@bind(vm.entidad.solNumRetencion)" 
