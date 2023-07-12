@@ -41,29 +41,26 @@ public class ServiciosRest {
             OkHttpClient client = new OkHttpClient();
             MediaType JSON = MediaType.parse("application/json");
             RequestBody body = RequestBody.create(JSON, "{\n"
-                        + "  \"idSolicitud\": " + param.getIdSolicitud() + ",\n"
-                        + "  \"idUsuario\": " + param.getIdUsuario() + "\n"
-                        + "}");
+                    + "  \"idSolicitud\": " + param.getIdSolicitud() + ",\n"
+                    + "  \"idUsuario\": " + param.getIdUsuario() + "\n"
+                    + "}");
 //                RequestBody formBody = new FormBody.Builder()
 //                            .add("message", "Your message")
 //                            .build();
             Request request = new Request.Builder()
-                        .url(url)
-                        .post(body)
-                        .build();
+                    .url(url)
+                    .post(body)
+                    .build();
 
             Response response = client.newCall(request).execute();
-            String responseBody = response.body().string();
-            System.out.println("responseBody " + responseBody);
-//                RespuestaProceso respuestaProceso = response.body();
-            // Do something with the response.
-                if (responseBody.contains("200")) {
-                    return true;
-                } else {
-                    return false;
-                }
+            int statusCode = response.code();
 
-           
+            if (statusCode == 200) {
+                return true;
+            } else {
+                return false;
+            }
+
         } catch (Exception e) {
             System.out.println("ERROR " + e.getMessage());
             return false;

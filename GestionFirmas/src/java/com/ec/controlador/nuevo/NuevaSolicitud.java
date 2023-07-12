@@ -323,7 +323,7 @@ public class NuevaSolicitud {
                 entidad.setSolFechaCreacion(new Date());
                 entidad.setSolTipo(tipoSolicitud);
                 EstadoFirma idEstadoFirma = new EstadoFirma();
-                idEstadoFirma.setIdEstadoFirma(1);
+                idEstadoFirma.setIdEstadoFirma(3);
                 entidad.setIdEstadoFirma(idEstadoFirma);
                 servicio.crear(entidad);
                 wSolicitud.detach();

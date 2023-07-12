@@ -93,7 +93,7 @@
                     <listhead  class="tblCabecera" > 
                         <listheader label="R/C"  />                                                                          
                         <listheader label="Nombre"  />                                                                         
-                                                                                                
+                              <listheader label="Correo"  />                                                                    
                         <listheader label="Teléfono" />                                                                         
                         <listheader label="E. Solicitud"  tooltiptext="Estado de la solicitud" />                                                                         
                         <listheader label="E. Firma"  tooltiptext="Estado de la firma "  />           
@@ -114,7 +114,11 @@
                                  <label       
                                          value="@bind(each.solNombre)" />
                             </listcell>
-                            
+                            <listcell zclass = "mycss-listcell" style="width:100%;" >
+                                <textbox readonly="true"  style="font-size:12px ;background:#EBF5FB"
+                                         class="form-control form-control-sm" 
+                                         value="@bind(each.solMail)" />
+                            </listcell>
                            
                             
                             <listcell zclass = "mycss-listcell" style="width:100%;">

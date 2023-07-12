@@ -254,7 +254,7 @@ public class SolicitudRevisadorEFirController {
     @Command
     public void pdfSolicitudEstadoFirma() {
 
-        EntityManager emf = HelperPersistencia.getEMF();
+      EntityManager emf = HelperPersistencia.getEMF();
 
         try {
             emf.getTransaction().begin();
@@ -264,12 +264,13 @@ public class SolicitudRevisadorEFirController {
                     .getRealPath("/reportes");
             String reportPath = "";
 
-            reportPath = reportFile + File.separator + "listadosolicitudEstadoSol.jasper";
+            reportPath = reportFile + File.separator + "listadosolicitudEstadoFirma.jasper";
 
             Map<String, Object> parametros = new HashMap<String, Object>();
 
             //  parametros.put("codUsuario", String.valueOf(credentialLog.getAdUsuario().getCodigoUsuario()));
-            parametros.put("busqueda", buscar);
+             System.out.println(tipoEstadoSolSelected.getEstDescripcion());
+            parametros.put("busqueda", tipoEstadoSolSelected.getIdEstadoFirma());
             parametros.put("inicio", fechainicio);
             parametros.put("fin", fechafin);
 

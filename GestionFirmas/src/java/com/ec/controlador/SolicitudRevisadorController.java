@@ -70,7 +70,7 @@ import org.zkoss.zul.Messagebox;
  * @author Darwin
  */
 public class SolicitudRevisadorController {
-    
+
     private Usuario usuario;
     ServicioUsuario servicioUsuario = new ServicioUsuario();
     UserCredential credential = new UserCredential();
@@ -86,11 +86,11 @@ public class SolicitudRevisadorController {
     private String filePath;
     byte[] buffer = new byte[1024 * 1024];
     private AImage fotoGeneral = null;
-    
+
     Connection con = null;
     //reporte
     AMedia fileContent = null;
-    
+
     @AfterCompose
     public void afterCompose(@ContextParam(ContextType.VIEW) Component view) throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException, JRException, IOException {
         Selectors.wireComponents(view, this, false);
@@ -100,37 +100,37 @@ public class SolicitudRevisadorController {
         fechainicio = calendar.getTime();
         fechainicio = fechaFormateada("inicio", fechainicio);
         fechafin = fechaFormateada("fin", fechafin);
-        
+
         System.out.println(fechafin);
         System.out.println(fechainicio);
         buscarSolicitudes();
         //cargarDatos();
     }
-    
+
     private void cargarDatos() {
         listadoEstados = servicioEstadoProceso.finAll();
     }
-    
+
     public SolicitudRevisadorController() {
-        
+
         Session sess = Sessions.getCurrent();
         credential = (UserCredential) sess.getAttribute(EnumSesion.userCredential.getNombre());
         buscarSolicitudes();
     }
-    
+
     @Command
     @NotifyChange({"listaDatos", "buscar"})
     public void buscarLike() {
-        
+
         listaDatos = servicioSolicitud.findLikeSolicitud(buscar, credential.getUsuarioSistema());
     }
-    
+
     @Command
     @NotifyChange({"listaDatos", "buscar"})
     public void eliminarPaciente(@BindingParam("valor") Solicitud valor) {
         try {
             if (Messagebox.show("¿Esta seguro de eliminar el paciente?", "Atención", Messagebox.YES | Messagebox.NO, Messagebox.INFORMATION) == Messagebox.YES) {
-                
+
                 servicioSolicitud.modificar(valor);
                 buscarLike();
             }
@@ -139,7 +139,7 @@ public class SolicitudRevisadorController {
                     Clients.NOTIFICATION_TYPE_ERROR, null, "middle_center", 2000, true);
         }
     }
-    
+
     @Command
     public void reporteExel() throws IOException, ParseException {
         try {
@@ -152,12 +152,12 @@ public class SolicitudRevisadorController {
             System.out.println("ERROR AL DESCARGAR EL ARCHIVO" + e.getMessage());
         }
     }
-    
+
     private String exportarExcel() throws FileNotFoundException, IOException, ParseException {
         String directorioReportes = Executions.getCurrent().getDesktop().getWebApp().getRealPath("/reportes");
-        
+
         String pathSalida = directorioReportes + File.separator + "solicitudes.xls";
-        
+
         try {
             int j = 0;
             File archivoXLS = new File(pathSalida);
@@ -168,214 +168,214 @@ public class SolicitudRevisadorController {
             FileOutputStream archivo = new FileOutputStream(archivoXLS);
             HSSFWorkbook wb = new HSSFWorkbook();
             HSSFSheet s = wb.createSheet("Emitidas");
-            
+
             HSSFFont fuente = wb.createFont();
             fuente.setBoldweight((short) 700);
             HSSFCellStyle estiloCelda = wb.createCellStyle();
             estiloCelda.setWrapText(true);
             estiloCelda.setAlignment((short) 2);
             estiloCelda.setFont(fuente);
-            
+
             HSSFCellStyle estiloCeldaInterna = wb.createCellStyle();
             estiloCeldaInterna.setWrapText(true);
             estiloCeldaInterna.setAlignment((short) 5);
             estiloCeldaInterna.setFont(fuente);
-            
+
             HSSFCellStyle estiloCelda1 = wb.createCellStyle();
             estiloCelda1.setWrapText(true);
             estiloCelda1.setFont(fuente);
-            
+
             HSSFRow r = null;
-            
+
             HSSFCell c = null;
             r = s.createRow(0);
-            
+
             HSSFCell chfe = r.createCell(j++);
             chfe.setCellValue(new HSSFRichTextString("Tipo Documento"));
             chfe.setCellStyle(estiloCelda);
-            
+
             HSSFCell chfe1 = r.createCell(j++);
             chfe1.setCellValue(new HSSFRichTextString("RUC/Cedula"));
             chfe1.setCellStyle(estiloCelda);
-            
+
             HSSFCell chfe12 = r.createCell(j++);
             chfe12.setCellValue(new HSSFRichTextString("Codigo Dactilar"));
             chfe12.setCellStyle(estiloCelda);
-            
+
             HSSFCell ch3 = r.createCell(j++);
             ch3.setCellValue(new HSSFRichTextString("Fecha Nacimiento"));
             ch3.setCellStyle(estiloCelda);
-            
+
             HSSFCell ch4 = r.createCell(j++);
             ch4.setCellValue(new HSSFRichTextString("Edad"));
             ch4.setCellStyle(estiloCelda);
-            
+
             HSSFCell ch6 = r.createCell(j++);
             ch6.setCellValue(new HSSFRichTextString("Nombres"));
             ch6.setCellStyle(estiloCelda);
-            
+
             HSSFCell ch7 = r.createCell(j++);
             ch7.setCellValue(new HSSFRichTextString("1er Apellido"));
             ch7.setCellStyle(estiloCelda);
-            
+
             HSSFCell ch8 = r.createCell(j++);
             ch8.setCellValue(new HSSFRichTextString("2do Apellido"));
             ch8.setCellStyle(estiloCelda);
-            
+
             HSSFCell ch9 = r.createCell(j++);
             ch9.setCellValue(new HSSFRichTextString("Email"));
             ch9.setCellStyle(estiloCelda);
-            
+
             HSSFCell ch10 = r.createCell(j++);
             ch10.setCellValue(new HSSFRichTextString("Celular"));
             ch10.setCellStyle(estiloCelda);
-            
+
             HSSFCell ch11 = r.createCell(j++);
             ch11.setCellValue(new HSSFRichTextString("Email 2"));
             ch11.setCellStyle(estiloCelda);
-            
+
             HSSFCell ch12 = r.createCell(j++);
             ch12.setCellValue(new HSSFRichTextString("Cedular 2"));
             ch12.setCellStyle(estiloCelda);
-            
+
             HSSFCell ch13 = r.createCell(j++);
             ch13.setCellValue(new HSSFRichTextString("Sexo"));
             ch13.setCellStyle(estiloCelda);
-            
+
             HSSFCell ch14 = r.createCell(j++);
             ch14.setCellValue(new HSSFRichTextString("Con RUC"));
             ch14.setCellStyle(estiloCelda);
-            
+
             HSSFCell ch15 = r.createCell(j++);
             ch15.setCellValue(new HSSFRichTextString("Provincia"));
             ch15.setCellStyle(estiloCelda);
-            
+
             HSSFCell ch16 = r.createCell(j++);
             ch16.setCellValue(new HSSFRichTextString("Ciudad"));
             ch16.setCellStyle(estiloCelda);
-            
+
             HSSFCell ch17 = r.createCell(j++);
             ch17.setCellValue(new HSSFRichTextString("Direccion"));
             ch17.setCellStyle(estiloCelda);
-            
+
             HSSFCell ch18 = r.createCell(j++);
             ch18.setCellValue(new HSSFRichTextString("Estado Solicitud"));
             ch18.setCellStyle(estiloCelda);
-            
+
             HSSFCell ch19 = r.createCell(j++);
             ch19.setCellValue(new HSSFRichTextString("Estado Firma"));
             ch19.setCellStyle(estiloCelda);
-            
+
             int rownum = 1;
             int i = 0;
-            
+
             for (Solicitud item : listaDatos) {
                 i = 0;
-                
+
                 r = s.createRow(rownum);
-                
+
                 HSSFCell cf1 = r.createCell(i++);
                 cf1.setCellValue(new HSSFRichTextString(item.getSolTipoDocumento()));
-                
+
                 HSSFCell cf2 = r.createCell(i++);
                 cf2.setCellValue(new HSSFRichTextString(item.getSolRuc()));
-                
+
                 HSSFCell cf3 = r.createCell(i++);
                 cf3.setCellValue(new HSSFRichTextString(item.getSolCodigoDactilar()));
-                
+
                 HSSFCell cf4 = r.createCell(i++);
                 cf4.setCellValue(new HSSFRichTextString(item.getSolFechaNacimiento().toString()));
-                
+
                 HSSFCell cf5 = r.createCell(i++);
                 cf5.setCellValue(new HSSFRichTextString(item.getSolEdad().toString()));
-                
+
                 HSSFCell cf6 = r.createCell(i++);
                 cf6.setCellValue(new HSSFRichTextString(item.getSolNombre()));
-                
+
                 HSSFCell cf7 = r.createCell(i++);
                 cf7.setCellValue(new HSSFRichTextString(item.getSolApellido1()));
-                
+
                 HSSFCell cf8 = r.createCell(i++);
                 cf8.setCellValue(new HSSFRichTextString(item.getSolApellido2()));
-                
+
                 HSSFCell cf9 = r.createCell(i++);
                 cf9.setCellValue(new HSSFRichTextString(item.getSolMail()));
-                
+
                 HSSFCell cf10 = r.createCell(i++);
                 cf10.setCellValue(new HSSFRichTextString(item.getSolCelular()));
-                
+
                 HSSFCell cf12 = r.createCell(i++);
                 cf12.setCellValue(new HSSFRichTextString(item.getSolMailOp()));
-                
+
                 HSSFCell cf13 = r.createCell(i++);
                 cf13.setCellValue(new HSSFRichTextString(item.getSolCelularOp()));
-                
+
                 HSSFCell cf14 = r.createCell(i++);
                 cf14.setCellValue(new HSSFRichTextString(item.getSolSexo()));
-                
+
                 HSSFCell cf15 = r.createCell(i++);
                 cf15.setCellValue(new HSSFRichTextString(item.getSolConRuc() ? "SI" : "NO"));
-                
+
                 HSSFCell cf16 = r.createCell(i++);
                 cf16.setCellValue(new HSSFRichTextString(item.getIdCiudad().getIdProvincia().getProvNombre()));
-                
+
                 HSSFCell cf17 = r.createCell(i++);
                 cf17.setCellValue(new HSSFRichTextString(item.getIdCiudad().getCiuNombre()));
-                
+
                 HSSFCell cf18 = r.createCell(i++);
                 cf18.setCellValue(new HSSFRichTextString(item.getSolDireccionCompleta()));
-                
+
                 HSSFCell cf19 = r.createCell(i++);
                 cf19.setCellValue(new HSSFRichTextString(item.getIdEstadoProceso().getEstDescripcion()));
-                
+
                 HSSFCell cf20 = r.createCell(i++);
                 cf20.setCellValue(new HSSFRichTextString(item.getIdEstadoFirma() == null ? " " : " "));
 
                 /*autemta la siguiente fila*/
                 rownum += 1;
-                
+
             }
-            
+
             for (int k = 0; k <= listaDatos.size(); k++) {
                 s.autoSizeColumn(k);
             }
-            
+
             wb.write(archivo);
             archivo.close();
-            
+
         } catch (IOException e) {
             System.out.println("error " + e.getMessage());
         }
         return pathSalida;
-        
+
     }
-    
+
     @Command
     public void pdfSolicitudAll() {
-        
+
         EntityManager emf = HelperPersistencia.getEMF();
-        
+
         try {
             emf.getTransaction().begin();
             con = emf.unwrap(Connection.class);
-            
+
             String reportFile = Executions.getCurrent().getDesktop().getWebApp()
                     .getRealPath("/reportes");
             String reportPath = "";
-            
+
             reportPath = reportFile + File.separator + "listadosolicitudAll.jasper";
-            
+
             Map<String, Object> parametros = new HashMap<String, Object>();
 
             //  parametros.put("codUsuario", String.valueOf(credentialLog.getAdUsuario().getCodigoUsuario()));
             parametros.put("busqueda", buscar);
-            
+
             if (con != null) {
                 System.out.println("Conexión Realizada Correctamenteeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
             }
             FileInputStream is = null;
             is = new FileInputStream(reportPath);
-            
+
             byte[] buf = JasperRunManager.runReportToPdf(is, parametros, con);
             InputStream mediais = new ByteArrayInputStream(buf);
             AMedia amedia = new AMedia("Reporte", "pdf", "application/pdf", mediais);
@@ -392,39 +392,39 @@ public class SolicitudRevisadorController {
             if (emf != null) {
                 emf.getTransaction().commit();
             }
-            
+
         }
-        
+
     }
-    
+
     @Command
     public void pdfSolicitudFecha() {
-        
+
         EntityManager emf = HelperPersistencia.getEMF();
-        
+
         try {
             emf.getTransaction().begin();
             con = emf.unwrap(Connection.class);
-            
+
             String reportFile = Executions.getCurrent().getDesktop().getWebApp()
                     .getRealPath("/reportes");
             String reportPath = "";
-            
+
             reportPath = reportFile + File.separator + "listadosolicitudGeneralFecha.jasper";
-            
+
             Map<String, Object> parametros = new HashMap<String, Object>();
 
             //  parametros.put("codUsuario", String.valueOf(credentialLog.getAdUsuario().getCodigoUsuario()));
             parametros.put("busqueda", buscar);
             parametros.put("inicio", fechainicio);
             parametros.put("fin", fechafin);
-            
+
             if (con != null) {
                 System.out.println("Conexión Realizada Correctamenteeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
             }
             FileInputStream is = null;
             is = new FileInputStream(reportPath);
-            
+
             byte[] buf = JasperRunManager.runReportToPdf(is, parametros, con);
             InputStream mediais = new ByteArrayInputStream(buf);
             AMedia amedia = new AMedia("Reporte", "pdf", "application/pdf", mediais);
@@ -441,24 +441,24 @@ public class SolicitudRevisadorController {
             if (emf != null) {
                 emf.getTransaction().commit();
             }
-            
+
         }
-        
+
     }
-    
+
     @Command
     public void pdfSolicitudIndividual(@BindingParam("valor") Solicitud valor) {
-        
+
         EntityManager emf = HelperPersistencia.getEMF();
-        
+
         try {
             emf.getTransaction().begin();
             con = emf.unwrap(Connection.class);
-            
+
             String reportFile = Executions.getCurrent().getDesktop().getWebApp()
                     .getRealPath("/reportes");
             String reportPath = "";
-            
+
             if (valor.getSolTipo().equals("PN")) {
                 reportPath = reportFile + File.separator + "solicitudIndividual.jasper";
             } else if (valor.getSolTipo().equals("RLE")) {
@@ -466,18 +466,18 @@ public class SolicitudRevisadorController {
             } else if (valor.getSolTipo().equals("ME")) {
                 reportPath = reportFile + File.separator + "solicitudIndividuaME.jasper";
             }
-            
+
             Map<String, Object> parametros = new HashMap<String, Object>();
 
             //  parametros.put("codUsuario", String.valueOf(credentialLog.getAdUsuario().getCodigoUsuario()));
             parametros.put("idSolicitud", valor.getIdSolicitud());
-            
+
             if (con != null) {
                 System.out.println("Conexión Realizada Correctamenteee");
             }
             FileInputStream is = null;
             is = new FileInputStream(reportPath);
-            
+
             byte[] buf = JasperRunManager.runReportToPdf(is, parametros, con);
             InputStream mediais = new ByteArrayInputStream(buf);
             AMedia amedia = new AMedia("Reporte", "pdf", "application/pdf", mediais);
@@ -494,32 +494,34 @@ public class SolicitudRevisadorController {
             if (emf != null) {
                 emf.getTransaction().commit();
             }
-            
+
         }
-        
+
     }
-    
+
     @Command
     @NotifyChange({"listaDatos", "buscar"})
     public void buscarFechas(@BindingParam("valor") Solicitud valor) {
         fechainicio = fechaFormateada("inicio", fechainicio);
         fechafin = fechaFormateada("fin", fechafin);
-        
+
         System.out.println(fechainicio);
         System.out.println(fechafin);
         listaDatos = servicioSolicitud.findSolicitudFecha(fechainicio, fechafin, credential.getUsuarioSistema());
     }
-    
+
     @Command
     @NotifyChange({"listaDatos", "buscar"})
     public void emitirFirma(@BindingParam("valor") Solicitud valor) {
         EstadoFirma estadoFirma = new EstadoFirma();
         estadoFirma.setIdEstadoFirma(1);
+        estadoFirma.setEstDescripcion("EMITIDA");
         valor.setIdEstadoFirma(estadoFirma);
+
         servicioSolicitud.modificar(valor);
-         sweetAltert("success", "Editada con éxito", "La firma ha sido emitida");
+        sweetAltert("success", "Editada con éxito", "La firma ha sido emitida");
     }
-    
+
     @Command
     @NotifyChange({"listaDatos", "buscar"})
     public void revocarFirma(@BindingParam("valor") Solicitud valor) {
@@ -529,7 +531,7 @@ public class SolicitudRevisadorController {
         servicioSolicitud.modificar(valor);
         sweetAltert("success", "Editada con éxito", "La firma ha sido revocada");
     }
-    
+
     @Command
     @NotifyChange({"listaDatos", "buscar"})
     public void suspenderFirma(@BindingParam("valor") Solicitud valor) {
@@ -539,18 +541,18 @@ public class SolicitudRevisadorController {
         servicioSolicitud.modificar(valor);
         sweetAltert("success", "Editada con éxito", "La firma ha sido suspendida");
     }
-    
+
     @Command
     @NotifyChange({"listaDatos", "buscar"})
     public void remitirFirma(@BindingParam("valor") Solicitud valor) {
         EstadoFirma estadoFirma = new EstadoFirma();
         estadoFirma.setIdEstadoFirma(6);
         valor.setIdEstadoFirma(estadoFirma);
-        
+
         servicioSolicitud.modificar(valor);
         sweetAltert("success", "Editada con éxito", "La firma ha sido remitida");
     }
-    
+
     public void sweetAltert(String alertaTipo, String tituloMensaje, String detalleMensaje) {
         String script = "Swal.fire(\n"
                 + "  '" + tituloMensaje + "',\n"
@@ -560,18 +562,18 @@ public class SolicitudRevisadorController {
         System.out.println(script);
         Clients.evalJavaScript(script);
     }
-    
+
     public Date fechaFormateada(String tipo, Date fecha) {
         Date fechaActual = fecha;
 
         // Crear un objeto SimpleDateFormat para el formato de la hora
         String horaEspecificaStr = "00:00:00";
         SimpleDateFormat formatoHora = new SimpleDateFormat("HH:mm:ss");
-        
+
         if (tipo.equals("fin")) {
             horaEspecificaStr = "23:59:59";
         }
-        
+
         try {
             // Obtener la hora específica como una cadena
 
@@ -586,19 +588,19 @@ public class SolicitudRevisadorController {
 
             // Parsear la cadena a un objeto Date
             Date fechaHoraConcatenada = formatoFechaHora.parse(fechaHoraConcatenadaStr);
-            
+
             return fechaHoraConcatenada;
         } catch (Exception e) {
             e.printStackTrace();
             return fechaActual;
         }
     }
-    
+
     @Command
     @NotifyChange({"listaDatos", "buscar"})
     public void nuevaSolicitud() {
         try {
-            
+
             org.zkoss.zul.Window window = (org.zkoss.zul.Window) Executions.createComponents(
                     "/perfil/nuevo/solicitud.zul", null, null);
             window.doModal();
@@ -608,29 +610,36 @@ public class SolicitudRevisadorController {
                     Clients.NOTIFICATION_TYPE_ERROR, null, "middle_center", 2000, true);
         }
     }
-    
+
     @Command
     @NotifyChange({"listaDatos", "buscar"})
     public void modificarSolicitud(@BindingParam("valor") Solicitud valor) {
         try {
 //            if (Messagebox.show("¿Desea modificar el registro, recuerde que debe crear las reteniones nuevamente?", "Atención", Messagebox.YES | Messagebox.NO, Messagebox.INFORMATION) == Messagebox.YES) {
             final HashMap<String, Solicitud> map = new HashMap<String, Solicitud>();
-            
             map.put("valor", valor);
-            org.zkoss.zul.Window window = (org.zkoss.zul.Window) Executions.createComponents(
-                    "/perfil/nuevo/solicitud.zul", null, map);
-            window.doModal();
+
+            if (valor.getIdEstadoFirma().getEstSigla().equals("EMT")) {
+                org.zkoss.zul.Window window = (org.zkoss.zul.Window) Executions.createComponents(
+                        "/perfil/nuevo/solicitudNE.zul", null, map);
+                window.doModal();
+            } else {
+                org.zkoss.zul.Window window = (org.zkoss.zul.Window) Executions.createComponents(
+                        "/perfil/nuevo/solicitud.zul", null, map);
+                window.doModal();
+            }
+
         } catch (Exception e) {
             Clients.showNotification("Ocurrio un error " + e.getMessage(),
                     Clients.NOTIFICATION_TYPE_ERROR, null, "middle_center", 2000, true);
         }
     }
-    
+
     @Command
     public void cambiarEstadoSol(@BindingParam("valor") Solicitud valor) throws JRException, IOException, NamingException, SQLException {
         try {
             final HashMap<String, Solicitud> map = new HashMap<String, Solicitud>();
-            
+
             map.put("valor", valor);
             org.zkoss.zul.Window window = (org.zkoss.zul.Window) Executions.createComponents(
                     "/revisador/estadoSolicitud.zul", null, map);
@@ -639,63 +648,70 @@ public class SolicitudRevisadorController {
             Messagebox.show("Error " + e.toString(), "Atención", Messagebox.OK, Messagebox.INFORMATION);
         }
     }
-    
+
     @Command
     @NotifyChange({"listaDetalleTipoFirmas", "tipoFirmaSelected"})
     public void consultaDetalleTipoFirma() {
 
         //listaDatos = servicioDetalleTipoFirma.findByTipoFirma(tipoFirmaSelected);
     }
+
     @Command
     public void generarFirma(@BindingParam("valor") Solicitud valor) {
 
-        ServiciosRest rest= new ServiciosRest();
-        RequestApiEmpresa param= new RequestApiEmpresa(valor.getIdSolicitud(), valor.getIdUsuario().getIdUsuario());
-        Boolean result=rest.obtenerFirmaEmpresa(param,valor.getSolTipo());
-        
-        if (result) {
-            sweetAltert("success", "Emitida con éxito", "La firma ha sido emitida");
+        ServiciosRest rest = new ServiciosRest();
+        RequestApiEmpresa param = new RequestApiEmpresa(valor.getIdSolicitud(), valor.getIdUsuario().getIdUsuario());
+        boolean flag = rest.obtenerFirmaEmpresa(param, valor.getSolTipo());
+
+        if (flag) {
+            EstadoFirma estadoFirma = new EstadoFirma();
+            estadoFirma.setIdEstadoFirma(1);
+            estadoFirma.setEstDescripcion("EMITIDA");
+            valor.setIdEstadoFirma(estadoFirma);
+
+            servicioSolicitud.modificar(valor);
+            sweetAltert("success", "Editada con éxito", "La firma ha sido emitida");
         }else{
-        sweetAltert("error", "Firma no emitida", "La firma no pudo se emitida");
+            sweetAltert("error", "Error al emitir", "La firma no ha sido emitida");
         }
 
     }
 
     private void buscarSolicitudes() {
         listaDatos = servicioSolicitud.findLikeSolicitud(buscar, credential.getUsuarioSistema());
-        
+
     }
-    
+
     public List<Solicitud> getListaDatos() {
         return listaDatos;
     }
-    
+
     public void setListaDatos(List<Solicitud> listaDatos) {
         this.listaDatos = listaDatos;
     }
-    
+
     public String getBuscar() {
         return buscar;
     }
-    
+
     public void setBuscar(String buscar) {
         this.buscar = buscar;
     }
-    
+
     public Date getFechainicio() {
         return fechainicio;
     }
-    
+
     public void setFechainicio(Date fechainicio) {
         this.fechainicio = fechainicio;
     }
-    
+
     public Date getFechafin() {
         return fechafin;
     }
-    
+
     public void setFechafin(Date fechafin) {
         this.fechafin = fechafin;
     }
-    
+
 }

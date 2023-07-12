@@ -1,18 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="solicitudIndividualRLE" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
-	<property name="ireport.zoom" value="1.2100000000000009"/>
+	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="120"/>
 	<parameter name="idSolicitud" class="java.lang.Integer">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[select * from solicitud sol, ciudad ciu, provincia pr, detalle_tipo_firma dtf, tipo_firma tf
+		<![CDATA[select *,
+ep.est_descripcion as estado_desc_proceso,
+ef.est_descripcion as estado_desc_firma
+from solicitud sol,
+ciudad ciu,
+provincia pr,
+detalle_tipo_firma dtf,
+tipo_firma tf,estado_proceso ep,
+estado_firma ef,
+usuario usu
 where id_solicitud=$P{idSolicitud}
 and ciu.id_ciudad=sol.id_ciudad
 and ciu.id_provincia=pr.id_provincia
 and sol.id_detalle_tipo_firma= dtf.id_detalle_tipo_firma
-and tf.id_tipo_firma=dtf.id_tipo_firma;]]>
+and tf.id_tipo_firma=dtf.id_tipo_firma
+and ep.id_estado_proceso=sol.id_estado_proceso
+and sol.id_estado_firma=ef.id_estado_firma
+and sol.id_usuario=usu.id_usuario;]]>
 	</queryString>
 	<field name="id_solicitud" class="java.lang.Integer"/>
 	<field name="sol_ruc" class="java.lang.String"/>
@@ -70,6 +82,10 @@ and tf.id_tipo_firma=dtf.id_tipo_firma;]]>
 	<field name="sol_path_autorizacion_representante" class="java.lang.String"/>
 	<field name="id_detalle_tipo_firma" class="java.lang.Integer"/>
 	<field name="sol_num_retencion" class="java.lang.String"/>
+	<field name="certificate_json" class="java.lang.String"/>
+	<field name="certificate" class="java.lang.String"/>
+	<field name="sol_cedula" class="java.lang.String"/>
+	<field name="sol_observacion" class="java.lang.String"/>
 	<field name="ciu_numero" class="java.lang.Integer"/>
 	<field name="ciu_nombre" class="java.lang.String"/>
 	<field name="ciu_estado" class="java.lang.Boolean"/>
@@ -83,27 +99,53 @@ and tf.id_tipo_firma=dtf.id_tipo_firma;]]>
 	<field name="det_descripcion" class="java.lang.String"/>
 	<field name="tip_descripcion" class="java.lang.String"/>
 	<field name="tip_estado" class="java.lang.String"/>
+	<field name="est_descripcion" class="java.lang.String"/>
+	<field name="est_sigla" class="java.lang.String"/>
+	<field name="usu_ruc" class="java.lang.String"/>
+	<field name="usu_nombre" class="java.lang.String"/>
+	<field name="usu_login" class="java.lang.String"/>
+	<field name="usu_password" class="java.lang.String"/>
+	<field name="usu_correo" class="java.lang.String"/>
+	<field name="usu_tipo_usuario" class="java.lang.String"/>
+	<field name="usu_fecha_registro" class="java.sql.Date"/>
+	<field name="usu_activo" class="java.lang.Boolean"/>
+	<field name="usu_foto" class="java.lang.String"/>
+	<field name="usu_nivel" class="java.lang.Integer"/>
+	<field name="usu_logo" class="java.lang.String"/>
+	<field name="usu_encabezado_receta" class="java.lang.String"/>
+	<field name="usu_pie_pagina_receta" class="java.lang.String"/>
+	<field name="usu_firma" class="java.lang.String"/>
+	<field name="usu_encabezado_cert" class="java.lang.String"/>
+	<field name="usu_pie_pagina_ceritifacdo" class="java.lang.String"/>
+	<field name="usu_ciudad" class="java.lang.String"/>
+	<field name="estado_desc_proceso" class="java.lang.String"/>
+	<field name="estado_desc_firma" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
 		<band height="50" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="0" width="555" height="50"/>
+				<reportElement x="0" y="0" width="463" height="50"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="24" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Solicitud Representante Legal empresa]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="463" y="0" width="92" height="50"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{estado_desc_proceso}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<detail>
-		<band height="399" splitType="Stretch">
+		<band height="482" splitType="Stretch">
 			<rectangle>
-				<reportElement x="0" y="144" width="555" height="51"/>
+				<reportElement x="0" y="144" width="555" height="62"/>
 			</rectangle>
 			<rectangle>
-				<reportElement x="0" y="0" width="555" height="125"/>
+				<reportElement x="0" y="0" width="555" height="132"/>
 			</rectangle>
 			<rectangle>
 				<reportElement x="0" y="300" width="277" height="90"/>
@@ -329,9 +371,46 @@ and tf.id_tipo_firma=dtf.id_tipo_firma;]]>
 				<textElement verticalAlignment="Middle"/>
 				<text><![CDATA[Tiempo Contrato:]]></text>
 			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="76" y="185" width="93" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{estado_desc_firma}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="12" y="185" width="64" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Estado Firma:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="401" width="554" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA["Solicitud creada por: "+$F{usu_nombre}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 	<pageFooter>
-		<band height="54" splitType="Stretch"/>
+		<band height="54" splitType="Stretch">
+			<staticText>
+				<reportElement x="418" y="0" width="138" height="27"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[contacto@alphaside.com]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="0" width="117" height="27"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ALPHSIDE.COM	]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="118" y="0" width="300" height="27"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Gabriel Araujo E6-136 y José Batodano. Quito, Ecuador (593 2) 2814291 / 3281146 / 2811516]]></text>
+			</staticText>
+		</band>
 	</pageFooter>
 </jasperReport>
