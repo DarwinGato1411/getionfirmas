@@ -124,26 +124,25 @@
                             <listcell zclass = "mycss-listcell" style="width:100%;">
                                 <textbox readonly="true"  style="font-size:12px ;background:#EBF5FB"
                                          class="form-control form-control-sm" 
-                                         value="@bind(each.solCelular)" rows="2"/>
+                                         value="@bind(each.solCelular)" />
                             </listcell>
                             <listcell zclass = "mycss-listcell" style="width:100%;" >
                                 <textbox readonly="true"  style="font-size:12px ;background:#EBF5FB; text-align:center;"
                                          class="form-control form-control-sm" 
-                                         value="@bind(each.idEstadoProceso.estDescripcion)" rows="2"/>
+                                         value="@bind(each.idEstadoProceso.estDescripcion)" />
                             </listcell>
                             <listcell zclass = "mycss-listcell" style="width:100%;" >
                                 <textbox readonly="true"  style="font-size:12px ;background:#EBF5FB; text-align:center;"
                                          class="form-control form-control-sm" 
                                          value="@bind(each.idEstadoFirma.estDescripcion)"
-                                         rows="2"
+                                    
                                 />
                             </listcell>
                             <listcell zclass = "mycss-listcell"  class="btnCell"   style="font-size:12px;background:#F8F9F9">                                                           
                                 <button class="btn btn-primary"
                                         iconSclass="z-icon-pencil"
                                         onClick="@command('modificarSolicitud',valor=each)" 
-                                        tooltiptext="">
-                                    
+                                        tooltiptext="">                                    
                                 </button>      
                                 <button 
                                     class="btn-danger-zk"
@@ -158,7 +157,7 @@
                             <listcell zclass = "mycss-listcell" style="width:100%;" class="btnPc">
                                 <textbox readonly="true"  style="font-size:12px ;background:#EBF5FB"
                                          class="form-control form-control-sm" 
-                                         rows="2"
+                                     tooltiptext="@bind(each.solObservacion)"
                                          value="@bind(each.solObservacion)" />
                             </listcell>
                             

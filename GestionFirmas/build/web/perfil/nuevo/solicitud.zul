@@ -109,7 +109,7 @@
                     </div>
                     
                 </div> 
-                <div  class="DP" visible="@bind(vm.mienbroEmpresa)">
+<!--                <div  class="DP" visible="@bind(vm.mienbroEmpresa)">
                     <div class="leyenda">
                         <label class="leyenda" value="Representante legal"></label> 
                     </div>  
@@ -192,7 +192,7 @@
                         
                     </div>
                     
-                </div>  
+                </div>  -->
                        
                 <div class="DP" >
                     <div class="leyenda">
@@ -404,7 +404,6 @@
                         
                                 <textbox  
                                     maxlength="100"    
-                                    onChange="self.setValue(self.getValue().toUpperCase());"  
                                     value="@bind(vm.entidad.solMailOp)" 
                                     class="input_text" />
                             </div>

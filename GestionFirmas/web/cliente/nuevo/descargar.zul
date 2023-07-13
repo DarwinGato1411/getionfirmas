@@ -27,7 +27,7 @@
                 <div class="inputGroup">
                     <label value="Password:"/>
                     <textbox value="@bind(vm.usuPasswordVer)" 
-                             placeholder="COnformar Password"
+                             placeholder="Confirmar Password"
                              class="form-control form-control-sm"
                              tooltiptext="Nombre Comercial" 
                              width="90%"/>
