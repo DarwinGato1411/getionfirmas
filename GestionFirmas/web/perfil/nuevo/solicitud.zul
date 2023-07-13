@@ -578,7 +578,14 @@
                                 <a  class="btn_modal"  onClick="@command('subirPDFRuc')"  >
                                     Pdf RUC *
                                 </a>
+                                
                             </div>
+                            <button label="Ver examen"
+                                iconSclass="z-icon-pencil"
+                                onClick="@command('verPDF',valor='ruc')" 
+                                tooltiptext="visualizar examen">
+                            </button>
+                            
                         </div>
                     
                     
@@ -601,6 +608,11 @@
                                     Constitución de compañia *
                                 </a>
                             </div>
+                            <button label="Ver examen"
+                                iconSclass="z-icon-pencil"
+                                onClick="@command('verPDF',valor='CNC')" 
+                                tooltiptext="visualizar examen">
+                           </button>
                         </div>
                         
                         <div class="wrapper_input_mod">
@@ -612,6 +624,11 @@
                                     Nombramiento de representante *
                                 </a>
                             </div>
+                            <button label="Ver examen"
+                                iconSclass="z-icon-pencil"
+                                onClick="@command('verPDF',valor='NR')" 
+                                tooltiptext="visualizar examen">
+                           </button>
                         </div>
                         <div class="wrapper_input_mod">
                              <div  align="center" >
@@ -622,6 +639,11 @@
                                     Aceptación de nombramiento *
                                 </a>
                             </div>
+                            <button label="Ver examen"
+                                iconSclass="z-icon-pencil"
+                                onClick="@command('verPDF',valor='AN')" 
+                                tooltiptext="visualizar examen">
+                           </button>
                         </div>
                     <div class="wrapper_input_mod" visible="@bind(vm.mienbroEmpresa)">
                              <div  align="center">
@@ -632,6 +654,11 @@
                                     Copia del ruc de la empresa *
                                 </a>
                             </div>
+                            <button label="Ver examen"
+                                iconSclass="z-icon-pencil"
+                                onClick="@command('verPDF',valor='RE')" 
+                                tooltiptext="visualizar examen">
+                           </button>
                         </div>
                         <div class="wrapper_input_mod" visible="@bind(vm.mienbroEmpresa)">
                              <div  align="center">
@@ -642,6 +669,11 @@
                                     Cédula representante de la empresa *
                                 </a>
                             </div>
+                            <button label="Ver examen"
+                                iconSclass="z-icon-pencil"
+                                onClick="@command('verPDF',valor='CRE')" 
+                                tooltiptext="visualizar examen">
+                           </button>
                         </div>
                         <div class="wrapper_input_mod" visible="@bind(vm.mienbroEmpresa)">
                              <div  align="center">
@@ -652,6 +684,11 @@
                                     Autorización del representante *
                                 </a>
                             </div>
+                             <button label="Ver examen"
+                                iconSclass="z-icon-pencil"
+                                onClick="@command('verPDF',valor='AR')" 
+                                tooltiptext="visualizar examen">
+                           </button>
                         </div>
                     </div>
                 </div>
