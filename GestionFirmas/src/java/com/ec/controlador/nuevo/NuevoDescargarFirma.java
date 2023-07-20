@@ -4,6 +4,9 @@
  */
 package com.ec.controlador.nuevo;
 
+import com.ec.controlador.consumirws.RequestApiEmpresa;
+import com.ec.controlador.consumirws.RespuestaProceso;
+import com.ec.controlador.consumirws.ServiciosRest;
 import com.ec.entidad.EstadoFirma;
 import com.ec.entidad.Solicitud;
 import com.ec.entidad.Usuario;
@@ -73,14 +76,14 @@ public class NuevoDescargarFirma {
         try {
 
             if (usuPassword.equals("") || usuPasswordVer.equals("")) {
-                
-                sweetAltert("error","Password", "Ingrese un password ") ;
-               
+
+                sweetAltert("error", "Password", "Ingrese un password ");
+
                 return;
             }
             if (usuPassword.length() < 8) {
-                  sweetAltert("error","Password", "El password debe contener almenos 8 caractere entre letras y numeros") ;
-                
+                sweetAltert("error", "Password", "El password debe contener almenos 8 caractere entre letras y numeros");
+
                 return;
             }
             if (usuPassword.equals(usuPasswordVer)) {
@@ -91,10 +94,14 @@ public class NuevoDescargarFirma {
                 servicioSolicitud.modificar(entidad);
                 try {
 
-                    String directorioReportes = Executions.getCurrent().getDesktop().getWebApp().getRealPath("/reportes");
+                    ServiciosRest ws = new ServiciosRest();
+                    RequestApiEmpresa param = new RequestApiEmpresa(entidad.getIdSolicitud(), entidad.getIdUsuario().getIdUsuario());
+                    param.setClave(usuPassword);
+                    RespuestaProceso proceso = ws.obtenerFirmaEmpresa(param, entidad.getSolTipo());
+//                    String directorioReportes = Executions.getCurrent().getDesktop().getWebApp().getRealPath("/reportes");
 
-                    String pathSalida = directorioReportes + File.separator + "alpha.p12";
-                    System.out.println("path p12 " + pathSalida);
+                    String pathSalida = proceso.getObservacion();
+//                    System.out.println("path p12 " + pathSalida);
                     File dosfile = new File(pathSalida);
                     if (dosfile.exists()) {
                         FileInputStream inputStream = new FileInputStream(dosfile);
@@ -107,12 +114,12 @@ public class NuevoDescargarFirma {
                 } catch (FileNotFoundException e) {
                     System.out.println("ERROR AL DESCARGAR EL ARCHIVO" + e.getMessage());
                 }
-                
-                 sweetAltert("success","Firma electronica", "Firma descargada correctamente") ;
-               
+
+                sweetAltert("success", "Firma electronica", "Firma descargada correctamente");
+
             } else {
-                 sweetAltert("error","Password", "Los password ingresado no son iguales") ;
-              
+                sweetAltert("error", "Password", "Los password ingresado no son iguales");
+
             }
 
         } catch (Exception e) {
@@ -122,7 +129,8 @@ public class NuevoDescargarFirma {
         }
 
     }
- public void sweetAltert(String alertaTipo, String tituloMensaje, String detalleMensaje) {
+
+    public void sweetAltert(String alertaTipo, String tituloMensaje, String detalleMensaje) {
         String script = "Swal.fire(\n"
                     + "  '" + tituloMensaje + "',\n"
                     + "  '" + detalleMensaje + "',\n"

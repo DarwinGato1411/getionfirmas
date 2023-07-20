@@ -109,91 +109,7 @@
                     </div>
                     
                 </div> 
-<!--                <div  class="DP" visible="@bind(vm.mienbroEmpresa)">
-                    <div class="leyenda">
-                        <label class="leyenda" value="Representante legal"></label> 
-                    </div>  
-                    <div id="" class="wrapper_input_mod_group">
-                        
-                         <div class="wrapper_input_mod">
-                            <div class="campoImportante">
-                                <span class="importante">*</span>
-                                <span>Tipo documento</span>
-                            </div>
-                            
-                            <combobox  readonly="true"     
-                             width="100%"                             
-                                       selectedItem="@bind(vm.entidad.solMeTipodocumento)">
-                                <comboitem value="CEDULA" label="CEDULA" />
-                                <comboitem value="RUC" label="RUC" />
-                                <comboitem value="PASAPORTE" label="PASAPORTE" />
-                            </combobox>
-                        </div>
-                        <div class="wrapper_input_mod">
-                            
-                            
-                            <div class="campoImportante">
-                                <span class="importante">*</span>
-                                <span>Cédula/Ruc</span>
-                            </div>
-                            <div class="wrapper_input_text">
-                        
-                                <textbox  
-                                    maxlength="100"    
-                                    onChange="self.setValue(self.getValue().toUpperCase());"  
-                                    value="@bind(vm.entidad.solMeRuc)" 
-                                    class="input_text"
-                                    constraint="/^[0-9]+$/ :'Solo números'"
-                                />
-                            </div>
-                        </div>
-                        
-                        <div id="" class="wrapper_input_mod">
-                            
-                            <div class="campoImportante">
-                                <span class="importante">*</span>
-                                <span>Nombres</span>
-                            </div>
-                            <div class="wrapper_input_text">
-                        
-                                <textbox  
-                                    maxlength="100"    
-                                    onChange="self.setValue(self.getValue().toUpperCase());"  
-                                    value="@bind(vm.entidad.solMeNombres)" 
-                                    class="input_text" />
-                            </div>
-                        </div>
-                        <div id="" class="wrapper_input_mod">
-                            <div class="campoImportante">
-                                <span class="importante">*</span>
-                                <span>1er Apellido</span>
-                            </div>
-                            
-                            <div class="wrapper_input_text">
-                        
-                                <textbox  
-                                    maxlength="100"    
-                                    onChange="self.setValue(self.getValue().toUpperCase());"  
-                                    value="@bind(vm.entidad.solMeApellido1)" 
-                                    class="input_text" />
-                            </div>
-                        </div>
-                        <div id="" class="wrapper_input_mod">
-                            <span>2do Apellido</span>
-                            <div class="wrapper_input_text">
-                        
-                                <textbox  
-                                    maxlength="100"    
-                                    onChange="self.setValue(self.getValue().toUpperCase());"  
-                                    value="@bind(vm.entidad.solMeApellido2)" 
-                                    class="input_text" />
-                            </div>
-                        </div>
-                        
-                    </div>
-                    
-                </div>  -->
-                       
+
                 <div class="DP" >
                     <div class="leyenda">
                         <label class="leyenda" value="Datos Personales"></label> 
@@ -441,27 +357,7 @@
                     
                         </div>
                         
-                        <!--<div class="wrapper_input_mod">
-                            <div class="campoImportante">
-                                <span class="importante">*</span>
-                                <span>Nacionalidad</span>
-                            </div>
-                           
-                            <combobox  
-                                model="@load(vm.listaNacionalidad)"  
-                                selectedItem="@bind(vm.entidad.solNacionalidad)" 
-                                value="@bind(vm.entidad.solNacionalidad)" 
-                                readonly="true" 
-                                width="100%"
-                                class="textoFechaDateBox">
-                                <template class="asdasds" width="100%"  name="model">
-                                    <comboitem width="100%" 
-                                               label="@bind(each.nacNombre)"
-                                               value="@bind(each.nacNombre)"  />
-                                </template>                                      
-                            </combobox>
-                    
-                        </div>-->
+                     
                        
                     </div>
                     
@@ -580,10 +476,27 @@
                                 </a>
                                 
                             </div>
-                            <button label="Ver examen"
+                            <button label="Visualizar"
                                 iconSclass="z-icon-pencil"
                                 onClick="@command('verPDF',valor='ruc')" 
-                                tooltiptext="visualizar examen">
+                                tooltiptext="visualizar ">
+                            </button>
+                            
+                        </div>
+                    <div class="wrapper_input_mod" >
+                             <div  align="center">
+                                 <iframe width="200px" height="200px" content="@bind(vm.pdfOtro)"/> 
+                            </div>
+                            <div style="display:flex;justify-content:flex-end;">
+                                <a  class="btn_modal"  onClick="@command('subirOtroPdf')"  >
+                                    Pdf Otro 
+                                </a>
+                                
+                            </div>
+                            <button label="Visualizar"
+                                iconSclass="z-icon-pencil"
+                                onClick="@command('verPDF',valor='otro')" 
+                                tooltiptext="visualizar otro">
                             </button>
                             
                         </div>
@@ -608,7 +521,7 @@
                                     Constitución de compañia *
                                 </a>
                             </div>
-                            <button label="Ver examen"
+                            <button label="Visualizar"
                                 iconSclass="z-icon-pencil"
                                 onClick="@command('verPDF',valor='CNC')" 
                                 tooltiptext="visualizar examen">
@@ -624,7 +537,7 @@
                                     Nombramiento de representante *
                                 </a>
                             </div>
-                            <button label="Ver examen"
+                            <button label="Visualizar"
                                 iconSclass="z-icon-pencil"
                                 onClick="@command('verPDF',valor='NR')" 
                                 tooltiptext="visualizar examen">
@@ -639,7 +552,7 @@
                                     Aceptación de nombramiento *
                                 </a>
                             </div>
-                            <button label="Ver examen"
+                            <button label="Visualizar"
                                 iconSclass="z-icon-pencil"
                                 onClick="@command('verPDF',valor='AN')" 
                                 tooltiptext="visualizar examen">
@@ -654,7 +567,7 @@
                                     Copia del ruc de la empresa *
                                 </a>
                             </div>
-                            <button label="Ver examen"
+                            <button label="Visualizar"
                                 iconSclass="z-icon-pencil"
                                 onClick="@command('verPDF',valor='RE')" 
                                 tooltiptext="visualizar examen">
@@ -669,7 +582,7 @@
                                     Cédula representante de la empresa *
                                 </a>
                             </div>
-                            <button label="Ver examen"
+                            <button label="Visualizar"
                                 iconSclass="z-icon-pencil"
                                 onClick="@command('verPDF',valor='CRE')" 
                                 tooltiptext="visualizar examen">
@@ -684,7 +597,7 @@
                                     Autorización del representante *
                                 </a>
                             </div>
-                             <button label="Ver examen"
+                             <button label="Visualizar"
                                 iconSclass="z-icon-pencil"
                                 onClick="@command('verPDF',valor='AR')" 
                                 tooltiptext="visualizar examen">

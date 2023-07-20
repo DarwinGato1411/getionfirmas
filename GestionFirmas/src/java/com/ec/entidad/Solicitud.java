@@ -186,8 +186,10 @@ public class Solicitud implements Serializable {
     @Column(name = " sol_cedula")
     private String solCedula;
     
-    @Column(name = " sol_observacion")
+    @Column(name = "sol_observacion")
     private String solObservacion;
+    @Column(name = "sol_path_otro_pdf")
+    private String solPathOtroPdf;
 
     @JoinColumn(name = "id_ciudad", referencedColumnName = "id_ciudad")
     @ManyToOne
@@ -696,6 +698,14 @@ public class Solicitud implements Serializable {
 
     public void setSolObservacion(String solObservacion) {
         this.solObservacion = solObservacion;
+    }
+
+    public String getSolPathOtroPdf() {
+        return solPathOtroPdf;
+    }
+
+    public void setSolPathOtroPdf(String solPathOtroPdf) {
+        this.solPathOtroPdf = solPathOtroPdf;
     }
 
     

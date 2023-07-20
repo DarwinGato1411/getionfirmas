@@ -477,14 +477,30 @@
                                 </a>
                                 
                             </div>
-                            <button label="Ver examen"
+                            <button label="Visualizar"
                                 iconSclass="z-icon-pencil"
                                 onClick="@command('verPDF',valor='ruc')" 
                                 tooltiptext="Visualizar documento">
                             </button>
                             
                         </div>
-                    
+                    <div class="wrapper_input_mod" >
+                             <div  align="center">
+                                 <iframe width="200px" height="200px" content="@bind(vm.pdfOtro)"/> 
+                            </div>
+                            <div style="display:flex;justify-content:flex-end;">
+                                <a  class="btn_modal"  onClick="@command('subirOtroPdf')"  >
+                                    Pdf Otro 
+                                </a>
+                                
+                            </div>
+                            <button label="Visualizar"
+                                iconSclass="z-icon-pencil"
+                                onClick="@command('verPDF',valor='otro')" 
+                                tooltiptext="visualizar RUC">
+                            </button>
+                            
+                        </div>
                     
                     </div>
                     
@@ -505,7 +521,7 @@
                                     Constitución de compañia *
                                 </a>
                             </div>
-                            <button label="Ver examen"
+                            <button label="Visualizar"
                                 iconSclass="z-icon-pencil"
                                 onClick="@command('verPDF',valor='CNC')" 
                                 tooltiptext="Visualizar documento">
@@ -521,7 +537,7 @@
                                     Nombramiento de representante *
                                 </a>
                             </div>
-                            <button label="Ver examen"
+                            <button label="Visualizar"
                                 iconSclass="z-icon-pencil"
                                 onClick="@command('verPDF',valor='NR')" 
                                 tooltiptext="Visualizar documento">
@@ -536,7 +552,7 @@
                                     Aceptación de nombramiento *
                                 </a>
                             </div>
-                            <button label="Ver examen"
+                            <button label="Visualizar"
                                 iconSclass="z-icon-pencil"
                                 onClick="@command('verPDF',valor='AN')" 
                                 tooltiptext="Visualizar documento">
@@ -551,7 +567,7 @@
                                     Copia del ruc de la empresa *
                                 </a>
                             </div>
-                            <button label="Ver examen"
+                            <button label="Visualizar"
                                 iconSclass="z-icon-pencil"
                                 onClick="@command('verPDF',valor='RE')" 
                                 tooltiptext="Visualizar documento">
@@ -566,7 +582,7 @@
                                     Cédula representante de la empresa *
                                 </a>
                             </div>
-                            <button label="Ver examen"
+                            <button label="Visualizar"
                                 iconSclass="z-icon-pencil"
                                 onClick="@command('verPDF',valor='CRE')" 
                                 tooltiptext="Visualizar documento">
@@ -581,7 +597,7 @@
                                     Autorización del representante *
                                 </a>
                             </div>
-                             <button label="Ver examen"
+                             <button label="Visualizar"
                                 iconSclass="z-icon-pencil"
                                 onClick="@command('verPDF',valor='AR')" 
                                 tooltiptext="Visualizar documento">

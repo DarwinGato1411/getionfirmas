@@ -12,6 +12,7 @@ package com.ec.controlador.consumirws;
 public class RequestApiEmpresa {
     	private Integer idSolicitud;
 	private Integer idUsuario;
+     	private String clave;
 
 
 	public RequestApiEmpresa() {
@@ -39,4 +40,14 @@ public class RequestApiEmpresa {
 	public void setIdUsuario(Integer idUsuario) {
 		this.idUsuario = idUsuario;
 	}
+
+    public String getClave() {
+        return clave;
+    }
+
+    public void setClave(String clave) {
+        this.clave = clave;
+    }
+        
+        
 }
