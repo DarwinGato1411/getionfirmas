@@ -26,6 +26,7 @@ import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.ExecutionArgParam;
+import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.util.media.AMedia;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
@@ -142,8 +143,16 @@ public class NuevoDescargarFirma {
     }
 
     @Command
+    @NotifyChange({"aceptarTerminos"})
     public void aceptarTerminosCondiciones() {
-        entidad.setSolAceptarTC(true);
+
+        if (aceptarTerminos) {
+            aceptarTerminos = false;
+
+        } else {
+            aceptarTerminos = true;
+        }
+        entidad.setSolAceptarTC(aceptarTerminos);
     }
 
     @Command
@@ -151,10 +160,10 @@ public class NuevoDescargarFirma {
         try {
 
             String nombreArchivo = "TerminosCondiciones.pdf";
-            
-            String reportFile =Executions.getCurrent().getDesktop().getWebApp()
-                        .getRealPath("/reportes");
-            String rutaArchivo =reportFile+ File.separator + nombreArchivo;
+
+            String reportFile = Executions.getCurrent().getDesktop().getWebApp()
+                    .getRealPath("/reportes");
+            String rutaArchivo = reportFile + File.separator + nombreArchivo;
             System.out.println(rutaArchivo);
             File f = new File(rutaArchivo);
             buffer = new byte[2 * 1024 * 1024];
@@ -172,7 +181,7 @@ public class NuevoDescargarFirma {
                     "/visor/visorreporte.zul", null, map);
             window.doModal();
         } catch (Exception e) {
-            sweetAltert("error", "Error visualización", "No existe el archivo "+e.getMessage());
+            sweetAltert("error", "Error visualización", "No existe el archivo " + e.getMessage());
         }
     }
 
@@ -184,6 +193,14 @@ public class NuevoDescargarFirma {
                 + ")";
         System.out.println(script);
         Clients.evalJavaScript(script);
+    }
+
+    public boolean isAceptarTerminos() {
+        return aceptarTerminos;
+    }
+
+    public void setAceptarTerminos(boolean aceptarTerminos) {
+        this.aceptarTerminos = aceptarTerminos;
     }
 
 }
