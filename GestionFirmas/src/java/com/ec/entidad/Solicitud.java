@@ -191,6 +191,9 @@ public class Solicitud implements Serializable {
     @Column(name = "sol_path_otro_pdf")
     private String solPathOtroPdf;
 
+    @Column(name = "sol_aceptar_terminoscondiciones")
+    private boolean solAceptarTC;
+    
     @JoinColumn(name = "id_ciudad", referencedColumnName = "id_ciudad")
     @ManyToOne
     private Ciudad idCiudad;
@@ -707,6 +710,16 @@ public class Solicitud implements Serializable {
     public void setSolPathOtroPdf(String solPathOtroPdf) {
         this.solPathOtroPdf = solPathOtroPdf;
     }
+
+    public boolean isSolAceptarTC() {
+        return solAceptarTC;
+    }
+
+    public void setSolAceptarTC(boolean solAceptarTC) {
+        this.solAceptarTC = solAceptarTC;
+    }
+
+   
 
     
 }

@@ -56,23 +56,23 @@
                                              class="form-control form-control-sm" 
                                              value="@bind(each.idUsuario.usuNombre)" />
                             </listcell>
-                            <listcell zclass = "mycss-listcell" style="width:100%;" class="btnPc">
+                            <listcell zclass = "mycss-listcell" style="width:100%;" >
                                 <textbox readonly="true"  style="font-size:12px ;background:#EBF5FB"
                                          class="form-control form-control-sm" 
                                          value="@bind(each.idEstadoProceso.estDescripcion)" />
                             </listcell>
-                            <listcell zclass = "mycss-listcell" style="width:100%;" class="btnPc">
+                            <listcell zclass = "mycss-listcell" style="width:100%;" >
                                 <textbox readonly="true"  style="font-size:12px ;background:#EBF5FB"
                                          class="form-control form-control-sm" 
                                          value="@bind(each.idEstadoFirma.estDescripcion)" />
                             </listcell>
                            
-                            <listcell zclass = "mycss-listcell" style="width:100%;" class="btnPc">
+                            <listcell zclass = "mycss-listcell" style="width:100%;" >
                                 <textbox readonly="true"  style="font-size:12px ;background:#EBF5FB"
                                          class="form-control form-control-sm" 
                                          value="@bind(each.solObservacion)" />
                             </listcell>
-                            <listcell zclass = "mycss-listcell" style="width:100%;" class="btnPc">
+                            <listcell zclass = "mycss-listcell" style="width:100%;" >
                                 <textbox readonly="true"  style="font-size:12px ;background:#EBF5FB"
                                          class="form-control form-control-sm"
                                          value="Persona Natural"
