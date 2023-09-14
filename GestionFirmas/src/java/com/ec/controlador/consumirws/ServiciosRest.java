@@ -8,11 +8,30 @@ package com.ec.controlador.consumirws;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.springframework.http.HttpEntity;
+
+import org.apache.http.*;
+import org.apache.http.client.*;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.*;
+import org.apache.http.client.utils.*;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.*;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.*;
 
 /**
  *
@@ -39,46 +58,35 @@ public class ServiciosRest {
             System.out.println("NO INGRESA");
             return new RespuestaProceso("500", "ERRO EN EL API");
         }
+
         try {
+//
 
-            OkHttpClient client = new OkHttpClient();
-            MediaType JSON = MediaType.parse("application/json");
-            RequestBody body = RequestBody.create(JSON, "{\n"
-                        + "  \"idSolicitud\": " + param.getIdSolicitud() + ",\n"
-                        + "  \"idUsuario\": " + param.getIdUsuario() + ",\n"
-                        + "  \"clave\": " + param.getClave() + "\n"
-                        + "}");
-//                RequestBody formBody = new FormBody.Builder()
-//                            .add("message", "Your message")
-//                            .build();
+            OkHttpClient clientw = new OkHttpClient().newBuilder()
+                    .build();
+            MediaType mediaType = MediaType.parse("application/json");
+            RequestBody body = RequestBody.create(mediaType, "{\r\n    \"idSolicitud\":" + param.getIdSolicitud() + ",\r\n    \"idUsuario\":" + param.getIdUsuario() + ",\r\n    \"clave\":\""
+                    + param.getClave() + "\"\r\n\r\n}");
+
             Request request = new Request.Builder()
-                        .url(url)
-                        .post(body)
-                        .build();
+                    .url(url)
+                    .method("POST", body)
+                    .addHeader("Content-Type", "application/json")
+                    .build();
+            Response response = clientw.newCall(request).execute();
+            String valorResp = response.body().string();
 
-            Response response = client.newCall(request).execute();
-            String valorResp=response.body().string();
-            Gson g = new Gson();
-                        System.out.println("response " + valorResp);
-            RespuestaProceso respuesta = g.fromJson(valorResp, RespuestaProceso.class);
-//            System.out.println("response " + response.body().toString());
-            System.out.println("respuesta " + respuesta.getObservacion());
-            int statusCode = response.code();
+            //JSONObject outlineArray = new JSONObject(contenido);
+            return new RespuestaProceso(String.valueOf(200), valorResp);
 
-            if (statusCode == 200) {
-                if (respuesta.getMensaje().toUpperCase().contains("ERROR")) {
-                    return new RespuestaProceso(String.valueOf(statusCode), "ERRO EN EL API");
-                } else {
-                    return respuesta;
-                }
-
-            } else {
-                return new RespuestaProceso(String.valueOf(statusCode), "ERRO EN EL API");
-            }
-
-        } catch (JsonSyntaxException | IOException e) {
-            System.out.println("ERROR " + e.getMessage());
-            return new RespuestaProceso(String.valueOf(e.getMessage()), "ERRO EN EL API");
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(ServiciosRest.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("ERROR " + ex.getMessage());
+            return new RespuestaProceso(String.valueOf(ex.getMessage()), "ERRO EN EL API");
+        } catch (IOException ex) {
+            Logger.getLogger(ServiciosRest.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("ERROR " + ex.getMessage());
+            return new RespuestaProceso(String.valueOf(ex.getMessage()), "ERRO EN EL API");
         }
 
     }

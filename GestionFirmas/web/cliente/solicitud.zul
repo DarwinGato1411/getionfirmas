@@ -101,7 +101,7 @@
                                     label="Descargar Firma"
                                     onClick="@command('generarFirma',valor=each)" 
                                     class="btn-success-zk"
-                                    if="${each.idEstadoFirma.estSigla=='EMT'}"
+                                   
                                     tooltiptext=""/>
                                 
                                 
