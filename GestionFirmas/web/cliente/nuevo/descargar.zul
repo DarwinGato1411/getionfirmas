@@ -4,16 +4,16 @@
 
          apply="org.zkoss.bind.BindComposer" 
          viewModel="@id('vm') @init('com.ec.controlador.nuevo.NuevoDescargarFirma')"
-         class=" modalForm">
+         class="modalAll modalForm">
     
     <caption label="Descargar firma " style="font-weight:bold" class="titulo"/> 
     
 
     
-    <div  class="contenedorInfo" >
+    <div  class="container_modal" >
             
            
-        <div class="infoEmpresa">
+        <div class="bodyModal">
                
             <div  class="contenedorInfoInputsdos">    
                 <div class="inputGroup">
@@ -31,9 +31,13 @@
                              class="form-control form-control-sm"
                              tooltiptext="Nombre Comercial" 
                              width="90%"/>
-                </div>  
-                    
-                <div class="inputGroup" align="center">
+                </div>
+                <div>
+                    <a onClick="@command('verTerminosCondiciones')">Ver terminos y condiciones</a>
+                </div>
+                <checkbox label="Acepta los terminos y condiciones?" checked="${aceptarTerminos}" onClick="@command('aceptarTerminosCondiciones')" /> 
+               
+                <div visible="@bind(vm.aceptarTerminos)"  class="inputGroup" align="center">
                     <button 
                         class="inputGroupBtn"
                         onClick="@command('generarFirma')"
@@ -44,6 +48,7 @@
                 </div>
             </div>
         </div>
+        
             
             
     </div>

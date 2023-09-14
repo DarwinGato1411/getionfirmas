@@ -472,7 +472,7 @@
                             </div>
                             <div style="display:flex;justify-content:flex-end;">
                                 <a  class="btn_modal"  onClick="@command('subirPDFRuc')"  >
-                                    Pdf RUC *
+                                    Pdf RUC
                                 </a>
                                 
                             </div>
@@ -711,7 +711,7 @@
             </div>
             <div style="display:grid;grid-template-columns:repeat(4 ,1fr);margin-top:10px;">
                 
-                 <button  onClick="@command('aprobar',valor=2)"  visible="@bind(vm.tipoUsuario)"   class="btn-succes-zk" >Aprobar</button> 
+                 <button onClick="@command('aprobar',valor=2)"  visible="@bind(vm.tipoUsuario)"   class="btn-succes-zk" >Aprobar</button> 
                  <button onClick="@command('aprobar',valor=3)" visible="@bind(vm.tipoUsuario)"   class="btn-info-zk" >Rechazar</button>
                  <button onClick="@command('aprobar',valor=4)" visible="@bind(vm.tipoUsuario)"   class="btn-danger-zk" >Cancelar</button>  
                  <button onClick="@command('guardar')"  class="btn-primary-zk" >Guardar</button>  

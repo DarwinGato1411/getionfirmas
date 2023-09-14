@@ -13,9 +13,11 @@ import com.ec.entidad.Usuario;
 import com.ec.servicio.ServicioSolicitud;
 import com.ec.servicio.ServicioUsuario;
 import com.ec.utilitario.MailerClass;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.HashMap;
 import javax.activation.MimetypesFileTypeMap;
 
 import org.zkoss.bind.annotation.AfterCompose;
@@ -24,6 +26,8 @@ import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.ExecutionArgParam;
+import org.zkoss.bind.annotation.NotifyChange;
+import org.zkoss.util.media.AMedia;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.select.Selectors;
@@ -44,13 +48,21 @@ public class NuevoDescargarFirma {
     ServicioUsuario servicio = new ServicioUsuario();
     private String usuPassword = "";
     private String usuPasswordVer = "";
+    private boolean aceptarTerminos = false;
+
+    //Ver pdf
+    byte[] buffer = new byte[2 * 1024 * 1024];
+    AMedia fileContent = null;
 
     ServicioSolicitud servicioSolicitud = new ServicioSolicitud();
 
     @AfterCompose
     public void afterCompose(@ExecutionArgParam("valor") Solicitud valor, @ContextParam(ContextType.VIEW) Component view) {
         Selectors.wireComponents(view, this, false);
-        this.entidad = valor;
+        if (valor != null) {
+            this.entidad = valor;
+            aceptarTerminos = entidad.isSolAceptarTC();
+        }
 
     }
 
@@ -72,7 +84,7 @@ public class NuevoDescargarFirma {
 
     @Command
     public void generarFirma() {
-
+        //servicioSolicitud.modificar(entidad);
         try {
 
             if (usuPassword.equals("") || usuPasswordVer.equals("")) {
@@ -125,18 +137,70 @@ public class NuevoDescargarFirma {
         } catch (Exception e) {
 
             Clients.showNotification("Correo no enviado " + e.getMessage(),
-                        Clients.NOTIFICATION_TYPE_ERROR, null, "middle_center", 2000, true);
+                    Clients.NOTIFICATION_TYPE_ERROR, null, "middle_center", 2000, true);
         }
 
     }
 
+    @Command
+    @NotifyChange({"aceptarTerminos"})
+    public void aceptarTerminosCondiciones() {
+
+        if (aceptarTerminos) {
+            aceptarTerminos = false;
+
+        } else {
+            aceptarTerminos = true;
+        }
+        entidad.setSolAceptarTC(aceptarTerminos);
+    }
+
+    @Command
+    public void verTerminosCondiciones() {
+        try {
+
+            String nombreArchivo = "TerminosCondiciones.pdf";
+
+            String reportFile = Executions.getCurrent().getDesktop().getWebApp()
+                    .getRealPath("/reportes");
+            String rutaArchivo = reportFile + File.separator + nombreArchivo;
+            System.out.println(rutaArchivo);
+            File f = new File(rutaArchivo);
+            buffer = new byte[2 * 1024 * 1024];
+// web\reportes\TerminosCondiciones.pdf
+            FileInputStream fs = new FileInputStream(f);
+            fs.read(buffer);
+            fs.close();
+            ByteArrayInputStream is = new ByteArrayInputStream(buffer);
+            AMedia amedia = new AMedia("Reporte", "pdf", "application/pdf", is);
+            fileContent = amedia;
+            final HashMap<String, AMedia> map = new HashMap<String, AMedia>();
+//para pasar al visor
+            map.put("pdf", fileContent);
+            org.zkoss.zul.Window window = (org.zkoss.zul.Window) Executions.createComponents(
+                    "/visor/visorreporte.zul", null, map);
+            window.doModal();
+        } catch (Exception e) {
+            sweetAltert("error", "Error visualización", "No existe el archivo " + e.getMessage());
+        }
+    }
+
     public void sweetAltert(String alertaTipo, String tituloMensaje, String detalleMensaje) {
         String script = "Swal.fire(\n"
-                    + "  '" + tituloMensaje + "',\n"
-                    + "  '" + detalleMensaje + "',\n"
-                    + "  '" + alertaTipo + "'\n"
-                    + ")";
+                + "  '" + tituloMensaje + "',\n"
+                + "  '" + detalleMensaje + "',\n"
+                + "  '" + alertaTipo + "'\n"
+                + ")";
         System.out.println(script);
         Clients.evalJavaScript(script);
     }
+
+    public boolean isAceptarTerminos() {
+        return aceptarTerminos;
+    }
+
+    public void setAceptarTerminos(boolean aceptarTerminos) {
+        this.aceptarTerminos = aceptarTerminos;
+    }
+
 }
