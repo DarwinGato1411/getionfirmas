@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?link rel="stylesheet" type="text/css" href="/css/boostrap/bootstrap.css"?>  
-<?link rel="stylesheet" type="text/css" href="../css/style.css"?>
+<?link rel="stylesheet" type="text/css" href="/css/style.css"?>
 <?link rel="stylesheet" type="text/css" href="/css/modales.css"?>
 <?init class="com.ec.seguridad.Autentificador"?>
 <?init class="org.zkoss.zk.ui.util.Composition" arg0="/plantilla/plantilla.zul"?>
@@ -138,28 +138,54 @@
                                     
                                 />
                             </listcell>
-                            <listcell zclass = "mycss-listcell"  class="btnCell"   style="font-size:12px;background:#F8F9F9">                                                           
-                                <button class="btn btn-primary"
-                                        iconSclass="z-icon-pencil"
-                                        onClick="@command('modificarSolicitud',valor=each)" 
-                                        tooltiptext="">                                    
-                                </button>      
-                                <button 
-                                    class="btn-danger-zk"
-                                    iconSclass="z-icon-trash-o"
-                                    onClick="@command('cancelarSolicitud',valor=each)" 
-                                    tooltiptext="Cancelar Solicitud">
-                                    
-                                    
-                                </button>                                 
-                                                  
-                            </listcell>
-                            <listcell zclass = "mycss-listcell" style="width:100%;" class="btnPc">
+                            
+                            <listcell zclass = "mycss-listcell" style="width:100%;">
                                 <textbox readonly="true"  style="font-size:12px ;background:#EBF5FB"
                                          class="form-control form-control-sm" 
                                      tooltiptext="@bind(each.solObservacion)"
                                          value="@bind(each.solObservacion)" />
                             </listcell>
+                            <listcell zclass = "mycss-listcell"  class="btnCell"   style="font-size:12px;background:#F8F9F9">                                                           
+                                  <button 
+                                    label=""
+                                    iconSclass="z-icon-pencil"
+                                    onClick="@command('modificarSolicitud',valor=each)" 
+                                    tooltiptext="">
+                                    
+                                </button>
+                             
+                                <div if="${each.idEstadoProceso.estSigla=='ING'|| each.idEstadoProceso.estSigla=='REC'}">
+                                <button 
+                                    
+                                    label=""
+                                    class="btn-danger-zk"
+                                    iconSclass="z-icon-times-circle"
+                                    onClick="@command('cancelarSolicitud',valor=each)" 
+                                    tooltiptext="Cancelar solicitud">  
+                                </button>
+                                   </div>
+                                <button 
+                                    if="${each.idEstadoProceso.estSigla=='ING'|| each.idEstadoProceso.estSigla=='REC' || each.idEstadoProceso.estSigla=='CAN'}"
+                                    label=""
+                                    class="btn-warning-zk"
+                                    iconSclass="z-icon-trash-o" 
+                                    onClick="@command('elimiarSolicitud',valor=each)" 
+                                    tooltiptext="No se puede elimiar, solicitud aprobada">
+                                    
+                                </button>               
+                                <button 
+                                    if="${each.idEstadoProceso.estSigla=='APR'}"
+                                    label=""
+                                    class="btn-nothing-zk"
+                                    iconSclass="z-icon-trash-o" 
+                                    
+                                    onClick="@command('elimiarSolicitud',valor=each)" 
+                                    tooltiptext="No se puede elimiar, solicitud aprobada">
+                                    
+                                </button>                                
+                                                  
+                            </listcell>
+                           
                             
 
                             <listcell zclass = "mycss-listcell" class="btnPc" style="font-size:12px;background:#F8F9F9">   
@@ -185,15 +211,24 @@
                                 </button>
                              
           
-                                <button 
-                                    if="${each.idEstadoProceso.estSigla=='ING'|| each.idEstadoProceso.estSigla=='REC' || each.idEstadoProceso.estSigla=='CAN'}"
+                                    <button  
+                                        if="${each.idEstadoProceso.estSigla=='CAN'}"                            
+                                        label="Duplicar"
+                                        class="btn-success-zk"
+                                        iconSclass="z-icon z-icon-copy"
+                                        onClick="@command('duplicarSolicitud',valor=each)" 
+                                        tooltiptext="Duplicar solicitud">  
+                                    </button>
+                                
+                                    <button  
+                                        if="${each.idEstadoProceso.estSigla=='ING'|| each.idEstadoProceso.estSigla=='REC'}"                            
                                     label="Cancelar"
                                     class="btn-danger-zk"
                                     iconSclass="z-icon-times-circle"
                                     onClick="@command('cancelarSolicitud',valor=each)" 
-                                    tooltiptext="Cancelar solicitud">
-                                    
-                                </button>
+                                    tooltiptext="Cancelar solicitud">  
+                                    </button>
+                               
                                    
                                 <button 
                                     if="${each.idEstadoProceso.estSigla=='ING'|| each.idEstadoProceso.estSigla=='REC' || each.idEstadoProceso.estSigla=='CAN'}"
@@ -206,7 +241,7 @@
                                 </button>               
                                 <button 
                                     if="${each.idEstadoProceso.estSigla=='APR'}"
-                                    label=""
+                                    label="Elminar"
                                     class="btn-nothing-zk"
                                     iconSclass="z-icon-trash-o" 
                                     

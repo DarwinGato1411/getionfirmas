@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="solicitudIndividual" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
-	<property name="ireport.zoom" value="1.3310000000000006"/>
+	<property name="ireport.zoom" value="1.771561000000002"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="43"/>
+	<property name="ireport.y" value="62"/>
 	<parameter name="idSolicitud" class="java.lang.Integer">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -142,10 +142,10 @@ and sol.id_usuario=usu.id_usuario;]]>
 	<detail>
 		<band height="264" splitType="Stretch">
 			<rectangle>
-				<reportElement x="1" y="146" width="555" height="71"/>
+				<reportElement x="1" y="135" width="555" height="71"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="1" y="146" width="555" height="21"/>
+				<reportElement x="1" y="135" width="555" height="21"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="14" isBold="true"/>
 				</textElement>
@@ -185,7 +185,7 @@ and sol.id_usuario=usu.id_usuario;]]>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{sol_ruc}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="77" y="167" width="93" height="20"/>
+				<reportElement x="77" y="156" width="93" height="20"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{tip_descripcion}]]></textFieldExpression>
 			</textField>
@@ -195,7 +195,7 @@ and sol.id_usuario=usu.id_usuario;]]>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{sol_sexo}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="395" y="167" width="105" height="20"/>
+				<reportElement x="395" y="156" width="105" height="20"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{det_precio_compra}]]></textFieldExpression>
 			</textField>
@@ -212,7 +212,7 @@ and sol.id_usuario=usu.id_usuario;]]>
 				<textFieldExpression class="java.util.Date"><![CDATA[$F{sol_fecha_nacimiento}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="356" y="167" width="39" height="20"/>
+				<reportElement x="356" y="156" width="39" height="20"/>
 				<textElement verticalAlignment="Middle"/>
 				<text><![CDATA[Precio:]]></text>
 			</staticText>
@@ -242,7 +242,7 @@ and sol.id_usuario=usu.id_usuario;]]>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{sol_con_ruc}?"SI":"NO"]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="263" y="167" width="93" height="20"/>
+				<reportElement x="263" y="156" width="93" height="20"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{det_descripcion}]]></textFieldExpression>
 			</textField>
@@ -277,12 +277,12 @@ and sol.id_usuario=usu.id_usuario;]]>
 				<text><![CDATA[Movil:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="170" y="167" width="93" height="20"/>
+				<reportElement x="170" y="156" width="93" height="20"/>
 				<textElement verticalAlignment="Middle"/>
 				<text><![CDATA[Tiempo Contrato:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="13" y="167" width="64" height="20"/>
+				<reportElement x="13" y="156" width="64" height="20"/>
 				<textElement verticalAlignment="Middle"/>
 				<text><![CDATA[Tipo Firma:]]></text>
 			</staticText>
@@ -292,19 +292,29 @@ and sol.id_usuario=usu.id_usuario;]]>
 				<text><![CDATA[Nombres:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="77" y="187" width="93" height="20"/>
+				<reportElement x="77" y="176" width="93" height="20"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{estado_desc_firma}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="13" y="187" width="64" height="20"/>
+				<reportElement x="13" y="176" width="64" height="20"/>
 				<textElement verticalAlignment="Middle"/>
 				<text><![CDATA[Estado Firma:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="0" y="230" width="554" height="20"/>
+				<reportElement x="0" y="215" width="554" height="20"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression class="java.lang.String"><![CDATA["Solicitud creada por: "+$F{usu_nombre}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="170" y="176" width="75" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Estado Solicitud:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="245" y="176" width="93" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{estado_desc_solicitud}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

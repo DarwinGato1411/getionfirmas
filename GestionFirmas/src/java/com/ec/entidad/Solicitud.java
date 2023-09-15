@@ -190,6 +190,12 @@ public class Solicitud implements Serializable {
     private String solObservacion;
     @Column(name = "sol_path_otro_pdf")
     private String solPathOtroPdf;
+    
+    @Column(name = "sol_fecha_firmaaprobacion")
+    private Date solFechaFirmaAprobacion;
+    
+    @Column(name = "sol_fecha_solicitudaprobacion")
+    private Date solFechaSolicitudAprobacion;
 
     @Column(name = "sol_aceptar_terminoscondiciones")
     private boolean solAceptarTC;
@@ -717,6 +723,22 @@ public class Solicitud implements Serializable {
 
     public void setSolAceptarTC(boolean solAceptarTC) {
         this.solAceptarTC = solAceptarTC;
+    }
+
+    public Date getSolFechaFirmaAprobacion() {
+        return solFechaFirmaAprobacion;
+    }
+
+    public void setSolFechaFirmaAprobacion(Date solFechaFirmaAprobacion) {
+        this.solFechaFirmaAprobacion = solFechaFirmaAprobacion;
+    }
+
+    public Date getSolFechaSolicitudAprobacion() {
+        return solFechaSolicitudAprobacion;
+    }
+
+    public void setSolFechaSolicitudAprobacion(Date solFechaSolicitudAprobacion) {
+        this.solFechaSolicitudAprobacion = solFechaSolicitudAprobacion;
     }
 
    

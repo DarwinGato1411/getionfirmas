@@ -17,6 +17,7 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.rmi.RemoteException;
 import java.util.HashMap;
 import javax.activation.MimetypesFileTypeMap;
 
@@ -95,7 +96,6 @@ public class NuevoDescargarFirma {
             }
             if (usuPassword.length() < 8) {
                 sweetAltert("error", "Password", "El password debe contener almenos 8 caractere entre letras y numeros");
-
                 return;
             }
             if (usuPassword.equals(usuPasswordVer)) {
@@ -113,7 +113,7 @@ public class NuevoDescargarFirma {
 //                    String directorioReportes = Executions.getCurrent().getDesktop().getWebApp().getRealPath("/reportes");
 
                     String pathSalida = proceso.getObservacion();
-//                    System.out.println("path p12 " + pathSalida);
+                    System.out.println("path p12 " + pathSalida);
                     File dosfile = new File(pathSalida);
                     if (dosfile.exists()) {
                         FileInputStream inputStream = new FileInputStream(dosfile);
@@ -134,9 +134,9 @@ public class NuevoDescargarFirma {
 
             }
 
-        } catch (Exception e) {
+        } catch (RemoteException e) {
 
-            Clients.showNotification("Correo no enviado " + e.getMessage(),
+            Clients.showNotification("Error al generar la firma " + e.getMessage(),
                     Clients.NOTIFICATION_TYPE_ERROR, null, "middle_center", 2000, true);
         }
 

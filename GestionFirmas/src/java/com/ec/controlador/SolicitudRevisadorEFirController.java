@@ -492,7 +492,7 @@ public class SolicitudRevisadorEFirController {
                 cf19.setCellValue(new HSSFRichTextString(item.getIdEstadoProceso().getEstDescripcion()));
 
                 HSSFCell cf20 = r.createCell(i++);
-                cf20.setCellValue(new HSSFRichTextString(item.getIdEstadoFirma()==null?" ":" "));
+                cf20.setCellValue(new HSSFRichTextString(item.getIdEstadoFirma()==null?" ":item.getIdEstadoFirma().getEstDescripcion()));
 
                 /*autemta la siguiente fila*/
                 rownum += 1;

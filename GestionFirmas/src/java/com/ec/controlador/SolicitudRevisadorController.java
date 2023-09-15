@@ -635,7 +635,7 @@ public class SolicitudRevisadorController {
                             "/perfil/nuevo/solicitud.zul", null, map);
                 window.doModal();
             }
-            
+            buscarFechas(valor);
         } catch (Exception e) {
             Clients.showNotification("Ocurrio un error " + e.getMessage(),
                         Clients.NOTIFICATION_TYPE_ERROR, null, "middle_center", 2000, true);
@@ -676,6 +676,7 @@ public class SolicitudRevisadorController {
                 estadoFirma.setIdEstadoFirma(1);
                 estadoFirma.setEstDescripcion("EMITIDA");
                 valor.setIdEstadoFirma(estadoFirma);
+                valor.setSolFechaFirmaAprobacion(new Date());
                 servicioSolicitud.modificar(valor);
                 Usuario usuarioRec = servicioUsuario.findUsuarioPorNombre(valor.getSolCedula());
                 if (usuarioRec == null) {

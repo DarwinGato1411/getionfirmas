@@ -111,7 +111,7 @@ public class ServicioSolicitud {
 
             String SQL = "SELECT u FROM Solicitud u WHERE (u.solNombre like :solNombre OR u.solRuc LIKE :solRuc OR u.solApellido1 like :solApellido1) ";
             String WHERE = " AND u.idUsuario=:idUsuario";
-            String ORDERBY = " ORDER BY u.solNombre ASC";
+            String ORDERBY = " ORDER BY u.solFechaCreacion DESC";
             System.out.println("Entra a consultar solicituds");
             //Connection connection = em.unwrap(Connection.class);
             em = HelperPersistencia.getEMF();

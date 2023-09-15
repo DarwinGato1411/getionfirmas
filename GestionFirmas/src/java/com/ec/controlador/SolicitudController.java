@@ -5,6 +5,7 @@
  */
 package com.ec.controlador;
 
+import com.ec.entidad.EstadoFirma;
 import com.ec.entidad.EstadoProceso;
 import com.ec.entidad.Solicitud;
 import com.ec.entidad.Usuario;
@@ -30,6 +31,7 @@ import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.image.AImage;
+import org.zkoss.zk.au.out.AuScript;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Session;
@@ -52,6 +54,7 @@ public class SolicitudController {
     private String buscar = "";
     private Date fechainicio = new Date();
     private Date fechafin = new Date();
+
     //subir pdf
     private String filePath;
     byte[] buffer = new byte[1024 * 1024];
@@ -138,15 +141,15 @@ public class SolicitudController {
     @Command
     @NotifyChange({"listaDatos", "buscar"})
     public void modificarSolicitud(@BindingParam("valor") Solicitud valor) {
-         try {
+        try {
 //            if (Messagebox.show("¿Desea modificar el registro, recuerde que debe crear las reteniones nuevamente?", "Atención", Messagebox.YES | Messagebox.NO, Messagebox.INFORMATION) == Messagebox.YES) {
             final HashMap<String, Solicitud> map = new HashMap<String, Solicitud>();
             map.put("valor", valor);
 
-            if (valor.getIdEstadoFirma().getEstSigla().equals("EMT") ||
-                    valor.getIdEstadoProceso().getEstSigla().equals("APR")||
-                    valor.getIdEstadoProceso().getEstSigla().equals("REC")||
-                    valor.getIdEstadoProceso().getEstSigla().equals("CAN")) {
+            if (valor.getIdEstadoFirma().getEstSigla().equals("EMT")
+                    || valor.getIdEstadoProceso().getEstSigla().equals("APR")
+                    || valor.getIdEstadoProceso().getEstSigla().equals("REC")
+                    || valor.getIdEstadoProceso().getEstSigla().equals("CAN")) {
                 org.zkoss.zul.Window window = (org.zkoss.zul.Window) Executions.createComponents(
                         "/perfil/nuevo/solicitudNE.zul", null, map);
                 window.doModal();
@@ -164,7 +167,7 @@ public class SolicitudController {
 
     private void buscarSolicitudes() {
         listaDatos = servicioSolicitud.findLikeSolicitud(buscar, credential.getUsuarioSistema());
-        
+
         //listaDatos = servicioSolicitud.findSolicitudFecha(fechainicio, fechafin, credential.getUsuarioSistema());
     }
 
@@ -217,6 +220,37 @@ public class SolicitudController {
             Clients.showNotification("Solicitud cancelada",
                     Clients.NOTIFICATION_TYPE_INFO, null, "middle_center", 1000, true);
         }
+    }
+
+    @Command
+    @NotifyChange({"listaDatos", "buscar"})
+    public void duplicarSolicitud(@BindingParam("valor") Solicitud valor) {
+
+        if (Messagebox.show("Desea duplicar la solicitud?", "Question", Messagebox.OK | Messagebox.CANCEL, Messagebox.QUESTION) == Messagebox.OK) {
+            Solicitud nuevaSolicitud = new Solicitud();
+            nuevaSolicitud = valor;
+            nuevaSolicitud.setIdEstadoProceso(servicioEstadoProceso.findBySigla("ING"));
+            nuevaSolicitud.setSolFechaCreacion(new Date());
+            EstadoFirma idEstadoFirma = new EstadoFirma();
+            idEstadoFirma.setIdEstadoFirma(3);
+            nuevaSolicitud.setIdEstadoFirma(idEstadoFirma);
+            servicioSolicitud.crear(valor);
+            sweetAltert("success", "OK", "Solicitud duplicada con éxito");
+            Clients.response(new AuScript("setTimeout(function() { window.location.href = 'solicitud.zul'; }, 1000);"));
+        } else {
+            Clients.showNotification("Solicitud cancelada",
+                    Clients.NOTIFICATION_TYPE_INFO, null, "middle_center", 1000, true);
+        }
+    }
+
+    public void sweetAltert(String alertaTipo, String tituloMensaje, String detalleMensaje) {
+        String script = "Swal.fire(\n"
+                + "  '" + tituloMensaje + "',\n"
+                + "  '" + detalleMensaje + "',\n"
+                + "  '" + alertaTipo + "'\n"
+                + ")";
+        System.out.println(script);
+        Clients.evalJavaScript(script);
     }
 
     @Command
