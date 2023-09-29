@@ -236,7 +236,7 @@ public class SolicitudController {
             nuevaSolicitud.setIdEstadoFirma(idEstadoFirma);
             servicioSolicitud.crear(valor);
             sweetAltert("success", "OK", "Solicitud duplicada con éxito");
-            Clients.response(new AuScript("setTimeout(function() { window.location.href = 'solicitud.zul'; }, 1000);"));
+            buscarSolicitudes();
         } else {
             Clients.showNotification("Solicitud cancelada",
                     Clients.NOTIFICATION_TYPE_INFO, null, "middle_center", 1000, true);

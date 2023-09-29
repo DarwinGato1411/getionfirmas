@@ -35,7 +35,7 @@
                 <div>
                     <a  href="https://www.alphaside.com/Normativas/P_de_Certificados/terminos.pdf" target="_blank">Ver terminos y condiciones</a>
                 </div>
-                <checkbox label="Acepta los terminos y condiciones?" checked="${aceptarTerminos}" onClick="@command('aceptarTerminosCondiciones')" /> 
+                <checkbox label="Acepta los terminos y condiciones?" checked="@bind(vm.aceptarTerminos)" onClick="@command('aceptarTerminosCondiciones')" /> 
                
                 <div visible="@bind(vm.aceptarTerminos)"  class="inputGroup" align="center">
                     <button 

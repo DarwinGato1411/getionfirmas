@@ -156,6 +156,7 @@ public class NuevaSolicitud {
             this.entidad = new Solicitud();
             this.entidad.setSolFechaNacimiento(calendar.getTime());
             this.entidad.setSolTipo("PN");
+            this.entidad.setSolConRuc(Boolean.FALSE);
             setMienbroEmpresa(false);
             accion = "create";
             

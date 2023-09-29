@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 package com.ec.controlador.consumirws;
+
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.logging.Level;
@@ -56,9 +58,13 @@ public class ServiciosRest {
                     .build();
             Response response = clientw.newCall(request).execute();
             String valorResp = response.body().string();
-
+//            System.out.println("RESPUESTA JSON WS " + valorResp);
+            Gson gson = new Gson(); // Or use new GsonBuilder().create();
+            RespuestaProceso target2 = gson.fromJson(valorResp, RespuestaProceso.class);
+//            System.out.println("path WS "+target2.getObservacion());
             //JSONObject outlineArray = new JSONObject(contenido);
-            return new RespuestaProceso(String.valueOf(200), valorResp);
+//            return new RespuestaProceso(String.valueOf(200), valorResp);
+            return target2;
 
         } catch (UnsupportedEncodingException ex) {
             Logger.getLogger(ServiciosRest.class.getName()).log(Level.SEVERE, null, ex);

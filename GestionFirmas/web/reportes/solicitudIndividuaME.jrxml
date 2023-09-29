@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="solicitudIndividualME" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
 	<property name="ireport.zoom" value="1.7715610000000035"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="300"/>
+	<property name="ireport.y" value="156"/>
 	<parameter name="idSolicitud" class="java.lang.Integer">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -86,6 +86,10 @@ and sol.id_usuario=usu.id_usuario;]]>
 	<field name="certificate" class="java.lang.String"/>
 	<field name="sol_cedula" class="java.lang.String"/>
 	<field name="sol_observacion" class="java.lang.String"/>
+	<field name="sol_path_otro_pdf" class="java.lang.String"/>
+	<field name="sol_aceptar_terminoscondiciones" class="java.lang.Boolean"/>
+	<field name="sol_fecha_firmaaprobacion" class="java.sql.Timestamp"/>
+	<field name="sol_fecha_solicitudaprobacion" class="java.sql.Timestamp"/>
 	<field name="ciu_numero" class="java.lang.Integer"/>
 	<field name="ciu_nombre" class="java.lang.String"/>
 	<field name="ciu_estado" class="java.lang.Boolean"/>
@@ -436,16 +440,25 @@ and sol.id_usuario=usu.id_usuario;]]>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression class="java.lang.String"><![CDATA["Solicitud creada por: "+$F{usu_nombre}]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement x="169" y="175" width="75" height="20"/>
-				<textElement verticalAlignment="Middle"/>
-				<text><![CDATA[Estado Solicitud:]]></text>
-			</staticText>
-			<textField isBlankWhenNull="true">
-				<reportElement x="244" y="175" width="93" height="20"/>
-				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{estado_desc_solicitud}]]></textFieldExpression>
+			<textField pattern="dd/MM/yyyy h.mm a" isBlankWhenNull="true">
+				<reportElement x="292" y="175" width="94" height="20"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[$F{sol_fecha_firmaaprobacion}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="170" y="175" width="122" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Fecha Aprobación  Firma:]]></text>
+			</staticText>
 		</band>
 	</detail>
 	<pageFooter>

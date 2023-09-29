@@ -63,6 +63,7 @@ public class NuevoDescargarFirma {
         if (valor != null) {
             this.entidad = valor;
             aceptarTerminos = entidad.isSolAceptarTC();
+            System.out.println(aceptarTerminos);
         }
 
     }
@@ -114,20 +115,27 @@ public class NuevoDescargarFirma {
 
                     String pathSalida = proceso.getObservacion();
                     System.out.println("path p12 " + pathSalida);
-                    File dosfile = new File(pathSalida);
-                    if (dosfile.exists()) {
-                        FileInputStream inputStream = new FileInputStream(dosfile);
-                        Filedownload.save(inputStream, new MimetypesFileTypeMap().getContentType(dosfile), dosfile.getName());
+                    System.out.println(proceso.getCodigo());
+                    System.out.println(proceso.getMensaje());
+                    System.out.println(proceso.getObservacion());
+                    if (pathSalida != null) {
+                        File dosfile = new File(pathSalida);
+                        if (dosfile.exists()) {
+                            FileInputStream inputStream = new FileInputStream(dosfile);
+                            Filedownload.save(inputStream, new MimetypesFileTypeMap().getContentType(dosfile), dosfile.getName());
+                        }
+
+                        MailerClass mail = new MailerClass();
+                        mail.sendMailSimple(entidad.getSolMail(), "Firma electronica descargada", entidad.getSolCedula(), entidad.getSolCedula(), entidad.getSolNombre() + " " + entidad.getSolApellido1());
+                        sweetAltert("success", "Firma electronica", "Firma descargada correctamente");
+                    } else {
+                        sweetAltert("warning", "Firma electronica", "Firma no descargada, no se encontró el path de salida");
                     }
 
-                    MailerClass mail = new MailerClass();
-                    mail.sendMailSimple(entidad.getSolMail(), "Firma electronica descargada", entidad.getSolCedula(), entidad.getSolCedula(), entidad.getSolNombre() + " " + entidad.getSolApellido1());
                     wDescargar.detach();
                 } catch (FileNotFoundException e) {
                     System.out.println("ERROR AL DESCARGAR EL ARCHIVO" + e.getMessage());
                 }
-
-                sweetAltert("success", "Firma electronica", "Firma descargada correctamente");
 
             } else {
                 sweetAltert("error", "Password", "Los password ingresado no son iguales");
@@ -146,12 +154,7 @@ public class NuevoDescargarFirma {
     @NotifyChange({"aceptarTerminos"})
     public void aceptarTerminosCondiciones() {
 
-        if (aceptarTerminos) {
-            aceptarTerminos = false;
-
-        } else {
-            aceptarTerminos = true;
-        }
+        System.out.println(aceptarTerminos);
         entidad.setSolAceptarTC(aceptarTerminos);
     }
 
