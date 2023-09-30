@@ -3375,7 +3375,7 @@ input, button, select, textarea {
 
 .revisador  .z-listbox .tblCabecera{
     display: grid;
-    grid-template-columns:10% 13% 12% 10% 8% 8% 9% 10% 20%;
+    grid-template-columns:9% 12% 12% 10% 8% 8% 8% 9% 24%;
 }
 
 .revisador  .z-listbox .tblCuerpo{

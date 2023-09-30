@@ -53,8 +53,8 @@
                             </listcell>
                             <listcell zclass = "mycss-listcell" style="width:100%;" >
                                 <textbox readonly="true"  style="font-size:12px ;background:#EBF5FB"
-                                             class="form-control form-control-sm" 
-                                             value="@bind(each.idUsuario.usuNombre)" />
+                                         class="form-control form-control-sm" 
+                                         value="@bind(each.idUsuario.usuNombre)" />
                             </listcell>
                             <listcell zclass = "mycss-listcell" style="width:100%;" >
                                 <textbox readonly="true"  style="font-size:12px ;background:#EBF5FB"
@@ -98,15 +98,16 @@
                                                          
                                 
                                 <button 
+                                   
                                     label="Descargar Firma"
                                     onClick="@command('generarFirma',valor=each)" 
                                     class="btn-success-zk"
-                                   
+                                    if="${each.idEstadoFirma.estSigla=='EMT'}"
                                     tooltiptext=""/>
                                 
                                 
                                 <div if="${each.idEstadoFirma.estSigla=='ENT'}" class="alert alert-primary" >
-                                   Firma descargada
+                                    Firma descargada
                                 </div>
 
                             </listcell>

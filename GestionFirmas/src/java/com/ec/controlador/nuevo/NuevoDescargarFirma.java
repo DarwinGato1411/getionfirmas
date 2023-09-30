@@ -111,7 +111,6 @@ public class NuevoDescargarFirma {
                     RequestApiEmpresa param = new RequestApiEmpresa(entidad.getIdSolicitud(), entidad.getIdUsuario().getIdUsuario());
                     param.setClave(usuPassword);
                     RespuestaProceso proceso = ws.obtenerFirmaEmpresa(param, entidad.getSolTipo());
-//                    String directorioReportes = Executions.getCurrent().getDesktop().getWebApp().getRealPath("/reportes");
 
                     String pathSalida = proceso.getObservacion();
                     System.out.println("path p12 " + pathSalida);

@@ -77,4 +77,44 @@ public class ServiciosRest {
         }
 
     }
+
+    public RespuestaProceso revocarFirma(RequestApiEmpresa param) {
+
+        url = "http://localhost:8443/api/revocar-firma";
+
+        try {
+//
+
+            OkHttpClient clientw = new OkHttpClient().newBuilder()
+                    .build();
+            MediaType mediaType = MediaType.parse("application/json");
+            RequestBody body = RequestBody.create(mediaType, "{\r\n    \"idSolicitud\":" + param.getIdSolicitud() + ",\r\n    \"idUsuario\":" + param.getIdUsuario() + ",\r\n    \"clave\":\""
+                    + param.getClave() + "\"\r\n\r\n}");
+
+            Request request = new Request.Builder()
+                    .url(url)
+                    .method("POST", body)
+                    .addHeader("Content-Type", "application/json")
+                    .build();
+            Response response = clientw.newCall(request).execute();
+            String valorResp = response.body().string();
+//            System.out.println("RESPUESTA JSON WS " + valorResp);
+            Gson gson = new Gson(); // Or use new GsonBuilder().create();
+            RespuestaProceso target2 = gson.fromJson(valorResp, RespuestaProceso.class);
+//            System.out.println("path WS "+target2.getObservacion());
+            //JSONObject outlineArray = new JSONObject(contenido);
+//            return new RespuestaProceso(String.valueOf(200), valorResp);
+            return target2;
+
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(ServiciosRest.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("ERROR " + ex.getMessage());
+            return new RespuestaProceso(String.valueOf(ex.getMessage()), "ERRO EN EL API");
+        } catch (IOException ex) {
+            Logger.getLogger(ServiciosRest.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("ERROR " + ex.getMessage());
+            return new RespuestaProceso(String.valueOf(ex.getMessage()), "ERRO EN EL API");
+        }
+
+    }
 }

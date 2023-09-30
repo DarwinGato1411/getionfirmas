@@ -128,7 +128,7 @@
                                
                     <custom-attributes org.zkoss.zul.listbox.rod="true"/>                       
                     <listhead  class="tblCabecera " > 
-                        <listheader label="Cédula/RUC" > </listheader>                                                                         
+                        <listheader label="C./RUC" > </listheader>                                                                         
                         <listheader label="Nombre"  />                                                                         
                         <listheader label="Correo"  />  
                         <listheader label="Creado por" />                                                                         
@@ -205,7 +205,7 @@
                             <listcell zclass = "mycss-listcell"   style="font-size:12px;background:#F8F9F9">   
 
                                 <button 
-                                    label="Ver / Editar"
+                                    label="V/Editar"
                                     iconSclass="z-icon-eye"
                                     onClick="@command('modificarSolicitud',valor=each)" 
                                     tooltiptext=""/> 
@@ -228,6 +228,12 @@
                                          class="alertList alert-primary" >
                                 
                                 </textbox>
+                                <button 
+                                    label="R. Firma"
+                                     class="btn-danger-zk"
+                                    if="${each.idEstadoFirma.estSigla=='ENT'}"
+                                    onClick="@command('revocarFirma',valor=each)" 
+                                    tooltiptext=""/>
                                     
 
                                 <button 
