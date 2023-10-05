@@ -539,31 +539,29 @@ public class SolicitudRevisadorController {
             public void onEvent(org.zkoss.zk.ui.event.Event event) throws Exception {
                 if ("onOK".equals(event.getName())) {
 
-                    EstadoFirma estadoFirma = new EstadoFirma();
-                    estadoFirma.setIdEstadoFirma(4);
-                    valor.setIdEstadoFirma(estadoFirma);
-                    servicioSolicitud.modificar(valor);
-                    buscarPorFechas();
                     try {
 
                         ServiciosRest ws = new ServiciosRest();
                         RequestApiEmpresa param = new RequestApiEmpresa(valor.getIdSolicitud(), valor.getIdUsuario().getIdUsuario());
-
-                        RespuestaProceso proceso = ws.revocarFirma(param);
-//                    
-                        if(proceso.getCodigo().equals("200")){
-                            sweetAltert("success", "Firma electronica", "Firma revicocada");
-                        }else{
-                            sweetAltert("error", "Firma electronica", "Error firma no revocada");
+                        String proceso = ws.revocarFirma(param);
+                        System.out.println("Proceso"+proceso);
+                        if (proceso.contains("204")) {
+                            EstadoFirma estadoFirma = new EstadoFirma();
+                            estadoFirma.setIdEstadoFirma(4);
+                            valor.setIdEstadoFirma(estadoFirma);
+                            servicioSolicitud.modificar(valor);
+                            buscarPorFechas();
+                            sweetAltert("success", "Firma electronica", proceso);
+                        } else if (proceso.contains("412")) {
+                            sweetAltert("error", "Firma electronica", "No se puede revocar una firma ya revocada");
+                        } else {
+                            sweetAltert("error", "Firma electronica", proceso);
                         }
-                        
-
-                        
 
                     } catch (Error e) {
-                        System.out.println("ERROR AL DESCARGAR EL ARCHIVO" + e.getMessage());
+
+                        sweetAltert("error", "Firma electronica", "Error al revocar la firma"+e.getMessage());
                     }
-                    sweetAltert("success", "Editada con éxito", "La firma ha sido revocada");
 
                 } else {
                     Clients.showNotification("Has cancelado la acción.", Clients.NOTIFICATION_TYPE_WARNING, null, "top_center", 3000);
@@ -712,7 +710,7 @@ public class SolicitudRevisadorController {
                 estadoFirma.setIdEstadoFirma(1);
                 estadoFirma.setEstDescripcion("EMITIDA");
                 valor.setIdEstadoFirma(estadoFirma);
-                valor.setSolFechaFirmaAprobacion(new Date());
+              
                 servicioSolicitud.modificar(valor);
                 Usuario usuarioRec = servicioUsuario.findUsuarioPorNombre(valor.getSolCedula());
                 if (usuarioRec == null) {

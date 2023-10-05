@@ -97,7 +97,10 @@
                         <listheader label="Teléfono" />                                                                         
                         <listheader label="E. Solicitud"  tooltiptext="Estado de la solicitud" />                                                                         
                         <listheader label="E. Firma"  tooltiptext="Estado de la firma "  />           
-                        <listheader label="Observación"   />                                                              
+                        <listheader label="Observación"   />   
+                        <listheader label="F creación"  />  
+                        <listheader label="F sol. apro."  />
+                        <listheader label="F fir. apro."  />                                                             
                         <listheader label=""   />                                                                         
                     </listhead>  
                     <template name="model" >                                                            
@@ -144,6 +147,31 @@
                                          class="form-control form-control-sm" 
                                      tooltiptext="@bind(each.solObservacion)"
                                          value="@bind(each.solObservacion)" />
+                            </listcell>
+                            <listcell zclass = "mycss-listcell" style="width:100%;" >
+                                <datebox compact="true" value="@bind(each.solFechaCreacion)" 
+                                        
+                                         height=" 30px" 
+                                         buttonVisible="false" lenient="true" readonly="true"
+                                         format="medium" width="100%"  />
+                            
+                            </listcell>
+                            
+                            <listcell zclass = "mycss-listcell" style="width:100%;" >
+                                <datebox compact="true" value="@bind(each.solFechaSolicitudAprobacion)" 
+                                        
+                                         height=" 30px" 
+                                         buttonVisible="false" lenient="true" readonly="true"
+                                         format="medium" width="100%"  />
+                            
+                            </listcell>
+                            <listcell zclass = "mycss-listcell" style="width:100%;" >
+                                <datebox compact="true" value="@bind(each.solFechaFirmaAprobacion)" 
+                                        
+                                         height=" 30px" 
+                                         buttonVisible="false" lenient="true" readonly="true"
+                                         format="medium" width="100%"  />
+                            
                             </listcell>
                             <listcell zclass = "mycss-listcell"  class="btnCell"   style="font-size:12px;background:#F8F9F9">                                                           
                                   <button 

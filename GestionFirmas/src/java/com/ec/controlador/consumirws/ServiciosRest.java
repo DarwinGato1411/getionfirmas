@@ -78,13 +78,12 @@ public class ServiciosRest {
 
     }
 
-    public RespuestaProceso revocarFirma(RequestApiEmpresa param) {
+    public String revocarFirma(RequestApiEmpresa param) {
 
         url = "http://localhost:8443/api/revocar-firma";
 
         try {
 //
-
             OkHttpClient clientw = new OkHttpClient().newBuilder()
                     .build();
             MediaType mediaType = MediaType.parse("application/json");
@@ -98,23 +97,21 @@ public class ServiciosRest {
                     .build();
             Response response = clientw.newCall(request).execute();
             String valorResp = response.body().string();
-//            System.out.println("RESPUESTA JSON WS " + valorResp);
-            Gson gson = new Gson(); // Or use new GsonBuilder().create();
-            RespuestaProceso target2 = gson.fromJson(valorResp, RespuestaProceso.class);
-//            System.out.println("path WS "+target2.getObservacion());
-            //JSONObject outlineArray = new JSONObject(contenido);
-//            return new RespuestaProceso(String.valueOf(200), valorResp);
-            return target2;
+//         
+            System.out.println(valorResp);
+//            Gson gson = new Gson(); // Or use new GsonBuilder().create();
+//            RespuestaProceso target2 = gson.fromJson(valorResp, RespuestaProceso.class);
+
+            return valorResp;
 
         } catch (UnsupportedEncodingException ex) {
             Logger.getLogger(ServiciosRest.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("ERROR " + ex.getMessage());
-            return new RespuestaProceso(String.valueOf(ex.getMessage()), "ERRO EN EL API");
+            System.out.println("1 ERROR " + ex.getMessage());
+            return "1 ERROR EN EL API";
         } catch (IOException ex) {
             Logger.getLogger(ServiciosRest.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("ERROR " + ex.getMessage());
-            return new RespuestaProceso(String.valueOf(ex.getMessage()), "ERRO EN EL API");
+            System.out.println("2 ERROR " + ex.getMessage());
+            return "2 ERROR EN EL API";
         }
-
     }
 }

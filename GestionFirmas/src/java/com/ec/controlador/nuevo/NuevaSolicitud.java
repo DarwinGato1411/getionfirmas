@@ -436,9 +436,7 @@ public class NuevaSolicitud {
                         || entidad.getSolRazonSocial() == null
                         || entidad.getSolArea() == null
                         || entidad.getSolCargoSolicitante() == null
-                        || entidad.getSolTipoDocumento() == null
-                        || entidad.getSolMeRuc() == null
-                        || entidad.getSolMeNombres() == null
+                        || entidad.getSolTipoDocumento() == null       
                         || entidad.getSolApellido1() == null
                         || pdfConstCompa == null
                         || pdfNombraRepre == null

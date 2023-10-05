@@ -18,6 +18,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.rmi.RemoteException;
+import java.util.Date;
 import java.util.HashMap;
 import javax.activation.MimetypesFileTypeMap;
 
@@ -85,6 +86,7 @@ public class NuevoDescargarFirma {
     }
 
     @Command
+    @NotifyChange({"aceptarTerminos"})
     public void generarFirma() {
         //servicioSolicitud.modificar(entidad);
         try {
@@ -100,11 +102,7 @@ public class NuevoDescargarFirma {
                 return;
             }
             if (usuPassword.equals(usuPasswordVer)) {
-                EstadoFirma estadoFirma = new EstadoFirma();
-                estadoFirma.setIdEstadoFirma(2);
-                estadoFirma.setEstDescripcion("ENTREGADO");
-                entidad.setIdEstadoFirma(estadoFirma);
-                servicioSolicitud.modificar(entidad);
+
                 try {
 
                     ServiciosRest ws = new ServiciosRest();
@@ -112,6 +110,14 @@ public class NuevoDescargarFirma {
                     param.setClave(usuPassword);
                     RespuestaProceso proceso = ws.obtenerFirmaEmpresa(param, entidad.getSolTipo());
 
+                    if (proceso.getCodigo().contains("200")) {
+                        EstadoFirma estadoFirma = new EstadoFirma();
+                        estadoFirma.setIdEstadoFirma(2);
+                        estadoFirma.setEstDescripcion("ENTREGADO");
+                        entidad.setIdEstadoFirma(estadoFirma);
+                        entidad.setSolFechaFirmaAprobacion(new Date());
+                        servicioSolicitud.modificar(entidad);
+                    }
                     String pathSalida = proceso.getObservacion();
                     System.out.println("path p12 " + pathSalida);
                     System.out.println(proceso.getCodigo());

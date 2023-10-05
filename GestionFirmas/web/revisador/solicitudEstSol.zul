@@ -147,7 +147,10 @@
                         <listheader label="Correo"  />  
                         <listheader label="Creado por" />                                                                         
                         <listheader label="Estado Sol."  />
-                        <listheader label="Estado Fir."  />                                                                        
+                        <listheader label="Estado Fir."  />   
+                        <listheader label="F creación"  />  
+                        <listheader label="F sol. apro."  />
+                        <listheader label="F fir. apro."  />                                                                       
                         <!--                        <listheader label="E-S"  tooltiptext="Estado de la solicitud "  class="btnPc"/>                                                                         
                         <listheader label="E-F"  tooltiptext="Estado de la firma "  class="btnPc"/>                                                                         -->
                         <listheader label=""  />                                                                         
@@ -192,7 +195,31 @@
                                          value="@bind(each.idEstadoFirma.estDescripcion)" />
                             </listcell>
                            
-                           
+                           <listcell zclass = "mycss-listcell" style="width:100%;" >
+                                <datebox compact="true" value="@bind(each.solFechaCreacion)" 
+                                        
+                                         height=" 30px" 
+                                         buttonVisible="false" lenient="true" readonly="true"
+                                         format="medium" width="100%"  />
+                            
+                            </listcell>
+                            
+                            <listcell zclass = "mycss-listcell" style="width:100%;" >
+                                <datebox compact="true" value="@bind(each.solFechaSolicitudAprobacion)" 
+                                        
+                                         height=" 30px" 
+                                         buttonVisible="false" lenient="true" readonly="true"
+                                         format="medium" width="100%"  />
+                            
+                            </listcell>
+                            <listcell zclass = "mycss-listcell" style="width:100%;" >
+                                <datebox compact="true" value="@bind(each.solFechaFirmaAprobacion)" 
+                                        
+                                         height=" 30px" 
+                                         buttonVisible="false" lenient="true" readonly="true"
+                                         format="medium" width="100%"  />
+                            
+                            </listcell>
                            
 
                             <listcell zclass = "mycss-listcell"   style="font-size:12px;background:#F8F9F9">   

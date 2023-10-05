@@ -130,14 +130,19 @@
                     <listhead  class="tblCabecera " > 
                         <listheader label="C./RUC" > </listheader>                                                                         
                         <listheader label="Nombre"  />                                                                         
-                        <listheader label="Correo"  />  
+                        <!--<listheader label="Correo"  />-->  
                         <listheader label="Creado por" />                                                                         
                         <listheader label="Estado Sol."  />
                         <listheader label="Estado Fir."  />
-                        <listheader label="Tipo Sol."  />                                                                               
+                        <listheader label="Tipo Sol."  /> 
+                        <listheader label="Observación"  /> 
+                        <listheader label="F creación"  />  
+                        <listheader label="F sol. apro."  />
+                        <listheader label="F fir. apro."  />  
+                                                                                     
                         <!--                        <listheader label="E-S"  tooltiptext="Estado de la solicitud "  class="btnPc"/>                                                                         
                         <listheader label="E-F"  tooltiptext="Estado de la firma "  class="btnPc"/>                                                                         -->
-                        <listheader label="Observación"  />  
+                         
                         <listheader label=""  />                                                                              
                     </listhead>  
                     <template name="model" >                                                            
@@ -153,28 +158,28 @@
                                          class="form-control form-control-sm" 
                                          value="@bind(each.solNombre)" />
                             </listcell>
-                            <listcell zclass = "mycss-listcell" style="width:100%;" >
+                            <!--                            <listcell zclass = "mycss-listcell" style="width:100%;" >
                                 <textbox readonly="true"  style="font-size:12px ;background:#EBF5FB"
                                          class="form-control form-control-sm" 
                                          value="@bind(each.solMail)" />
-                            </listcell>
+                            </listcell>-->
 
                             <listcell zclass = "mycss-listcell" style="width:100%;" >
                                 <textbox readonly="true"  style="font-size:12px ;background:#EBF5FB"
                                          class="form-control form-control-sm" 
                                          value="@bind(each.idUsuario.usuNombre)" />
                             </listcell>
-                            <listcell zclass = "mycss-listcell" style="width:100%;" class="btnPc">
+                            <listcell zclass = "mycss-listcell" style="width:100%;" >
                                 <textbox readonly="true"  style="font-size:12px ;background:#EBF5FB"
                                          class="form-control form-control-sm" 
                                          value="@bind(each.idEstadoProceso.estDescripcion)" />
                             </listcell>
-                            <listcell zclass = "mycss-listcell" style="width:100%;" class="btnPc">
+                            <listcell zclass = "mycss-listcell" style="width:100%;" >
                                 <textbox readonly="true"  style="font-size:12px ;background:#EBF5FB"
                                          class="form-control form-control-sm" 
                                          value="@bind(each.idEstadoFirma.estDescripcion)" />
                             </listcell>
-                            <listcell zclass = "mycss-listcell" style="width:100%;" class="btnPc">
+                            <listcell zclass = "mycss-listcell" style="width:100%;" >
                                 <textbox readonly="true"  style="font-size:12px ;background:#EBF5FB"
                                          class="form-control form-control-sm"
                                          value="Persona Natural"
@@ -193,19 +198,42 @@
 
                                          
                             </listcell>
-                            <listcell zclass = "mycss-listcell" style="width:100%;" class="btnPc">
+                            <listcell zclass = "mycss-listcell" style="width:100%;" >
                                 <textbox readonly="true"  style="font-size:12px ;background:#EBF5FB"
                                          class="form-control form-control-sm" 
                                          tooltiptext="@bind(each.solObservacion)"
                                          value="@bind(each.solObservacion)" />
                             </listcell>
+                            <listcell zclass = "mycss-listcell" style="width:100%;" >
+                                <datebox compact="true" value="@bind(each.solFechaCreacion)" 
+                                        
+                                         height=" 30px" 
+                                         buttonVisible="false" lenient="true" readonly="true"
+                                         format="medium" width="100%"  />
                             
-                           
+                            </listcell>
+                            
+                            <listcell zclass = "mycss-listcell" style="width:100%;" >
+                                <datebox compact="true" value="@bind(each.solFechaSolicitudAprobacion)" 
+                                        
+                                         height=" 30px" 
+                                         buttonVisible="false" lenient="true" readonly="true"
+                                         format="medium" width="100%"  />
+                            
+                            </listcell>
+                            <listcell zclass = "mycss-listcell" style="width:100%;" >
+                                <datebox compact="true" value="@bind(each.solFechaFirmaAprobacion)" 
+                                        
+                                         height=" 30px" 
+                                         buttonVisible="false" lenient="true" readonly="true"
+                                         format="medium" width="100%"  />
+                            
+                            </listcell>
 
                             <listcell zclass = "mycss-listcell"   style="font-size:12px;background:#F8F9F9">   
 
                                 <button 
-                                    label="V/Editar"
+                                    label="V/E"
                                     iconSclass="z-icon-eye"
                                     onClick="@command('modificarSolicitud',valor=each)" 
                                     tooltiptext=""/> 
@@ -230,7 +258,7 @@
                                 </textbox>
                                 <button 
                                     label="R. Firma"
-                                     class="btn-danger-zk"
+                                    class="btn-danger-zk"
                                     if="${each.idEstadoFirma.estSigla=='ENT'}"
                                     onClick="@command('revocarFirma',valor=each)" 
                                     tooltiptext=""/>

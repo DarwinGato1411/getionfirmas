@@ -25,12 +25,15 @@
                     <listhead  class="tblCabecera " > 
                         <listheader label="Cédula/RUC" > </listheader>                                                                         
                         <listheader label="Nombre"  />                                                                         
-                        <listheader label="Correo"  />  
+                        
                         <listheader label="Creado por" />                                                                         
                         <listheader label="Estado Sol."  />
                         <listheader label="Estado Fir."  />
                         <listheader label="Tipo Sol."  />                       
-                        <listheader label="Observación"  />  
+                        <listheader label="Observación"  /> 
+                        <listheader label="F creación"  />  
+                        <listheader label="F sol. apro."  />
+                        <listheader label="F fir. apro."  />    
                         <listheader label=""  />                                                                              
                     </listhead>  
                     <template name="model" >                                                            
@@ -46,11 +49,7 @@
                                          class="form-control form-control-sm" 
                                          value="@bind(each.solNombre)" />
                             </listcell>
-                            <listcell zclass = "mycss-listcell" style="width:100%;" >
-                                <textbox readonly="true"  style="font-size:12px ;background:#EBF5FB"
-                                         class="form-control form-control-sm" 
-                                         value="@bind(each.solMail)" />
-                            </listcell>
+                            
                             <listcell zclass = "mycss-listcell" style="width:100%;" >
                                 <textbox readonly="true"  style="font-size:12px ;background:#EBF5FB"
                                          class="form-control form-control-sm" 
@@ -92,6 +91,31 @@
                                          
                             </listcell>
                            
+                           <listcell zclass = "mycss-listcell" style="width:100%;" >
+                                <datebox compact="true" value="@bind(each.solFechaCreacion)" 
+                                        
+                                         height=" 30px" 
+                                         buttonVisible="false" lenient="true" readonly="true"
+                                         format="medium" width="100%"  />
+                            
+                            </listcell>
+                            
+                            <listcell zclass = "mycss-listcell" style="width:100%;" >
+                                <datebox compact="true" value="@bind(each.solFechaSolicitudAprobacion)" 
+                                        
+                                         height=" 30px" 
+                                         buttonVisible="false" lenient="true" readonly="true"
+                                         format="medium" width="100%"  />
+                            
+                            </listcell>
+                            <listcell zclass = "mycss-listcell" style="width:100%;" >
+                                <datebox compact="true" value="@bind(each.solFechaFirmaAprobacion)" 
+                                        
+                                         height=" 30px" 
+                                         buttonVisible="false" lenient="true" readonly="true"
+                                         format="medium" width="100%"  />
+                            
+                            </listcell>
 
                             <listcell zclass = "mycss-listcell"   style="font-size:12px;background:#F8F9F9">   
 
@@ -110,11 +134,7 @@
                                     Firma descargada
                                 </div>
 
-                            </listcell>
-                                      
-                               
-                                
-                                
+                            </listcell>                 
                         </listitem>
                     </template>
                 </listbox>
